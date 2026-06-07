@@ -2,7 +2,8 @@ const statusEl = document.getElementById("status");
 const summaryTableBody = document.querySelector("#summaryTable tbody");
 const compareGridEl = document.getElementById("compareGrid");
 const diffStageEl = document.getElementById("diffStage");
-const diffVideoEl = document.getElementById("diffVideo");
+const diffVideoAEl = document.getElementById("diffVideoA");
+const diffVideoBEl = document.getElementById("diffVideoB");
 const diffBadgeEl = document.getElementById("diffBadge");
 const toggleLockButton = document.getElementById("toggleLockButton");
 const toggleDiffButton = document.getElementById("toggleDiffButton");
@@ -32,6 +33,7 @@ const state = {
   diffMode: false,
   diffSide: "A",
   diffTimerId: null,
+  diffSyncGuard: false,
   rankedRows: [],
   activeQualityMetric: "ssim",
   weights: {
@@ -677,47 +679,108 @@ function stopDiffLoop() {
   }
 }
 
-function swapDiffSource(showSide) {
-  const player = state.players[showSide];
-  const entry = getCurrentEntryForPlayer(player);
-  if (!entry) {
-    setStatus("Diff mode needs valid selections in both players.");
-    return;
-  }
+function diffVideoForSide(side) {
+  return side === "A" ? diffVideoAEl : diffVideoBEl;
+}
 
-  const currentTime = Number.isFinite(diffVideoEl.currentTime) ? diffVideoEl.currentTime : player.video.currentTime || 0;
-  const wasPaused = diffVideoEl.paused;
-
-  diffVideoEl.src = entry.output_filename;
-  diffVideoEl.load();
-
-  const onLoaded = () => {
-    const target = Math.min(currentTime, Math.max(0, (diffVideoEl.duration || 0) - 0.05));
-    if (Number.isFinite(target)) {
-      diffVideoEl.currentTime = target;
-    }
-    if (!wasPaused) {
-      diffVideoEl.play().catch(() => {});
-    }
-    diffVideoEl.removeEventListener("loadedmetadata", onLoaded);
-  };
-
-  diffVideoEl.addEventListener("loadedmetadata", onLoaded);
+function setVisibleDiffSide(showSide) {
+  const showA = showSide === "A";
+  state.diffSide = showSide;
+  diffVideoAEl.classList.toggle("is-visible", showA);
+  diffVideoBEl.classList.toggle("is-visible", !showA);
+  diffVideoAEl.controls = showA;
+  diffVideoBEl.controls = !showA;
   diffBadgeEl.textContent = `Showing ${showSide}`;
 }
 
-function restartDiffLoop() {
+function syncDiffPair(sourceVideo, targetVideo, forceSeek = false) {
+  if (state.diffSyncGuard) {
+    return;
+  }
+
+  const sourceTime = sourceVideo.currentTime || 0;
+  const targetTime = clampVideoTime(targetVideo, sourceTime);
+  const delta = Math.abs((targetVideo.currentTime || 0) - targetTime);
+
+  if (forceSeek || delta > 1 / 120) {
+    state.diffSyncGuard = true;
+    targetVideo.currentTime = targetTime;
+    requestAnimationFrame(() => {
+      state.diffSyncGuard = false;
+    });
+  }
+}
+
+async function loadDiffSideVideo(side, source, targetTime, shouldPlay) {
+  return new Promise((resolve) => {
+    const videoEl = diffVideoForSide(side);
+    const applyReadyState = () => {
+      const next = clampVideoTime(videoEl, targetTime);
+      if (Number.isFinite(next)) {
+        videoEl.currentTime = next;
+      }
+      if (shouldPlay) {
+        videoEl.play().catch(() => {});
+      } else {
+        videoEl.pause();
+      }
+      resolve();
+    };
+
+    if ((videoEl.getAttribute("src") || "") === source) {
+      applyReadyState();
+      return;
+    }
+
+    const onLoaded = () => {
+      videoEl.removeEventListener("loadedmetadata", onLoaded);
+      applyReadyState();
+    };
+
+    videoEl.addEventListener("loadedmetadata", onLoaded);
+    videoEl.src = source;
+    videoEl.load();
+  });
+}
+
+async function restartDiffLoop() {
   if (!state.diffMode) {
     return;
   }
 
+  const entryA = getCurrentEntryForPlayer(state.players.A);
+  const entryB = getCurrentEntryForPlayer(state.players.B);
+  if (!entryA || !entryB) {
+    setStatus("Diff mode needs valid selections in both players.");
+    return;
+  }
+
   stopDiffLoop();
-  state.diffSide = "A";
-  swapDiffSource(state.diffSide);
+
+  const currentlyVisible = diffVideoForSide(state.diffSide);
+  const syncSourceTime = Number.isFinite(currentlyVisible.currentTime)
+    ? currentlyVisible.currentTime
+    : state.players[state.syncMaster].video.currentTime || 0;
+  const shouldPlay = !currentlyVisible.paused;
+
+  await Promise.all([
+    loadDiffSideVideo("A", entryA.output_filename, syncSourceTime, shouldPlay),
+    loadDiffSideVideo("B", entryB.output_filename, syncSourceTime, shouldPlay),
+  ]);
+
+  diffVideoAEl.muted = true;
+  diffVideoBEl.muted = true;
+  diffVideoAEl.playbackRate = 1;
+  diffVideoBEl.playbackRate = 1;
+
+  setVisibleDiffSide("A");
 
   state.diffTimerId = setInterval(() => {
-    state.diffSide = state.diffSide === "A" ? "B" : "A";
-    swapDiffSource(state.diffSide);
+    const shown = diffVideoForSide(state.diffSide);
+    const hiddenSide = state.diffSide === "A" ? "B" : "A";
+    const hidden = diffVideoForSide(hiddenSide);
+    syncDiffPair(shown, hidden, true);
+    setVisibleDiffSide(hiddenSide);
   }, 500);
 }
 
@@ -727,6 +790,8 @@ function setDiffMode(enabled) {
 
   if (!enabled) {
     stopDiffLoop();
+    diffVideoAEl.pause();
+    diffVideoBEl.pause();
     compareGridEl.classList.remove("hidden");
     diffStageEl.classList.add("hidden");
     return;
@@ -734,7 +799,57 @@ function setDiffMode(enabled) {
 
   compareGridEl.classList.add("hidden");
   diffStageEl.classList.remove("hidden");
-  restartDiffLoop();
+  restartDiffLoop().catch(() => {
+    setStatus("Could not initialize diff videos.");
+  });
+}
+
+function wireDiffVideoEvents() {
+  const wire = (sourceVideo, targetVideo) => {
+    sourceVideo.addEventListener("play", () => {
+      if (!state.diffMode) {
+        return;
+      }
+      syncDiffPair(sourceVideo, targetVideo, true);
+      if (targetVideo.paused) {
+        targetVideo.play().catch(() => {});
+      }
+    });
+
+    sourceVideo.addEventListener("pause", () => {
+      if (!state.diffMode) {
+        return;
+      }
+      if (!targetVideo.paused) {
+        targetVideo.pause();
+      }
+      syncDiffPair(sourceVideo, targetVideo, true);
+    });
+
+    sourceVideo.addEventListener("seeking", () => {
+      if (!state.diffMode) {
+        return;
+      }
+      syncDiffPair(sourceVideo, targetVideo, true);
+    });
+
+    sourceVideo.addEventListener("ratechange", () => {
+      if (!state.diffMode) {
+        return;
+      }
+      targetVideo.playbackRate = sourceVideo.playbackRate;
+    });
+
+    sourceVideo.addEventListener("timeupdate", () => {
+      if (!state.diffMode || sourceVideo.paused) {
+        return;
+      }
+      syncDiffPair(sourceVideo, targetVideo, false);
+    });
+  };
+
+  wire(diffVideoAEl, diffVideoBEl);
+  wire(diffVideoBEl, diffVideoAEl);
 }
 
 function wirePlayerEvents(player) {
@@ -1002,6 +1117,7 @@ async function initialize() {
 
     wirePlayerEvents(playerA);
     wirePlayerEvents(playerB);
+    wireDiffVideoEvents();
     wireActions();
     wireKeyboardShortcuts();
     wireShortcutChipActions();

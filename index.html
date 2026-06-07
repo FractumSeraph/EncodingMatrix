@@ -106,7 +106,10 @@
           <h2>Blink Diff Mode</h2>
           <span id="diffBadge" class="diff-badge">Showing A</span>
         </div>
-        <video id="diffVideo" controls preload="metadata"></video>
+        <div class="diff-stack">
+          <video id="diffVideoA" class="diff-video is-visible" controls preload="metadata" playsinline></video>
+          <video id="diffVideoB" class="diff-video" controls preload="metadata" playsinline></video>
+        </div>
       </section>
 
       <section class="panel analytics-panel">
