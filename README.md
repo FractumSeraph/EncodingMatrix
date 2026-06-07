@@ -1,4 +1,4 @@
-# Encoder Matrix Toolkit
+# FractumSeraph's Encoding Comparisons
 
 This project lets you generate a large FFmpeg encode matrix and then interactively compare output quality, file size, and encode time in a browser.
 
@@ -169,6 +169,9 @@ python batch_encode.py --max-jobs 40 --schedule fast-first
 ## Frontend Behavior
 
 - UI options are generated from manifest data only.
+- Available encode options are cached in the browser and can be rebuilt with the Regenerate Encode Cache button.
+- Viewer preferences persist across sessions, including player selections, lock sync, diff mode, weights, filters, and active player.
+- Frame stepping uses the source video's frame rate from the manifest when available.
 - Two independent players (A and B) each have their own Codec, Preset, and CRF controls.
 - Source switching preserves playback timestamp in each player for seamless comparison.
 - Metadata under each player shows settings, encoded size in MB, and encode time.
@@ -182,18 +185,18 @@ python batch_encode.py --max-jobs 40 --schedule fast-first
 - 1: focus Player A
 - 2: focus Player B
 - Space: play or pause focused player
-- ,: step focused player back by 1 frame (approx. 1/30s)
-- .: step focused player forward by 1 frame (approx. 1/30s)
+- ,: step focused player back by 1 frame
+- .: step focused player forward by 1 frame
 - Q: toggle spotlight mode between A and B
 - S: sync Player B timestamp to Player A
 - L: toggle continuous lock-sync mode
-- D: toggle blink diff mode
+- D: toggle side-by-side wipe compare mode
 - E: export scoreboard CSV
 
 ### Advanced Compare Features
 
 - Lock Sync mode keeps Player A and Player B time-aligned while playing.
-- Diff Mode shows a single viewport that alternates between current A and B selections.
+- Side-by-side wipe compare mode shows both selected encodes at once for direct visual comparison.
 - Scoreboard CSV export saves ranked rows for external analysis.
 
 ## Troubleshooting

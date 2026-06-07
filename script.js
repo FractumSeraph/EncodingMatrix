@@ -8,6 +8,7 @@ const diffBadgeEl = document.getElementById("diffBadge");
 const toggleLockButton = document.getElementById("toggleLockButton");
 const toggleDiffButton = document.getElementById("toggleDiffButton");
 const exportCsvButton = document.getElementById("exportCsvButton");
+const refreshEncodeCacheButton = document.getElementById("refreshEncodeCacheButton");
 const clearFiltersButton = document.getElementById("clearFiltersButton");
 const qualityMetricSelectEl = document.getElementById("qualityMetricSelect");
 const filterCodecEl = document.getElementById("filterCodec");
@@ -23,8 +24,14 @@ const weightTimeValueEl = document.getElementById("weightTimeValue");
 const scoreFormulaTextEl = document.getElementById("scoreFormulaText");
 const shortcutChipEls = document.querySelectorAll(".shortcut-chip[data-action]");
 
+const UI_STORAGE_KEY = "fractumseraph.encoding-comparisons.ui.v1";
+const ENCODE_CACHE_KEY = "fractumseraph.encoding-comparisons.encode-cache.v1";
+const FRAME_STEP_SECONDS = 1 / 30;
+
 const state = {
   manifestResults: [],
+  manifestSourceRows: [],
+  sourceFrameRate: 30,
   activePlayer: "A",
   syncMaster: "A",
   spotlightMode: false,
@@ -163,6 +170,181 @@ function updateWeightLabels() {
   updateScoreFormulaText();
 }
 
+function readStorageJson(key) {
+  try {
+    const raw = localStorage.getItem(key);
+    if (!raw) {
+      return null;
+    }
+    return JSON.parse(raw);
+  } catch {
+    return null;
+  }
+}
+
+function writeStorageJson(key, value) {
+  try {
+    localStorage.setItem(key, JSON.stringify(value));
+  } catch {
+    // Ignore quota/security errors.
+  }
+}
+
+function removeStorageItem(key) {
+  try {
+    localStorage.removeItem(key);
+  } catch {
+    // Ignore quota/security errors.
+  }
+}
+
+function toFiniteNumber(value, fallback) {
+  const number = Number(value);
+  return Number.isFinite(number) ? number : fallback;
+}
+
+function manifestSignature(rows) {
+  let hash = 2166136261;
+  rows.forEach((row) => {
+    const text = `${row?.codec_name ?? ""}|${row?.preset ?? ""}|${row?.crf_value ?? ""}|${row?.output_filename ?? ""}`;
+    for (let index = 0; index < text.length; index += 1) {
+      hash ^= text.charCodeAt(index);
+      hash = Math.imul(hash, 16777619);
+    }
+  });
+  return `${rows.length}:${(hash >>> 0).toString(16)}`;
+}
+
+function capturePlayerSelection(player) {
+  return {
+    codec: player.codecSelect.value || "",
+    preset: player.presetSelect.value || "",
+    crf: selectedCrf(player),
+  };
+}
+
+function capturePreferences() {
+  return {
+    activePlayer: state.activePlayer,
+    spotlightMode: state.spotlightMode,
+    lockSync: state.lockSync,
+    diffMode: state.diffMode,
+    syncMaster: state.syncMaster,
+    activeQualityMetric: state.activeQualityMetric,
+    weights: { ...state.weights },
+    filters: { ...state.filters },
+    players: {
+      A: capturePlayerSelection(state.players.A),
+      B: capturePlayerSelection(state.players.B),
+    },
+  };
+}
+
+function savePreferences() {
+  writeStorageJson(UI_STORAGE_KEY, capturePreferences());
+}
+
+function loadPreferences() {
+  const stored = readStorageJson(UI_STORAGE_KEY);
+  if (!stored || typeof stored !== "object") {
+    return null;
+  }
+
+  return {
+    activePlayer: stored.activePlayer === "B" ? "B" : "A",
+    spotlightMode: Boolean(stored.spotlightMode),
+    lockSync: typeof stored.lockSync === "boolean" ? stored.lockSync : state.lockSync,
+    diffMode: Boolean(stored.diffMode),
+    syncMaster: stored.syncMaster === "B" ? "B" : "A",
+    activeQualityMetric: typeof stored.activeQualityMetric === "string" ? stored.activeQualityMetric : state.activeQualityMetric,
+    weights: {
+      quality: toFiniteNumber(stored?.weights?.quality, state.weights.quality),
+      size: toFiniteNumber(stored?.weights?.size, state.weights.size),
+      time: toFiniteNumber(stored?.weights?.time, state.weights.time),
+    },
+    filters: {
+      codec: typeof stored?.filters?.codec === "string" ? stored.filters.codec : "All",
+      minQuality:
+        stored?.filters?.minQuality === null || stored?.filters?.minQuality === undefined
+          ? null
+          : toFiniteNumber(stored.filters.minQuality, null),
+      maxSizeMb:
+        stored?.filters?.maxSizeMb === null || stored?.filters?.maxSizeMb === undefined
+          ? null
+          : toFiniteNumber(stored.filters.maxSizeMb, null),
+      maxTimeS:
+        stored?.filters?.maxTimeS === null || stored?.filters?.maxTimeS === undefined
+          ? null
+          : toFiniteNumber(stored.filters.maxTimeS, null),
+    },
+    players: {
+      A: stored?.players?.A && typeof stored.players.A === "object" ? stored.players.A : null,
+      B: stored?.players?.B && typeof stored.players.B === "object" ? stored.players.B : null,
+    },
+  };
+}
+
+function applyPreferencesToState(preferences) {
+  if (!preferences) {
+    return;
+  }
+
+  state.activePlayer = preferences.activePlayer;
+  state.spotlightMode = preferences.spotlightMode;
+  state.lockSync = preferences.lockSync;
+  state.diffMode = preferences.diffMode;
+  state.syncMaster = preferences.syncMaster;
+  state.activeQualityMetric = preferences.activeQualityMetric;
+  state.weights = { ...state.weights, ...preferences.weights };
+  state.filters = { ...state.filters, ...preferences.filters };
+}
+
+function applyPlayerSelection(player, selection) {
+  if (!selection) {
+    return;
+  }
+
+  const codecValues = allCodecs();
+  const selectedCodec = codecValues.includes(selection.codec) ? selection.codec : player.codecSelect.value || codecValues[0];
+  fillSelect(player.codecSelect, codecValues, selectedCodec);
+
+  const presetValues = presetsForCodec(player.codecSelect.value);
+  const selectedPreset = presetValues.includes(selection.preset) ? selection.preset : player.presetSelect.value || presetValues[0];
+  fillSelect(player.presetSelect, presetValues, selectedPreset);
+
+  const crfValues = crfValuesFor(player.codecSelect.value, player.presetSelect.value);
+  const selectedCrfValue = crfValues.includes(Number(selection.crf)) ? Number(selection.crf) : null;
+  updateCrfControl(player, crfValues, selectedCrfValue);
+}
+
+async function loadAvailableEncodes(manifestRows, forceRefresh = false) {
+  const signature = manifestSignature(manifestRows);
+  if (!forceRefresh) {
+    const cached = readStorageJson(ENCODE_CACHE_KEY);
+    if (cached && cached.signature === signature && Array.isArray(cached.results)) {
+      return { results: cached.results, source: "cache" };
+    }
+  }
+
+  const results = await keepOnlyEncodedRows(manifestRows);
+  writeStorageJson(ENCODE_CACHE_KEY, {
+    signature,
+    results,
+    createdAt: Date.now(),
+  });
+  return { results, source: forceRefresh ? "rebuilt" : "scanned" };
+}
+
+async function rebuildEncodeCache() {
+  const manifestData = await loadManifest();
+  state.manifestSourceRows = manifestData.rows;
+  state.sourceFrameRate = manifestData.sourceFrameRate;
+
+  const cache = await loadAvailableEncodes(manifestData.rows, true);
+  state.manifestResults = cache.results;
+  await refreshUiAfterManifestLoad(`Encode cache rebuilt from ${state.manifestSourceRows.length} manifest entries.`);
+}
+
 function clearSelect(selectEl) {
   while (selectEl.firstChild) {
     selectEl.removeChild(selectEl.firstChild);
@@ -184,6 +366,9 @@ function fillSelect(selectEl, values, selectedValue = null) {
 
 function populateFilterCodec() {
   const codecs = ["All", ...allCodecs()];
+  if (!codecs.includes(state.filters.codec)) {
+    state.filters.codec = "All";
+  }
   fillSelect(filterCodecEl, codecs, state.filters.codec);
 }
 
@@ -428,7 +613,7 @@ function swapVideoSource(player, nextSource, entry) {
   player.video.addEventListener("loadedmetadata", onLoaded);
 }
 
-function refreshPlayer(player) {
+function refreshPlayer(player, refreshDiff = true) {
   const codec = player.codecSelect.value;
   const preset = player.presetSelect.value;
   const crf = selectedCrf(player);
@@ -449,22 +634,29 @@ function refreshPlayer(player) {
   setStatus("");
   swapVideoSource(player, entry.output_filename, entry);
 
-  if (state.diffMode) {
-    restartDiffLoop();
+  if (refreshDiff && state.diffMode) {
+    refreshDiffView().catch(() => {
+      setStatus("Could not initialize side-by-side wipe.");
+    });
   }
 }
 
-function updatePlayerControls(player, keepCrf = null) {
+function updatePlayerControls(player, preferredSelection = null) {
   const codecValues = allCodecs();
-  fillSelect(player.codecSelect, codecValues, player.codecSelect.value || codecValues[0]);
+  const preferredCodec = preferredSelection?.codec;
+  const selectedCodec = codecValues.includes(preferredCodec) ? preferredCodec : player.codecSelect.value || codecValues[0];
+  fillSelect(player.codecSelect, codecValues, selectedCodec);
 
   const codec = player.codecSelect.value;
   const presetValues = presetsForCodec(codec);
-  fillSelect(player.presetSelect, presetValues, player.presetSelect.value || presetValues[0]);
+  const preferredPreset = preferredSelection?.preset;
+  const selectedPreset = presetValues.includes(preferredPreset) ? preferredPreset : player.presetSelect.value || presetValues[0];
+  fillSelect(player.presetSelect, presetValues, selectedPreset);
 
   const preset = player.presetSelect.value;
   const crfValues = crfValuesFor(codec, preset);
-  updateCrfControl(player, crfValues, keepCrf);
+  const preferredCrf = preferredSelection?.crf;
+  updateCrfControl(player, crfValues, Number.isFinite(Number(preferredCrf)) ? Number(preferredCrf) : null);
 }
 
 function rowHtml(cells) {
@@ -490,16 +682,19 @@ function runShortcutAction(action) {
   if (action === "focusA") {
     setActivePlayer("A");
     applySpotlight();
+    savePreferences();
     return true;
   }
   if (action === "focusB") {
     setActivePlayer("B");
     applySpotlight();
+    savePreferences();
     return true;
   }
   if (action === "spotlight") {
     state.spotlightMode = !state.spotlightMode;
     applySpotlight();
+    savePreferences();
     return true;
   }
   if (action === "syncBtoA") {
@@ -656,9 +851,9 @@ function exportSummaryCsv() {
 }
 
 function stepOneFrame(player, direction) {
-  const fpsGuess = 30;
-  const dt = 1 / fpsGuess;
-  const next = clampVideoTime(player.video, (player.video.currentTime || 0) + direction * dt);
+  const frameStepSeconds = frameStepSecondsForPlayer(player);
+  const currentFrame = frameIndexForTime(player.video.currentTime || 0, frameStepSeconds, direction);
+  const next = clampVideoTime(player.video, (currentFrame + direction) * frameStepSeconds);
   player.video.pause();
   normalizePlaybackRate(player.video);
   player.video.currentTime = next;
@@ -679,21 +874,7 @@ function stopDiffLoop() {
   }
 }
 
-function diffVideoForSide(side) {
-  return side === "A" ? diffVideoAEl : diffVideoBEl;
-}
-
-function setVisibleDiffSide(showSide) {
-  const showA = showSide === "A";
-  state.diffSide = showSide;
-  diffVideoAEl.classList.toggle("is-visible", showA);
-  diffVideoBEl.classList.toggle("is-visible", !showA);
-  diffVideoAEl.controls = showA;
-  diffVideoBEl.controls = !showA;
-  diffBadgeEl.textContent = `Showing ${showSide}`;
-}
-
-function syncDiffPair(sourceVideo, targetVideo, forceSeek = false) {
+function syncDiffVideos(sourceVideo, targetVideo, forceSeek = false) {
   if (state.diffSyncGuard) {
     return;
   }
@@ -702,18 +883,20 @@ function syncDiffPair(sourceVideo, targetVideo, forceSeek = false) {
   const targetTime = clampVideoTime(targetVideo, sourceTime);
   const delta = Math.abs((targetVideo.currentTime || 0) - targetTime);
 
-  if (forceSeek || delta > 1 / 120) {
-    state.diffSyncGuard = true;
-    targetVideo.currentTime = targetTime;
-    requestAnimationFrame(() => {
-      state.diffSyncGuard = false;
-    });
+  if (!forceSeek && delta < 1 / 240) {
+    return;
   }
+
+  state.diffSyncGuard = true;
+  targetVideo.currentTime = targetTime;
+  targetVideo.playbackRate = sourceVideo.playbackRate;
+  requestAnimationFrame(() => {
+    state.diffSyncGuard = false;
+  });
 }
 
-async function loadDiffSideVideo(side, source, targetTime, shouldPlay) {
+async function loadDiffVideo(videoEl, source, targetTime, shouldPlay) {
   return new Promise((resolve) => {
-    const videoEl = diffVideoForSide(side);
     const applyReadyState = () => {
       const next = clampVideoTime(videoEl, targetTime);
       if (Number.isFinite(next)) {
@@ -743,7 +926,7 @@ async function loadDiffSideVideo(side, source, targetTime, shouldPlay) {
   });
 }
 
-async function restartDiffLoop() {
+async function refreshDiffView() {
   if (!state.diffMode) {
     return;
   }
@@ -751,37 +934,25 @@ async function restartDiffLoop() {
   const entryA = getCurrentEntryForPlayer(state.players.A);
   const entryB = getCurrentEntryForPlayer(state.players.B);
   if (!entryA || !entryB) {
-    setStatus("Diff mode needs valid selections in both players.");
+    setStatus("Side-by-side wipe needs valid selections in both players.");
     return;
   }
 
-  stopDiffLoop();
-
-  const currentlyVisible = diffVideoForSide(state.diffSide);
-  const syncSourceTime = Number.isFinite(currentlyVisible.currentTime)
-    ? currentlyVisible.currentTime
+  const syncSourceTime = Number.isFinite(diffVideoAEl.currentTime)
+    ? diffVideoAEl.currentTime
     : state.players[state.syncMaster].video.currentTime || 0;
-  const shouldPlay = !currentlyVisible.paused;
+  const shouldPlay = !diffVideoAEl.paused || !diffVideoBEl.paused || !state.players[state.syncMaster].video.paused;
 
   await Promise.all([
-    loadDiffSideVideo("A", entryA.output_filename, syncSourceTime, shouldPlay),
-    loadDiffSideVideo("B", entryB.output_filename, syncSourceTime, shouldPlay),
+    loadDiffVideo(diffVideoAEl, entryA.output_filename, syncSourceTime, shouldPlay),
+    loadDiffVideo(diffVideoBEl, entryB.output_filename, syncSourceTime, shouldPlay),
   ]);
 
   diffVideoAEl.muted = true;
   diffVideoBEl.muted = true;
   diffVideoAEl.playbackRate = 1;
   diffVideoBEl.playbackRate = 1;
-
-  setVisibleDiffSide("A");
-
-  state.diffTimerId = setInterval(() => {
-    const shown = diffVideoForSide(state.diffSide);
-    const hiddenSide = state.diffSide === "A" ? "B" : "A";
-    const hidden = diffVideoForSide(hiddenSide);
-    syncDiffPair(shown, hidden, true);
-    setVisibleDiffSide(hiddenSide);
-  }, 500);
+  diffBadgeEl.textContent = `Comparing ${entryA.codec_name} / ${entryB.codec_name}`;
 }
 
 function setDiffMode(enabled) {
@@ -794,14 +965,16 @@ function setDiffMode(enabled) {
     diffVideoBEl.pause();
     compareGridEl.classList.remove("hidden");
     diffStageEl.classList.add("hidden");
+    savePreferences();
     return;
   }
 
   compareGridEl.classList.add("hidden");
   diffStageEl.classList.remove("hidden");
-  restartDiffLoop().catch(() => {
-    setStatus("Could not initialize diff videos.");
+  refreshDiffView().catch(() => {
+    setStatus("Could not initialize side-by-side wipe.");
   });
+  savePreferences();
 }
 
 function wireDiffVideoEvents() {
@@ -810,7 +983,7 @@ function wireDiffVideoEvents() {
       if (!state.diffMode) {
         return;
       }
-      syncDiffPair(sourceVideo, targetVideo, true);
+      syncDiffVideos(sourceVideo, targetVideo, true);
       if (targetVideo.paused) {
         targetVideo.play().catch(() => {});
       }
@@ -823,14 +996,14 @@ function wireDiffVideoEvents() {
       if (!targetVideo.paused) {
         targetVideo.pause();
       }
-      syncDiffPair(sourceVideo, targetVideo, true);
+      syncDiffVideos(sourceVideo, targetVideo, true);
     });
 
     sourceVideo.addEventListener("seeking", () => {
       if (!state.diffMode) {
         return;
       }
-      syncDiffPair(sourceVideo, targetVideo, true);
+      syncDiffVideos(sourceVideo, targetVideo, true);
     });
 
     sourceVideo.addEventListener("ratechange", () => {
@@ -844,7 +1017,7 @@ function wireDiffVideoEvents() {
       if (!state.diffMode || sourceVideo.paused) {
         return;
       }
-      syncDiffPair(sourceVideo, targetVideo, false);
+      syncDiffVideos(sourceVideo, targetVideo, false);
     });
   };
 
@@ -856,11 +1029,13 @@ function wirePlayerEvents(player) {
   player.card.addEventListener("click", () => {
     setActivePlayer(player.id);
     applySpotlight();
+    savePreferences();
   });
 
   player.video.addEventListener("click", () => {
     setActivePlayer(player.id);
     applySpotlight();
+    savePreferences();
   });
 
   player.video.addEventListener("timeupdate", () => {
@@ -920,17 +1095,20 @@ function wirePlayerEvents(player) {
   player.codecSelect.addEventListener("change", () => {
     updatePlayerControls(player);
     refreshPlayer(player);
+    savePreferences();
   });
 
   player.presetSelect.addEventListener("change", () => {
     updatePlayerControls(player);
     refreshPlayer(player);
+    savePreferences();
   });
 
   player.crfSlider.addEventListener("input", () => {
     const current = selectedCrf(player);
     player.crfValue.textContent = current === null ? "-" : String(current);
     refreshPlayer(player);
+    savePreferences();
   });
 }
 
@@ -947,9 +1125,17 @@ function wireActions() {
     exportSummaryCsv();
   });
 
+  refreshEncodeCacheButton.addEventListener("click", () => {
+    setStatus("Rebuilding encode cache...");
+    rebuildEncodeCache().catch((error) => {
+      setStatus(`Could not rebuild encode cache: ${error.message}`);
+    });
+  });
+
   clearFiltersButton.addEventListener("click", () => {
     clearFilters();
     renderSummaryTable();
+    savePreferences();
   });
 
   qualityMetricSelectEl.addEventListener("change", () => {
@@ -957,16 +1143,19 @@ function wireActions() {
     renderSummaryTable();
     refreshPlayer(state.players.A);
     refreshPlayer(state.players.B);
+    savePreferences();
   });
 
   [filterCodecEl, filterMinQualityEl, filterMaxSizeEl, filterMaxTimeEl].forEach((el) => {
     el.addEventListener("input", () => {
       syncFiltersFromInputs();
       renderSummaryTable();
+      savePreferences();
     });
     el.addEventListener("change", () => {
       syncFiltersFromInputs();
       renderSummaryTable();
+      savePreferences();
     });
   });
 
@@ -979,6 +1168,7 @@ function wireActions() {
       state.weights[key] = Number(el.value);
       updateWeightLabels();
       renderSummaryTable();
+      savePreferences();
     });
   });
 }
@@ -1046,6 +1236,63 @@ function wireShortcutChipActions() {
   });
 }
 
+function frameStepSecondsForPlayer(player) {
+  const entry = getCurrentEntryForPlayer(player);
+  const fps = Number(entry?.source_frame_rate ?? state.sourceFrameRate);
+  if (Number.isFinite(fps) && fps > 0) {
+    return 1 / fps;
+  }
+  return FRAME_STEP_SECONDS;
+}
+
+function frameIndexForTime(currentTime, frameStepSeconds, direction) {
+  const rawFrame = Number(currentTime || 0) / frameStepSeconds;
+  if (direction > 0) {
+    return Math.floor(rawFrame + 0.000001);
+  }
+  return Math.ceil(rawFrame - 0.000001);
+}
+
+async function refreshUiAfterManifestLoad(statusMessage = "", preferences = null) {
+  const playerA = state.players.A;
+  const playerB = state.players.B;
+
+  populateFilterCodec();
+  populateQualityMetricSelect();
+
+  weightQualityEl.value = String(state.weights.quality);
+  weightSizeEl.value = String(state.weights.size);
+  weightTimeEl.value = String(state.weights.time);
+  updateWeightLabels();
+
+  updatePlayerControls(playerA, preferences?.players?.A || null);
+  updatePlayerControls(playerB, preferences?.players?.B || null);
+
+  refreshPlayer(playerA, false);
+  refreshPlayer(playerB, false);
+
+  setActivePlayer(state.activePlayer);
+  applySpotlight();
+
+  compareGridEl.classList.toggle("hidden", state.diffMode);
+  diffStageEl.classList.toggle("hidden", !state.diffMode);
+
+  renderSummaryTable();
+  updateLockButtonUi();
+  updateDiffButtonUi();
+
+  if (state.diffMode) {
+    try {
+      await refreshDiffView();
+    } catch {
+      statusMessage = "Could not initialize side-by-side wipe.";
+    }
+  }
+
+  setStatus(statusMessage);
+  savePreferences();
+}
+
 async function loadManifest() {
   const response = await fetch(`manifest.json?t=${Date.now()}`);
   if (!response.ok) {
@@ -1058,7 +1305,11 @@ async function loadManifest() {
     throw new Error("manifest.json is missing a valid results or encodes array.");
   }
 
-  return rows;
+  const sourceFrameRate = Number(data?.source_frame_rate);
+  return {
+    rows,
+    sourceFrameRate: Number.isFinite(sourceFrameRate) && sourceFrameRate > 0 ? sourceFrameRate : 30,
+  };
 }
 
 async function outputFileExists(path) {
@@ -1104,8 +1355,15 @@ async function keepOnlyEncodedRows(rows) {
 
 async function initialize() {
   try {
-    const manifestRows = await loadManifest();
-    state.manifestResults = await keepOnlyEncodedRows(manifestRows);
+    const preferences = loadPreferences();
+    applyPreferencesToState(preferences);
+
+    const manifestData = await loadManifest();
+    state.manifestSourceRows = manifestData.rows;
+    state.sourceFrameRate = manifestData.sourceFrameRate;
+
+    const availableEncodes = await loadAvailableEncodes(manifestData.rows);
+    state.manifestResults = availableEncodes.results;
 
     if (!state.manifestResults.length) {
       setStatus("No encoded output files were found. Run batch_encode.py first.");
@@ -1121,24 +1379,11 @@ async function initialize() {
     wireActions();
     wireKeyboardShortcuts();
     wireShortcutChipActions();
-    populateFilterCodec();
-    populateQualityMetricSelect();
 
-    weightQualityEl.value = String(state.weights.quality);
-    weightSizeEl.value = String(state.weights.size);
-    weightTimeEl.value = String(state.weights.time);
-    updateWeightLabels();
-
-    updatePlayerControls(playerA);
-    updatePlayerControls(playerB);
-    refreshPlayer(playerA);
-    refreshPlayer(playerB);
-
-    setActivePlayer("A");
-    applySpotlight();
-    renderSummaryTable();
-    updateLockButtonUi();
-    updateDiffButtonUi();
+    await refreshUiAfterManifestLoad(
+      availableEncodes.source === "cache" ? "Loaded cached available-encode list." : "Refreshed available-encode list.",
+      preferences
+    );
   } catch (error) {
     setStatus(`Load error: ${error.message}. Serve this folder over HTTP, for example: python -m http.server 8000.`);
   }

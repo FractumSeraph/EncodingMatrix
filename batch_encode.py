@@ -41,6 +41,7 @@ import tempfile
 import threading
 import time
 from dataclasses import dataclass
+from fractions import Fraction
 from pathlib import Path
 from typing import Dict, List, Tuple
 
@@ -230,6 +231,53 @@ def ffmpeg_supported_filters() -> set[str]:
         if len(parts) >= 2 and parts[0].startswith(("T", ".", "|")):
             filters.add(parts[1])
     return filters
+
+
+def probe_source_frame_rate(source_video: Path) -> float:
+    try:
+        result = subprocess.run(
+            [
+                "ffprobe",
+                "-v",
+                "error",
+                "-select_streams",
+                "v:0",
+                "-show_entries",
+                "stream=avg_frame_rate,r_frame_rate",
+                "-of",
+                "json",
+                str(source_video),
+            ],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+            text=True,
+            check=False,
+        )
+    except OSError:
+        return 30.0
+
+    try:
+        data = json.loads(result.stdout)
+    except Exception:
+        return 30.0
+
+    streams = data.get("streams") if isinstance(data, dict) else None
+    if not isinstance(streams, list) or not streams:
+        return 30.0
+
+    stream = streams[0]
+    for key in ("avg_frame_rate", "r_frame_rate"):
+        rate_text = str(stream.get(key) or "")
+        if not rate_text or rate_text == "0/0":
+            continue
+        try:
+            rate = float(Fraction(rate_text))
+        except Exception:
+            continue
+        if rate > 0:
+            return rate
+
+    return 30.0
 
 
 def parse_quality_metrics(raw: str, primary_metric: str) -> List[str]:
@@ -858,6 +906,9 @@ def main() -> None:
             sys.exit(1)
 
     manifest = load_manifest(manifest_path, source_video)
+    source_frame_rate = probe_source_frame_rate(source_video)
+    manifest["source_frame_rate"] = round(source_frame_rate, 6)
+    save_manifest(manifest_path, manifest)
     backfilled = backfill_missing_quality(manifest, manifest_path, source_video, args.quality_metric, metrics_to_compute)
     completed = build_completed_index(manifest["results"])
 
@@ -963,6 +1014,7 @@ def main() -> None:
                 "crf_value": job.qvalue,
                 "encode_time_seconds": round(elapsed, 3),
                 "file_size_bytes": int(file_size),
+                "source_frame_rate": round(source_frame_rate, 6),
                 "quality_metric": args.quality_metric,
                 "quality_score": None if primary_score is None else round(primary_score, 6),
                 "quality_scores": quality_scores,

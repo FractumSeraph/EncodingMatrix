@@ -10,7 +10,7 @@
     <main class="app-shell">
       <header class="hero">
         <h1>FractumSeraph's Encoding Comparisons</h1>
-        <p>Frame-accurate A/B comparison with sync, blink-diff mode, and ranked encode tradeoffs.</p>
+        <p>Frame-accurate A/B comparison with sync, side-by-side wipe compare, and ranked encode tradeoffs.</p>
       </header>
 
       <section class="panel shortcuts-panel">
@@ -103,12 +103,18 @@
 
       <section id="diffStage" class="panel diff-stage hidden">
         <div class="diff-head">
-          <h2>Blink Diff Mode</h2>
-          <span id="diffBadge" class="diff-badge">Showing A</span>
+          <h2>Side-by-Side Wipe</h2>
+          <span id="diffBadge" class="diff-badge">Comparing A / B</span>
         </div>
-        <div class="diff-stack">
-          <video id="diffVideoA" class="diff-video is-visible" controls preload="metadata" playsinline></video>
-          <video id="diffVideoB" class="diff-video" controls preload="metadata" playsinline></video>
+        <div class="diff-layout">
+          <div class="diff-pane">
+            <div class="diff-pane-label">Player A</div>
+            <video id="diffVideoA" class="diff-video" controls preload="metadata" playsinline></video>
+          </div>
+          <div class="diff-pane">
+            <div class="diff-pane-label">Player B</div>
+            <video id="diffVideoB" class="diff-video" controls preload="metadata" playsinline></video>
+          </div>
         </div>
       </section>
 
@@ -166,6 +172,7 @@
           <h2>Manifest Scoreboard</h2>
           <p id="scoreFormulaText">Lower score is better. Score = 1.0 x quality loss + 1.0 x size + 1.0 x time.</p>
           <div class="table-actions">
+            <button id="refreshEncodeCacheButton" type="button">Regenerate Encode Cache</button>
             <button id="exportCsvButton" type="button">Export Scoreboard CSV</button>
           </div>
         </div>
