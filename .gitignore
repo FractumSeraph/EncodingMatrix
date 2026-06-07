@@ -1,0 +1,4 @@
+# Large source and generated encode outputs
+source.y4m
+encodes/*
+!encodes/.gitkeep

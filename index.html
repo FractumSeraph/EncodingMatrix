@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Encoder Matrix Compare Lab</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="hero">
+        <h1>Encoding Matrix Compare Lab</h1>
+        <p>Frame-accurate A/B comparison with sync, blink-diff mode, and ranked encode tradeoffs.</p>
+      </header>
+
+      <section class="panel shortcuts-panel">
+        <div class="shortcuts-title">Controls</div>
+        <div class="shortcuts-list">
+          <span><kbd>1</kbd> Focus A</span>
+          <span><kbd>2</kbd> Focus B</span>
+          <span><kbd>Space</kbd> Play/Pause focused</span>
+          <span><kbd>,</kbd> Frame -1</span>
+          <span><kbd>.</kbd> Frame +1</span>
+          <span><kbd>Q</kbd> Spotlight A/B</span>
+          <span><kbd>S</kbd> Sync B to A</span>
+          <span><kbd>L</kbd> Lock Sync</span>
+          <span><kbd>D</kbd> Diff Mode</span>
+          <span><kbd>E</kbd> Export CSV</span>
+        </div>
+        <div class="top-actions">
+          <button id="toggleLockButton" type="button">Lock Sync: Off</button>
+          <button id="toggleDiffButton" type="button">Diff Mode: Off</button>
+        </div>
+      </section>
+
+      <section id="compareGrid" class="compare-grid">
+        <article id="cardA" class="panel compare-card focused">
+          <h2>Player A</h2>
+          <div class="controls-panel">
+            <div class="control-group">
+              <label for="codecSelectA">Codec</label>
+              <select id="codecSelectA"></select>
+            </div>
+
+            <div class="control-group">
+              <label for="presetSelectA">Preset</label>
+              <select id="presetSelectA"></select>
+            </div>
+
+            <div class="control-group crf-group">
+              <label for="crfSliderA">CRF/CQ: <span id="crfValueA">-</span></label>
+              <input id="crfSliderA" type="range" min="0" max="0" step="1" value="0" />
+              <div id="crfTicksA" class="crf-ticks"></div>
+            </div>
+          </div>
+
+          <video id="videoPlayerA" controls preload="metadata"></video>
+
+          <div class="metadata">
+            <div><strong>Codec:</strong> <span id="metaCodecA">-</span></div>
+            <div><strong>Preset:</strong> <span id="metaPresetA">-</span></div>
+            <div><strong>CRF/CQ:</strong> <span id="metaCrfA">-</span></div>
+            <div><strong>Quality:</strong> <span id="metaQualityA">-</span></div>
+            <div><strong>File Size:</strong> <span id="metaSizeA">-</span></div>
+            <div><strong>Encode Time:</strong> <span id="metaTimeA">-</span></div>
+            <div><strong>File:</strong> <span id="metaFileA">-</span></div>
+          </div>
+        </article>
+
+        <article id="cardB" class="panel compare-card">
+          <h2>Player B</h2>
+          <div class="controls-panel">
+            <div class="control-group">
+              <label for="codecSelectB">Codec</label>
+              <select id="codecSelectB"></select>
+            </div>
+
+            <div class="control-group">
+              <label for="presetSelectB">Preset</label>
+              <select id="presetSelectB"></select>
+            </div>
+
+            <div class="control-group crf-group">
+              <label for="crfSliderB">CRF/CQ: <span id="crfValueB">-</span></label>
+              <input id="crfSliderB" type="range" min="0" max="0" step="1" value="0" />
+              <div id="crfTicksB" class="crf-ticks"></div>
+            </div>
+          </div>
+
+          <video id="videoPlayerB" controls preload="metadata"></video>
+
+          <div class="metadata">
+            <div><strong>Codec:</strong> <span id="metaCodecB">-</span></div>
+            <div><strong>Preset:</strong> <span id="metaPresetB">-</span></div>
+            <div><strong>CRF/CQ:</strong> <span id="metaCrfB">-</span></div>
+            <div><strong>Quality:</strong> <span id="metaQualityB">-</span></div>
+            <div><strong>File Size:</strong> <span id="metaSizeB">-</span></div>
+            <div><strong>Encode Time:</strong> <span id="metaTimeB">-</span></div>
+            <div><strong>File:</strong> <span id="metaFileB">-</span></div>
+          </div>
+        </article>
+      </section>
+
+      <section id="diffStage" class="panel diff-stage hidden">
+        <div class="diff-head">
+          <h2>Blink Diff Mode</h2>
+          <span id="diffBadge" class="diff-badge">Showing A</span>
+        </div>
+        <video id="diffVideo" controls preload="metadata"></video>
+      </section>
+
+      <section class="panel analytics-panel">
+        <div class="analytics-grid">
+          <div class="analytics-block">
+            <h2>Score Weights</h2>
+            <div class="weight-row">
+              <label for="weightQuality">Quality <span id="weightQualityValue">1.0</span></label>
+              <input id="weightQuality" type="range" min="0" max="5" step="0.1" value="1" />
+            </div>
+            <div class="weight-row">
+              <label for="weightSize">File Size <span id="weightSizeValue">1.0</span></label>
+              <input id="weightSize" type="range" min="0" max="5" step="0.1" value="1" />
+            </div>
+            <div class="weight-row">
+              <label for="weightTime">Encode Time <span id="weightTimeValue">1.0</span></label>
+              <input id="weightTime" type="range" min="0" max="5" step="0.1" value="1" />
+            </div>
+          </div>
+
+          <div class="analytics-block">
+            <h2>Filters</h2>
+            <div class="filter-grid">
+              <div class="control-group">
+                <label for="qualityMetricSelect">Quality Metric</label>
+                <select id="qualityMetricSelect"></select>
+              </div>
+              <div class="control-group">
+                <label for="filterCodec">Codec</label>
+                <select id="filterCodec"></select>
+              </div>
+              <div class="control-group">
+                <label for="filterMinQuality">Min Quality</label>
+                <input id="filterMinQuality" type="number" step="0.001" placeholder="Any" />
+              </div>
+              <div class="control-group">
+                <label for="filterMaxSize">Max Size (MB)</label>
+                <input id="filterMaxSize" type="number" step="0.1" placeholder="Any" />
+              </div>
+              <div class="control-group">
+                <label for="filterMaxTime">Max Time (s)</label>
+                <input id="filterMaxTime" type="number" step="0.1" placeholder="Any" />
+              </div>
+            </div>
+            <div class="table-actions">
+              <button id="clearFiltersButton" type="button">Clear Filters</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel table-panel">
+        <div class="table-head">
+          <h2>Manifest Scoreboard</h2>
+          <p id="scoreFormulaText">Lower score is better. Score = 1.0 x quality loss + 1.0 x size + 1.0 x time.</p>
+          <div class="table-actions">
+            <button id="exportCsvButton" type="button">Export Scoreboard CSV</button>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table id="summaryTable">
+            <thead>
+              <tr>
+                <th>Rank</th>
+                <th>Codec</th>
+                <th>Preset</th>
+                <th>CRF/CQ</th>
+                <th>Quality</th>
+                <th>Size (MB)</th>
+                <th>Time (s)</th>
+                <th>Score</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="status" class="status"></section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
