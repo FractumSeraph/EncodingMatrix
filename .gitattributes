@@ -1,0 +1,2 @@
+encodes/*.mp4 filter=lfs diff=lfs merge=lfs -text
+encodes/*.webm filter=lfs diff=lfs merge=lfs -text
