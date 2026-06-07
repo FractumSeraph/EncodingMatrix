@@ -309,6 +309,29 @@ function applySpotlight() {
   playerB.card.classList.toggle("dimmed", state.activePlayer !== "B");
 }
 
+function maxSeekableTime(video) {
+  if (!Number.isFinite(video.duration)) {
+    return Number.MAX_SAFE_INTEGER;
+  }
+  return Math.max(0, video.duration - 0.001);
+}
+
+function clampVideoTime(video, time) {
+  return Math.min(Math.max(0, Number(time) || 0), maxSeekableTime(video));
+}
+
+function syncPlayerToTime(player, sourceTime) {
+  const next = clampVideoTime(player.video, sourceTime);
+  if (!Number.isFinite(next)) {
+    return;
+  }
+  player.video.currentTime = next;
+}
+
+function otherPlayerOf(player) {
+  return player.id === "A" ? state.players.B : state.players.A;
+}
+
 function syncVideoTime(sourceVideo, targetVideo) {
   if (!state.lockSync || state.syncGuard) {
     return;
@@ -316,13 +339,16 @@ function syncVideoTime(sourceVideo, targetVideo) {
   if (!Number.isFinite(sourceVideo.currentTime)) {
     return;
   }
+
+  // Keep players within about half a frame at 60 fps.
+  const driftThresholdSeconds = 1 / 120;
   const delta = Math.abs((sourceVideo.currentTime || 0) - (targetVideo.currentTime || 0));
-  if (delta < 0.08) {
+  if (delta < driftThresholdSeconds) {
     return;
   }
 
   state.syncGuard = true;
-  const targetTime = Math.min(sourceVideo.currentTime || 0, Math.max(0, (targetVideo.duration || Number.MAX_SAFE_INTEGER) - 0.05));
+  const targetTime = clampVideoTime(targetVideo, sourceVideo.currentTime || 0);
   targetVideo.currentTime = targetTime;
   requestAnimationFrame(() => {
     state.syncGuard = false;
@@ -347,15 +373,20 @@ function swapVideoSource(player, nextSource, entry) {
   }
 
   const wasPaused = player.video.paused;
-  const currentTime = player.video.currentTime || 0;
+  const other = otherPlayerOf(player);
+  const currentTime = state.lockSync ? other.video.currentTime || 0 : player.video.currentTime || 0;
 
   player.video.src = nextSource;
   player.video.load();
 
   const onLoaded = () => {
-    const target = Math.min(currentTime, Math.max(0, (player.video.duration || 0) - 0.05));
+    const target = clampVideoTime(player.video, currentTime);
     if (Number.isFinite(target)) {
       player.video.currentTime = target;
+    }
+
+    if (state.lockSync) {
+      syncVideoTime(player.video, other.video);
     }
 
     if (!wasPaused) {
@@ -530,9 +561,15 @@ function exportSummaryCsv() {
 function stepOneFrame(player, direction) {
   const fpsGuess = 30;
   const dt = 1 / fpsGuess;
-  const next = Math.max(0, (player.video.currentTime || 0) + direction * dt);
+  const next = clampVideoTime(player.video, (player.video.currentTime || 0) + direction * dt);
   player.video.pause();
   player.video.currentTime = next;
+
+  if (state.lockSync) {
+    const other = otherPlayerOf(player);
+    other.video.pause();
+    syncPlayerToTime(other, next);
+  }
 }
 
 function stopDiffLoop() {
@@ -614,7 +651,24 @@ function wirePlayerEvents(player) {
   });
 
   player.video.addEventListener("timeupdate", () => {
-    const other = player.id === "A" ? state.players.B : state.players.A;
+    const other = otherPlayerOf(player);
+    syncVideoTime(player.video, other.video);
+  });
+
+  player.video.addEventListener("seeking", () => {
+    if (!state.lockSync || state.syncGuard) {
+      return;
+    }
+    state.syncGuard = true;
+    const other = otherPlayerOf(player);
+    syncPlayerToTime(other, player.video.currentTime || 0);
+    requestAnimationFrame(() => {
+      state.syncGuard = false;
+    });
+  });
+
+  player.video.addEventListener("seeked", () => {
+    const other = otherPlayerOf(player);
     syncVideoTime(player.video, other.video);
   });
 
@@ -622,7 +676,8 @@ function wirePlayerEvents(player) {
     if (!state.lockSync) {
       return;
     }
-    const other = player.id === "A" ? state.players.B : state.players.A;
+    const other = otherPlayerOf(player);
+    syncVideoTime(player.video, other.video);
     if (other.video.paused) {
       other.video.play().catch(() => {});
     }
@@ -632,10 +687,11 @@ function wirePlayerEvents(player) {
     if (!state.lockSync) {
       return;
     }
-    const other = player.id === "A" ? state.players.B : state.players.A;
+    const other = otherPlayerOf(player);
     if (!other.video.paused) {
       other.video.pause();
     }
+    syncVideoTime(player.video, other.video);
   });
 
   player.codecSelect.addEventListener("change", () => {
@@ -659,6 +715,9 @@ function wireActions() {
   toggleLockButton.addEventListener("click", () => {
     state.lockSync = !state.lockSync;
     updateLockButtonUi();
+    if (state.lockSync) {
+      syncVideoTime(state.players.A.video, state.players.B.video);
+    }
   });
 
   toggleDiffButton.addEventListener("click", () => {
@@ -729,7 +788,7 @@ function wireKeyboardShortcuts() {
     if (event.key.toLowerCase() === "s") {
       const a = state.players.A.video;
       const b = state.players.B.video;
-      b.currentTime = Math.min(a.currentTime || 0, Math.max(0, (b.duration || Number.MAX_SAFE_INTEGER) - 0.05));
+      b.currentTime = clampVideoTime(b, a.currentTime || 0);
       return;
     }
 
