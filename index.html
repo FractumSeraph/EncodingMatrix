@@ -103,18 +103,19 @@
 
       <section id="diffStage" class="panel diff-stage hidden">
         <div class="diff-head">
-          <h2>Side-by-Side Wipe</h2>
+          <h2>Wipe Compare</h2>
           <span id="diffBadge" class="diff-badge">Comparing A / B</span>
         </div>
-        <div class="diff-layout">
-          <div class="diff-pane">
-            <div class="diff-pane-label">Player A</div>
-            <video id="diffVideoA" class="diff-video" controls preload="metadata" playsinline></video>
+        <div id="wipeStage" class="wipe-stage">
+          <video id="diffVideoB" class="diff-video diff-video-base" preload="metadata" playsinline></video>
+          <div id="wipeOverlay" class="wipe-overlay">
+            <video id="diffVideoA" class="diff-video diff-video-top" controls preload="metadata" playsinline></video>
           </div>
-          <div class="diff-pane">
-            <div class="diff-pane-label">Player B</div>
-            <video id="diffVideoB" class="diff-video" controls preload="metadata" playsinline></video>
-          </div>
+          <div id="wipeDivider" class="wipe-divider"></div>
+        </div>
+        <div class="wipe-controls">
+          <label for="wipeSlider">Wipe Position</label>
+          <input id="wipeSlider" type="range" min="0" max="100" step="1" value="50" />
         </div>
       </section>
 

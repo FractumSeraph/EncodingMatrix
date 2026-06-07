@@ -196,7 +196,7 @@ python batch_encode.py --max-jobs 40 --schedule fast-first
 ### Advanced Compare Features
 
 - Lock Sync mode keeps Player A and Player B time-aligned while playing.
-- Side-by-side wipe compare mode shows both selected encodes at once for direct visual comparison.
+- Wipe compare mode overlays Player A on Player B with a draggable slider to reveal either side.
 - Scoreboard CSV export saves ranked rows for external analysis.
 
 ## Troubleshooting

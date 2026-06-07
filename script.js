@@ -5,6 +5,9 @@ const diffStageEl = document.getElementById("diffStage");
 const diffVideoAEl = document.getElementById("diffVideoA");
 const diffVideoBEl = document.getElementById("diffVideoB");
 const diffBadgeEl = document.getElementById("diffBadge");
+const wipeOverlayEl = document.getElementById("wipeOverlay");
+const wipeDividerEl = document.getElementById("wipeDivider");
+const wipeSliderEl = document.getElementById("wipeSlider");
 const toggleLockButton = document.getElementById("toggleLockButton");
 const toggleDiffButton = document.getElementById("toggleDiffButton");
 const exportCsvButton = document.getElementById("exportCsvButton");
@@ -41,6 +44,7 @@ const state = {
   diffSide: "A",
   diffTimerId: null,
   diffSyncGuard: false,
+  wipePosition: 50,
   rankedRows: [],
   activeQualityMetric: "ssim",
   weights: {
@@ -229,6 +233,7 @@ function capturePreferences() {
     spotlightMode: state.spotlightMode,
     lockSync: state.lockSync,
     diffMode: state.diffMode,
+    wipePosition: state.wipePosition,
     syncMaster: state.syncMaster,
     activeQualityMetric: state.activeQualityMetric,
     weights: { ...state.weights },
@@ -255,6 +260,7 @@ function loadPreferences() {
     spotlightMode: Boolean(stored.spotlightMode),
     lockSync: typeof stored.lockSync === "boolean" ? stored.lockSync : state.lockSync,
     diffMode: Boolean(stored.diffMode),
+    wipePosition: toFiniteNumber(stored.wipePosition, state.wipePosition),
     syncMaster: stored.syncMaster === "B" ? "B" : "A",
     activeQualityMetric: typeof stored.activeQualityMetric === "string" ? stored.activeQualityMetric : state.activeQualityMetric,
     weights: {
@@ -293,6 +299,7 @@ function applyPreferencesToState(preferences) {
   state.spotlightMode = preferences.spotlightMode;
   state.lockSync = preferences.lockSync;
   state.diffMode = preferences.diffMode;
+  state.wipePosition = Math.max(0, Math.min(100, toFiniteNumber(preferences.wipePosition, state.wipePosition)));
   state.syncMaster = preferences.syncMaster;
   state.activeQualityMetric = preferences.activeQualityMetric;
   state.weights = { ...state.weights, ...preferences.weights };
@@ -895,6 +902,17 @@ function syncDiffVideos(sourceVideo, targetVideo, forceSeek = false) {
   });
 }
 
+function setWipePosition(value, persist = false) {
+  const next = Math.max(0, Math.min(100, Number(value) || 0));
+  state.wipePosition = next;
+  wipeOverlayEl.style.width = `${next}%`;
+  wipeDividerEl.style.left = `${next}%`;
+  wipeSliderEl.value = String(Math.round(next));
+  if (persist) {
+    savePreferences();
+  }
+}
+
 async function loadDiffVideo(videoEl, source, targetTime, shouldPlay) {
   return new Promise((resolve) => {
     const applyReadyState = () => {
@@ -1171,6 +1189,14 @@ function wireActions() {
       savePreferences();
     });
   });
+
+  wipeSliderEl.addEventListener("input", () => {
+    setWipePosition(wipeSliderEl.value, true);
+  });
+
+  wipeSliderEl.addEventListener("change", () => {
+    setWipePosition(wipeSliderEl.value, true);
+  });
 }
 
 function wireKeyboardShortcuts() {
@@ -1276,6 +1302,7 @@ async function refreshUiAfterManifestLoad(statusMessage = "", preferences = null
 
   compareGridEl.classList.toggle("hidden", state.diffMode);
   diffStageEl.classList.toggle("hidden", !state.diffMode);
+  setWipePosition(state.wipePosition, false);
 
   renderSummaryTable();
   updateLockButtonUi();

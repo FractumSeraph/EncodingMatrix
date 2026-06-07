@@ -295,32 +295,55 @@ input[type="number"] {
   padding: 14px;
 }
 
-.diff-layout {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-}
-
-.diff-pane {
-  display: grid;
-  gap: 8px;
-}
-
-.diff-pane-label {
-  font-family: "IBM Plex Mono", monospace;
-  font-size: 0.78rem;
-  color: var(--muted);
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
-}
-
-.diff-video {
+.wipe-stage {
+  position: relative;
   width: 100%;
   aspect-ratio: 16 / 9;
   border-radius: 12px;
+  overflow: hidden;
   background: #000;
   border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.wipe-overlay {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 50%;
+  overflow: hidden;
+}
+
+.wipe-divider {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 2px;
+  background: rgba(130, 242, 223, 0.95);
+  box-shadow: 0 0 0 1px rgba(11, 24, 29, 0.5);
+  transform: translateX(-1px);
+  pointer-events: none;
+}
+
+.wipe-controls {
+  margin-top: 10px;
+  display: grid;
+  gap: 6px;
+}
+
+.diff-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   object-fit: contain;
+}
+
+.diff-video-base {
+  z-index: 1;
+}
+
+.diff-video-top {
+  z-index: 2;
 }
 
 .diff-head {
@@ -397,10 +420,6 @@ tbody tr:hover {
 
 @media (max-width: 720px) {
   .compare-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .diff-layout {
     grid-template-columns: 1fr;
   }
 
