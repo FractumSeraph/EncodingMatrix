@@ -25,6 +25,7 @@ const shortcutChipEls = document.querySelectorAll(".shortcut-chip[data-action]")
 const state = {
   manifestResults: [],
   activePlayer: "A",
+  syncMaster: "A",
   spotlightMode: false,
   lockSync: false,
   syncGuard: false,
@@ -333,7 +334,18 @@ function otherPlayerOf(player) {
   return player.id === "A" ? state.players.B : state.players.A;
 }
 
-function syncVideoTime(sourceVideo, targetVideo) {
+function normalizePlaybackRate(video) {
+  if (Math.abs(video.playbackRate - 1) > 0.001) {
+    video.playbackRate = 1;
+  }
+}
+
+function resetSyncPlaybackRates() {
+  normalizePlaybackRate(state.players.A.video);
+  normalizePlaybackRate(state.players.B.video);
+}
+
+function syncVideoTime(sourceVideo, targetVideo, forceSeek = false) {
   if (!state.lockSync || state.syncGuard) {
     return;
   }
@@ -341,16 +353,29 @@ function syncVideoTime(sourceVideo, targetVideo) {
     return;
   }
 
-  // Keep players within about half a frame at 60 fps.
-  const driftThresholdSeconds = 1 / 120;
-  const delta = Math.abs((sourceVideo.currentTime || 0) - (targetVideo.currentTime || 0));
-  if (delta < driftThresholdSeconds) {
+  const drift = (sourceVideo.currentTime || 0) - (targetVideo.currentTime || 0);
+  const absDrift = Math.abs(drift);
+  const tinyDriftThreshold = 1 / 240;
+  const hardSeekThreshold = 0.12;
+
+  if (absDrift < tinyDriftThreshold) {
+    normalizePlaybackRate(targetVideo);
+    return;
+  }
+
+  const bothPlaying = !sourceVideo.paused && !targetVideo.paused;
+  if (!forceSeek && bothPlaying && absDrift < hardSeekThreshold) {
+    // Smooth catch-up while playing to avoid visible jump cuts.
+    const correctionGain = 0.35;
+    const correction = Math.max(-0.06, Math.min(0.06, drift * correctionGain));
+    targetVideo.playbackRate = Math.max(0.94, Math.min(1.06, 1 + correction));
     return;
   }
 
   state.syncGuard = true;
   const targetTime = clampVideoTime(targetVideo, sourceVideo.currentTime || 0);
   targetVideo.currentTime = targetTime;
+  normalizePlaybackRate(targetVideo);
   requestAnimationFrame(() => {
     state.syncGuard = false;
   });
@@ -448,7 +473,12 @@ function toggleLockSync() {
   state.lockSync = !state.lockSync;
   updateLockButtonUi();
   if (state.lockSync) {
-    syncVideoTime(state.players.A.video, state.players.B.video);
+    state.syncMaster = state.activePlayer;
+    const master = state.players[state.syncMaster];
+    const follower = otherPlayerOf(master);
+    syncVideoTime(master.video, follower.video, true);
+  } else {
+    resetSyncPlaybackRates();
   }
 }
 
@@ -473,7 +503,7 @@ function runShortcutAction(action) {
   if (action === "syncBtoA") {
     const a = state.players.A.video;
     const b = state.players.B.video;
-    b.currentTime = clampVideoTime(b, a.currentTime || 0);
+    syncVideoTime(a, b, true);
     return true;
   }
   if (action === "toggleLock") {
@@ -628,12 +658,15 @@ function stepOneFrame(player, direction) {
   const dt = 1 / fpsGuess;
   const next = clampVideoTime(player.video, (player.video.currentTime || 0) + direction * dt);
   player.video.pause();
+  normalizePlaybackRate(player.video);
   player.video.currentTime = next;
 
   if (state.lockSync) {
+    state.syncMaster = player.id;
     const other = otherPlayerOf(player);
     other.video.pause();
-    syncPlayerToTime(other, next);
+    normalizePlaybackRate(other.video);
+    syncVideoTime(player.video, other.video, true);
   }
 }
 
@@ -716,6 +749,9 @@ function wirePlayerEvents(player) {
   });
 
   player.video.addEventListener("timeupdate", () => {
+    if (!state.lockSync || state.syncMaster !== player.id) {
+      return;
+    }
     const other = otherPlayerOf(player);
     syncVideoTime(player.video, other.video);
   });
@@ -724,25 +760,31 @@ function wirePlayerEvents(player) {
     if (!state.lockSync || state.syncGuard) {
       return;
     }
+    state.syncMaster = player.id;
     state.syncGuard = true;
     const other = otherPlayerOf(player);
     syncPlayerToTime(other, player.video.currentTime || 0);
+    normalizePlaybackRate(other.video);
     requestAnimationFrame(() => {
       state.syncGuard = false;
     });
   });
 
   player.video.addEventListener("seeked", () => {
+    if (state.lockSync) {
+      state.syncMaster = player.id;
+    }
     const other = otherPlayerOf(player);
-    syncVideoTime(player.video, other.video);
+    syncVideoTime(player.video, other.video, true);
   });
 
   player.video.addEventListener("play", () => {
     if (!state.lockSync) {
       return;
     }
+    state.syncMaster = player.id;
     const other = otherPlayerOf(player);
-    syncVideoTime(player.video, other.video);
+    syncVideoTime(player.video, other.video, true);
     if (other.video.paused) {
       other.video.play().catch(() => {});
     }
@@ -756,7 +798,8 @@ function wirePlayerEvents(player) {
     if (!other.video.paused) {
       other.video.pause();
     }
-    syncVideoTime(player.video, other.video);
+    syncVideoTime(player.video, other.video, true);
+    resetSyncPlaybackRates();
   });
 
   player.codecSelect.addEventListener("change", () => {
