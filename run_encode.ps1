@@ -8,7 +8,7 @@ if (!(Test-Path -Path "./source.mp4")) {
 }
 
 Write-Host "Starting batch encoding..."
-python ./batch_encode.py
+python -u ./batch_encode.py
 
 if ($LASTEXITCODE -ne 0) {
   Write-Error "batch_encode.py ended with exit code $LASTEXITCODE"

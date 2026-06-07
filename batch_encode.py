@@ -71,6 +71,14 @@ SUPPORTED_QUALITY_METRICS = ("ssim", "psnr", "vmaf")
 STOP_REQUESTED = threading.Event()
 ACTIVE_PROCESSES_LOCK = threading.Lock()
 ACTIVE_PROCESSES: set[subprocess.Popen] = set()
+STATUS_LOCK = threading.Lock()
+STATUS_STATE = {
+    "started_at": 0.0,
+    "submitted": 0,
+    "completed": 0,
+    "failed": 0,
+    "active": {},
+}
 
 
 CODECS: List[CodecSpec] = [
@@ -557,6 +565,79 @@ def handle_sigint(signum: int, frame: object) -> None:
     terminate_active_processes()
 
 
+def format_elapsed(seconds: float) -> str:
+    total = int(max(0.0, seconds))
+    minutes, sec = divmod(total, 60)
+    hours, minutes = divmod(minutes, 60)
+    if hours:
+        return f"{hours}h{minutes:02d}m{sec:02d}s"
+    if minutes:
+        return f"{minutes}m{sec:02d}s"
+    return f"{sec}s"
+
+
+def job_label(job: EncodeJob) -> str:
+    return f"{job.codec.codec_name} | preset={job.preset} | q={job.qvalue}"
+
+
+def record_status_start(total_jobs: int) -> None:
+    with STATUS_LOCK:
+        STATUS_STATE["started_at"] = time.time()
+        STATUS_STATE["submitted"] = total_jobs
+        STATUS_STATE["completed"] = 0
+        STATUS_STATE["failed"] = 0
+        STATUS_STATE["active"] = {}
+
+
+def record_job_running(job: EncodeJob) -> None:
+    with STATUS_LOCK:
+        STATUS_STATE["active"][job_label(job)] = {
+            "started_at": time.time(),
+            "lane": "GPU" if is_gpu_codec(job.codec) else "CPU",
+        }
+
+
+def record_job_finished(job: EncodeJob) -> None:
+    with STATUS_LOCK:
+        STATUS_STATE["active"].pop(job_label(job), None)
+        STATUS_STATE["completed"] += 1
+
+
+def record_job_failed(job: EncodeJob) -> None:
+    with STATUS_LOCK:
+        STATUS_STATE["active"].pop(job_label(job), None)
+        STATUS_STATE["failed"] += 1
+
+
+def progress_reporter() -> None:
+    while not STOP_REQUESTED.is_set():
+        time.sleep(60)
+        with STATUS_LOCK:
+            started_at = STATUS_STATE["started_at"]
+            submitted = STATUS_STATE["submitted"]
+            completed = STATUS_STATE["completed"]
+            failed = STATUS_STATE["failed"]
+            active = dict(STATUS_STATE["active"])
+
+        if started_at <= 0.0:
+            continue
+
+        elapsed = time.time() - started_at
+        remaining = max(0, submitted - completed - failed - len(active))
+        print(
+            f"[PROGRESS] elapsed={format_elapsed(elapsed)} | submitted={submitted} | "
+            f"done={completed} | failed={failed} | active={len(active)} | queued={remaining}",
+            flush=True,
+        )
+        if active:
+            for label, info in list(active.items())[:5]:
+                active_elapsed = time.time() - float(info.get("started_at", time.time()))
+                print(
+                    f"[PROGRESS] running={info.get('lane', '?')} | {label} | active_for={format_elapsed(active_elapsed)}",
+                    flush=True,
+                )
+
+
 def run_command_capture(cmd: List[str]) -> Tuple[int, str]:
     process = subprocess.Popen(
         cmd,
@@ -575,17 +656,22 @@ def run_command_capture(cmd: List[str]) -> Tuple[int, str]:
 def run_encode(source_video: Path, job: EncodeJob) -> Tuple[bool, float, int, str]:
     if STOP_REQUESTED.is_set():
         return False, 0.0, 0, "Stopped before start."
+    record_job_running(job)
+    print(f"[START] {job_label(job)}", flush=True)
     cmd = build_ffmpeg_command(source_video, job.codec, job.preset, job.qvalue, job.output_path)
     start = time.perf_counter()
     returncode, output = run_command_capture(cmd)
     elapsed = time.perf_counter() - start
 
     if returncode != 0:
+        record_job_failed(job)
         return False, elapsed, 0, output
 
     if not job.output_path.exists():
+        record_job_failed(job)
         return False, elapsed, 0, "FFmpeg reported success but output file was not created."
 
+    record_job_finished(job)
     return True, elapsed, job.output_path.stat().st_size, output
 
 
@@ -804,6 +890,10 @@ def main() -> None:
         if len(scheduled) > 50:
             print(f"... ({len(scheduled) - 50} more jobs)")
         return
+
+    record_status_start(total_jobs)
+    reporter_thread = threading.Thread(target=progress_reporter, name="progress-reporter", daemon=True)
+    reporter_thread.start()
 
     success_jobs = 0
     failed_jobs = 0
