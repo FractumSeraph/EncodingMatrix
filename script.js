@@ -787,12 +787,54 @@ async function loadManifest() {
   return rows;
 }
 
+async function outputFileExists(path) {
+  if (!path || typeof path !== "string") {
+    return false;
+  }
+
+  const cacheBustedPath = `${path}?t=${Date.now()}`;
+
+  try {
+    const response = await fetch(cacheBustedPath, {
+      method: "HEAD",
+      cache: "no-store",
+    });
+    if (response.ok) {
+      return true;
+    }
+    if (response.status !== 405) {
+      return false;
+    }
+  } catch {
+    // Fall back to a lightweight GET probe if HEAD is not supported.
+  }
+
+  try {
+    const response = await fetch(cacheBustedPath, {
+      method: "GET",
+      cache: "no-store",
+      headers: {
+        Range: "bytes=0-0",
+      },
+    });
+    return response.ok || response.status === 206;
+  } catch {
+    return false;
+  }
+}
+
+async function keepOnlyEncodedRows(rows) {
+  const exists = await Promise.all(rows.map((row) => outputFileExists(row?.output_filename)));
+  return rows.filter((_, index) => exists[index]);
+}
+
 async function initialize() {
   try {
-    state.manifestResults = await loadManifest();
+    const manifestRows = await loadManifest();
+    state.manifestResults = await keepOnlyEncodedRows(manifestRows);
 
     if (!state.manifestResults.length) {
-      setStatus("Manifest is empty. Run batch_encode.py first.");
+      setStatus("No encoded output files were found. Run batch_encode.py first.");
       return;
     }
 
