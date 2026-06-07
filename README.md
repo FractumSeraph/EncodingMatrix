@@ -173,6 +173,7 @@ python batch_encode.py --max-jobs 40 --schedule fast-first
 - Viewer preferences persist across sessions, including player selections, lock sync, diff mode, weights, filters, and active player.
 - Frame stepping uses the source video's frame rate from the manifest when available.
 - Two independent players (A and B) each have their own Codec, Preset, and CRF controls.
+- Preset lists are ordered from faster to slower by codec family (instead of alphabetical sorting).
 - Source switching preserves playback timestamp in each player for seamless comparison.
 - Metadata under each player shows settings, encoded size in MB, and encode time.
 - Metadata under each player also shows the recorded visual quality score.
@@ -196,7 +197,7 @@ python batch_encode.py --max-jobs 40 --schedule fast-first
 ### Advanced Compare Features
 
 - Lock Sync mode keeps Player A and Player B time-aligned while playing.
-- Wipe compare mode overlays Player A on Player B with a draggable slider to reveal either side.
+- Wipe compare mode overlays Player A on Player B with a draggable wipe slider plus a shared play/pause and timeline seek bar.
 - Scoreboard CSV export saves ranked rows for external analysis.
 
 ## Troubleshooting

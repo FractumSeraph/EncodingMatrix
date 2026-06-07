@@ -109,13 +109,19 @@
         <div id="wipeStage" class="wipe-stage">
           <video id="diffVideoB" class="diff-video diff-video-base" preload="metadata" playsinline></video>
           <div id="wipeOverlay" class="wipe-overlay">
-            <video id="diffVideoA" class="diff-video diff-video-top" controls preload="metadata" playsinline></video>
+            <video id="diffVideoA" class="diff-video diff-video-top" preload="metadata" playsinline></video>
           </div>
           <div id="wipeDivider" class="wipe-divider"></div>
         </div>
         <div class="wipe-controls">
+          <div class="wipe-transport">
+            <button id="wipePlayPauseButton" type="button">Play</button>
+            <span id="wipeTimeLabel" class="wipe-time">0:00 / 0:00</span>
+          </div>
           <label for="wipeSlider">Wipe Position</label>
           <input id="wipeSlider" type="range" min="0" max="100" step="1" value="50" />
+          <label for="wipeSeekBar">Timeline</label>
+          <input id="wipeSeekBar" type="range" min="0" max="1000" step="1" value="0" />
         </div>
       </section>
 

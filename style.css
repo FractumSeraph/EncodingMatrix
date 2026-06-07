@@ -307,8 +307,8 @@ input[type="number"] {
 
 .wipe-overlay {
   position: absolute;
-  inset: 0 auto 0 0;
-  width: 50%;
+  inset: 0;
+  width: 100%;
   overflow: hidden;
 }
 
@@ -330,6 +330,18 @@ input[type="number"] {
   gap: 6px;
 }
 
+.wipe-transport {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.wipe-time {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
 .diff-video {
   position: absolute;
   inset: 0;
@@ -344,6 +356,7 @@ input[type="number"] {
 
 .diff-video-top {
   z-index: 2;
+  clip-path: inset(0 50% 0 0);
 }
 
 .diff-head {

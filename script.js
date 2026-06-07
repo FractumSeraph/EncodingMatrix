@@ -8,6 +8,9 @@ const diffBadgeEl = document.getElementById("diffBadge");
 const wipeOverlayEl = document.getElementById("wipeOverlay");
 const wipeDividerEl = document.getElementById("wipeDivider");
 const wipeSliderEl = document.getElementById("wipeSlider");
+const wipeSeekBarEl = document.getElementById("wipeSeekBar");
+const wipePlayPauseButton = document.getElementById("wipePlayPauseButton");
+const wipeTimeLabelEl = document.getElementById("wipeTimeLabel");
 const toggleLockButton = document.getElementById("toggleLockButton");
 const toggleDiffButton = document.getElementById("toggleDiffButton");
 const exportCsvButton = document.getElementById("exportCsvButton");
@@ -45,6 +48,7 @@ const state = {
   diffTimerId: null,
   diffSyncGuard: false,
   wipePosition: 50,
+  wipeSeekDragging: false,
   rankedRows: [],
   activeQualityMetric: "ssim",
   weights: {
@@ -411,8 +415,60 @@ function allCodecs() {
   return uniqueSorted(state.manifestResults.map((x) => x.codec_name));
 }
 
+function presetSortRank(codecName, preset) {
+  const cpuOrder = [
+    "ultrafast",
+    "superfast",
+    "veryfast",
+    "faster",
+    "fast",
+    "medium",
+    "slow",
+    "slower",
+    "veryslow",
+    "placebo",
+  ];
+
+  if (codecName === "H.264 CPU" || codecName === "H.265 CPU") {
+    const index = cpuOrder.indexOf(String(preset));
+    return index >= 0 ? index : 999;
+  }
+
+  if (codecName === "H.264 Nvidia" || codecName === "H.265 Nvidia") {
+    const match = String(preset).match(/^p(\d+)$/i);
+    return match ? Number(match[1]) : 999;
+  }
+
+  if (codecName === "AV1") {
+    const value = Number(preset);
+    if (Number.isFinite(value)) {
+      return 13 - value;
+    }
+    return 999;
+  }
+
+  if (codecName === "VP9") {
+    const map = {
+      realtime: 0,
+      good: 1,
+      best: 2,
+    };
+    const rank = map[String(preset).toLowerCase()];
+    return Number.isFinite(rank) ? rank : 999;
+  }
+
+  return 999;
+}
+
 function presetsForCodec(codec) {
-  return uniqueSorted(state.manifestResults.filter((x) => x.codec_name === codec).map((x) => x.preset));
+  const presets = [...new Set(state.manifestResults.filter((x) => x.codec_name === codec).map((x) => x.preset))];
+  return presets.sort((a, b) => {
+    const rankDelta = presetSortRank(codec, a) - presetSortRank(codec, b);
+    if (rankDelta !== 0) {
+      return rankDelta;
+    }
+    return String(a).localeCompare(String(b), undefined, { numeric: true, sensitivity: "base" });
+  });
 }
 
 function crfValuesFor(codec, preset) {
@@ -905,12 +961,67 @@ function syncDiffVideos(sourceVideo, targetVideo, forceSeek = false) {
 function setWipePosition(value, persist = false) {
   const next = Math.max(0, Math.min(100, Number(value) || 0));
   state.wipePosition = next;
-  wipeOverlayEl.style.width = `${next}%`;
+  const rightInset = Math.max(0, Math.min(100, 100 - next));
+  const clipValue = `inset(0 ${rightInset}% 0 0)`;
+  diffVideoAEl.style.clipPath = clipValue;
+  diffVideoAEl.style.webkitClipPath = clipValue;
   wipeDividerEl.style.left = `${next}%`;
   wipeSliderEl.value = String(Math.round(next));
   if (persist) {
     savePreferences();
   }
+}
+
+function wipeDurationSeconds() {
+  const a = Number.isFinite(diffVideoAEl.duration) ? diffVideoAEl.duration : 0;
+  const b = Number.isFinite(diffVideoBEl.duration) ? diffVideoBEl.duration : 0;
+  return Math.max(a, b, 0);
+}
+
+function wipeCurrentSeconds() {
+  const a = Number.isFinite(diffVideoAEl.currentTime) ? diffVideoAEl.currentTime : 0;
+  const b = Number.isFinite(diffVideoBEl.currentTime) ? diffVideoBEl.currentTime : 0;
+  return Math.max(a, b, 0);
+}
+
+function formatClock(totalSeconds) {
+  const value = Math.max(0, Math.floor(Number(totalSeconds) || 0));
+  const minutes = Math.floor(value / 60);
+  const seconds = value % 60;
+  return `${minutes}:${String(seconds).padStart(2, "0")}`;
+}
+
+function updateWipeTransportUi() {
+  const duration = wipeDurationSeconds();
+  const current = wipeCurrentSeconds();
+  const ratio = duration > 0 ? Math.max(0, Math.min(1, current / duration)) : 0;
+  if (!state.wipeSeekDragging) {
+    wipeSeekBarEl.value = String(Math.round(ratio * 1000));
+  }
+  wipePlayPauseButton.textContent = diffVideoAEl.paused && diffVideoBEl.paused ? "Play" : "Pause";
+  wipeTimeLabelEl.textContent = `${formatClock(current)} / ${formatClock(duration)}`;
+}
+
+function seekWipeToRatio(ratio) {
+  const duration = wipeDurationSeconds();
+  if (duration <= 0) {
+    return;
+  }
+  const target = duration * Math.max(0, Math.min(1, ratio));
+  diffVideoAEl.currentTime = clampVideoTime(diffVideoAEl, target);
+  diffVideoBEl.currentTime = clampVideoTime(diffVideoBEl, target);
+  updateWipeTransportUi();
+}
+
+function toggleWipePlayback() {
+  if (diffVideoAEl.paused && diffVideoBEl.paused) {
+    diffVideoAEl.play().catch(() => {});
+    diffVideoBEl.play().catch(() => {});
+  } else {
+    diffVideoAEl.pause();
+    diffVideoBEl.pause();
+  }
+  updateWipeTransportUi();
 }
 
 async function loadDiffVideo(videoEl, source, targetTime, shouldPlay) {
@@ -968,9 +1079,12 @@ async function refreshDiffView() {
 
   diffVideoAEl.muted = true;
   diffVideoBEl.muted = true;
+  diffVideoAEl.controls = false;
+  diffVideoBEl.controls = false;
   diffVideoAEl.playbackRate = 1;
   diffVideoBEl.playbackRate = 1;
   diffBadgeEl.textContent = `Comparing ${entryA.codec_name} / ${entryB.codec_name}`;
+  updateWipeTransportUi();
 }
 
 function setDiffMode(enabled) {
@@ -983,6 +1097,7 @@ function setDiffMode(enabled) {
     diffVideoBEl.pause();
     compareGridEl.classList.remove("hidden");
     diffStageEl.classList.add("hidden");
+    updateWipeTransportUi();
     savePreferences();
     return;
   }
@@ -992,6 +1107,7 @@ function setDiffMode(enabled) {
   refreshDiffView().catch(() => {
     setStatus("Could not initialize side-by-side wipe.");
   });
+  updateWipeTransportUi();
   savePreferences();
 }
 
@@ -1005,6 +1121,7 @@ function wireDiffVideoEvents() {
       if (targetVideo.paused) {
         targetVideo.play().catch(() => {});
       }
+      updateWipeTransportUi();
     });
 
     sourceVideo.addEventListener("pause", () => {
@@ -1015,6 +1132,7 @@ function wireDiffVideoEvents() {
         targetVideo.pause();
       }
       syncDiffVideos(sourceVideo, targetVideo, true);
+      updateWipeTransportUi();
     });
 
     sourceVideo.addEventListener("seeking", () => {
@@ -1022,6 +1140,7 @@ function wireDiffVideoEvents() {
         return;
       }
       syncDiffVideos(sourceVideo, targetVideo, true);
+      updateWipeTransportUi();
     });
 
     sourceVideo.addEventListener("ratechange", () => {
@@ -1029,6 +1148,7 @@ function wireDiffVideoEvents() {
         return;
       }
       targetVideo.playbackRate = sourceVideo.playbackRate;
+      updateWipeTransportUi();
     });
 
     sourceVideo.addEventListener("timeupdate", () => {
@@ -1036,6 +1156,11 @@ function wireDiffVideoEvents() {
         return;
       }
       syncDiffVideos(sourceVideo, targetVideo, false);
+      updateWipeTransportUi();
+    });
+
+    sourceVideo.addEventListener("loadedmetadata", () => {
+      updateWipeTransportUi();
     });
   };
 
@@ -1197,6 +1322,20 @@ function wireActions() {
   wipeSliderEl.addEventListener("change", () => {
     setWipePosition(wipeSliderEl.value, true);
   });
+
+  wipePlayPauseButton.addEventListener("click", () => {
+    toggleWipePlayback();
+  });
+
+  wipeSeekBarEl.addEventListener("input", () => {
+    state.wipeSeekDragging = true;
+    seekWipeToRatio(Number(wipeSeekBarEl.value) / 1000);
+  });
+
+  wipeSeekBarEl.addEventListener("change", () => {
+    state.wipeSeekDragging = false;
+    seekWipeToRatio(Number(wipeSeekBarEl.value) / 1000);
+  });
 }
 
 function wireKeyboardShortcuts() {
@@ -1317,6 +1456,7 @@ async function refreshUiAfterManifestLoad(statusMessage = "", preferences = null
   }
 
   setStatus(statusMessage);
+  updateWipeTransportUi();
   savePreferences();
 }
 
