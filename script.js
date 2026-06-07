@@ -20,6 +20,7 @@ const weightQualityValueEl = document.getElementById("weightQualityValue");
 const weightSizeValueEl = document.getElementById("weightSizeValue");
 const weightTimeValueEl = document.getElementById("weightTimeValue");
 const scoreFormulaTextEl = document.getElementById("scoreFormulaText");
+const shortcutChipEls = document.querySelectorAll(".shortcut-chip[data-action]");
 
 const state = {
   manifestResults: [],
@@ -443,6 +444,70 @@ function rowHtml(cells) {
   return `<tr>${cells.map((x) => `<td>${x}</td>`).join("")}</tr>`;
 }
 
+function toggleLockSync() {
+  state.lockSync = !state.lockSync;
+  updateLockButtonUi();
+  if (state.lockSync) {
+    syncVideoTime(state.players.A.video, state.players.B.video);
+  }
+}
+
+function runShortcutAction(action) {
+  const active = state.players[state.activePlayer];
+
+  if (action === "focusA") {
+    setActivePlayer("A");
+    applySpotlight();
+    return true;
+  }
+  if (action === "focusB") {
+    setActivePlayer("B");
+    applySpotlight();
+    return true;
+  }
+  if (action === "spotlight") {
+    state.spotlightMode = !state.spotlightMode;
+    applySpotlight();
+    return true;
+  }
+  if (action === "syncBtoA") {
+    const a = state.players.A.video;
+    const b = state.players.B.video;
+    b.currentTime = clampVideoTime(b, a.currentTime || 0);
+    return true;
+  }
+  if (action === "toggleLock") {
+    toggleLockSync();
+    return true;
+  }
+  if (action === "toggleDiff") {
+    setDiffMode(!state.diffMode);
+    return true;
+  }
+  if (action === "exportCsv") {
+    exportSummaryCsv();
+    return true;
+  }
+  if (action === "playPause") {
+    if (active.video.paused) {
+      active.video.play().catch(() => {});
+    } else {
+      active.video.pause();
+    }
+    return true;
+  }
+  if (action === "frameBack") {
+    stepOneFrame(active, -1);
+    return true;
+  }
+  if (action === "frameForward") {
+    stepOneFrame(active, 1);
+    return true;
+  }
+
+  return false;
+}
+
 function renderSummaryTable() {
   if (!state.manifestResults.length) {
     summaryTableBody.innerHTML = "";
@@ -713,11 +778,7 @@ function wirePlayerEvents(player) {
 
 function wireActions() {
   toggleLockButton.addEventListener("click", () => {
-    state.lockSync = !state.lockSync;
-    updateLockButtonUi();
-    if (state.lockSync) {
-      syncVideoTime(state.players.A.video, state.players.B.video);
-    }
+    toggleLockSync();
   });
 
   toggleDiffButton.addEventListener("click", () => {
@@ -766,68 +827,64 @@ function wireActions() {
 
 function wireKeyboardShortcuts() {
   document.addEventListener("keydown", (event) => {
-    const active = state.players[state.activePlayer];
-
     if (event.key === "1") {
-      setActivePlayer("A");
-      applySpotlight();
+      runShortcutAction("focusA");
       return;
     }
     if (event.key === "2") {
-      setActivePlayer("B");
-      applySpotlight();
+      runShortcutAction("focusB");
       return;
     }
 
     if (event.key.toLowerCase() === "q") {
-      state.spotlightMode = !state.spotlightMode;
-      applySpotlight();
+      runShortcutAction("spotlight");
       return;
     }
 
     if (event.key.toLowerCase() === "s") {
-      const a = state.players.A.video;
-      const b = state.players.B.video;
-      b.currentTime = clampVideoTime(b, a.currentTime || 0);
+      runShortcutAction("syncBtoA");
       return;
     }
 
     if (event.key.toLowerCase() === "l") {
-      state.lockSync = !state.lockSync;
-      updateLockButtonUi();
+      runShortcutAction("toggleLock");
       return;
     }
 
     if (event.key.toLowerCase() === "d") {
-      setDiffMode(!state.diffMode);
+      runShortcutAction("toggleDiff");
       return;
     }
 
     if (event.key.toLowerCase() === "e") {
-      exportSummaryCsv();
+      runShortcutAction("exportCsv");
       return;
     }
 
     if (event.key === " ") {
       event.preventDefault();
-      if (active.video.paused) {
-        active.video.play().catch(() => {});
-      } else {
-        active.video.pause();
-      }
+      runShortcutAction("playPause");
       return;
     }
 
     if (event.key === ",") {
       event.preventDefault();
-      stepOneFrame(active, -1);
+      runShortcutAction("frameBack");
       return;
     }
 
     if (event.key === ".") {
       event.preventDefault();
-      stepOneFrame(active, 1);
+      runShortcutAction("frameForward");
     }
+  });
+}
+
+function wireShortcutChipActions() {
+  shortcutChipEls.forEach((chipEl) => {
+    chipEl.addEventListener("click", () => {
+      runShortcutAction(chipEl.dataset.action);
+    });
   });
 }
 
@@ -904,6 +961,7 @@ async function initialize() {
     wirePlayerEvents(playerB);
     wireActions();
     wireKeyboardShortcuts();
+    wireShortcutChipActions();
     populateFilterCodec();
     populateQualityMetricSelect();
     updateWeightLabels();

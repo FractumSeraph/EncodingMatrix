@@ -16,16 +16,16 @@
       <section class="panel shortcuts-panel">
         <div class="shortcuts-title">Controls</div>
         <div class="shortcuts-list">
-          <span><kbd>1</kbd> Focus A</span>
-          <span><kbd>2</kbd> Focus B</span>
-          <span><kbd>Space</kbd> Play/Pause focused</span>
-          <span><kbd>,</kbd> Frame -1</span>
-          <span><kbd>.</kbd> Frame +1</span>
-          <span><kbd>Q</kbd> Spotlight A/B</span>
-          <span><kbd>S</kbd> Sync B to A</span>
-          <span><kbd>L</kbd> Lock Sync</span>
-          <span><kbd>D</kbd> Diff Mode</span>
-          <span><kbd>E</kbd> Export CSV</span>
+          <button type="button" class="shortcut-chip" data-action="focusA"><kbd>1</kbd> Focus A</button>
+          <button type="button" class="shortcut-chip" data-action="focusB"><kbd>2</kbd> Focus B</button>
+          <button type="button" class="shortcut-chip" data-action="playPause"><kbd>Space</kbd> Play/Pause focused</button>
+          <button type="button" class="shortcut-chip" data-action="frameBack"><kbd>,</kbd> Frame -1</button>
+          <button type="button" class="shortcut-chip" data-action="frameForward"><kbd>.</kbd> Frame +1</button>
+          <button type="button" class="shortcut-chip" data-action="spotlight"><kbd>Q</kbd> Spotlight A/B</button>
+          <button type="button" class="shortcut-chip" data-action="syncBtoA"><kbd>S</kbd> Sync B to A</button>
+          <button type="button" class="shortcut-chip" data-action="toggleLock"><kbd>L</kbd> Lock Sync</button>
+          <button type="button" class="shortcut-chip" data-action="toggleDiff"><kbd>D</kbd> Diff Mode</button>
+          <button type="button" class="shortcut-chip" data-action="exportCsv"><kbd>E</kbd> Export CSV</button>
         </div>
         <div class="top-actions">
           <button id="toggleLockButton" type="button">Lock Sync: Off</button>
