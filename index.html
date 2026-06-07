@@ -3,13 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Encoder Matrix Compare Lab</title>
+    <title>FractumSeraph's Encoding Comparisons</title>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <main class="app-shell">
       <header class="hero">
-        <h1>Encoding Matrix Compare Lab</h1>
+        <h1>FractumSeraph's Encoding Comparisons</h1>
         <p>Frame-accurate A/B comparison with sync, blink-diff mode, and ranked encode tradeoffs.</p>
       </header>
 
@@ -28,7 +28,7 @@
           <button type="button" class="shortcut-chip" data-action="exportCsv"><kbd>E</kbd> Export CSV</button>
         </div>
         <div class="top-actions">
-          <button id="toggleLockButton" type="button">Lock Sync: Off</button>
+          <button id="toggleLockButton" type="button">Lock Sync: On</button>
           <button id="toggleDiffButton" type="button">Diff Mode: Off</button>
         </div>
       </section>
@@ -117,12 +117,12 @@
           <div class="analytics-block">
             <h2>Score Weights</h2>
             <div class="weight-row">
-              <label for="weightQuality">Quality <span id="weightQualityValue">1.0</span></label>
-              <input id="weightQuality" type="range" min="0" max="5" step="0.1" value="1" />
+              <label for="weightQuality">Quality <span id="weightQualityValue">5.0</span></label>
+              <input id="weightQuality" type="range" min="0" max="5" step="0.1" value="5" />
             </div>
             <div class="weight-row">
-              <label for="weightSize">File Size <span id="weightSizeValue">1.0</span></label>
-              <input id="weightSize" type="range" min="0" max="5" step="0.1" value="1" />
+              <label for="weightSize">File Size <span id="weightSizeValue">2.0</span></label>
+              <input id="weightSize" type="range" min="0" max="5" step="0.1" value="2" />
             </div>
             <div class="weight-row">
               <label for="weightTime">Encode Time <span id="weightTimeValue">1.0</span></label>

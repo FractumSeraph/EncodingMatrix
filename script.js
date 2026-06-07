@@ -28,7 +28,7 @@ const state = {
   activePlayer: "A",
   syncMaster: "A",
   spotlightMode: false,
-  lockSync: false,
+  lockSync: true,
   syncGuard: false,
   diffMode: false,
   diffSide: "A",
@@ -37,8 +37,8 @@ const state = {
   rankedRows: [],
   activeQualityMetric: "ssim",
   weights: {
-    quality: 1,
-    size: 1,
+    quality: 5,
+    size: 2,
     time: 1,
   },
   filters: {
@@ -1123,6 +1123,10 @@ async function initialize() {
     wireShortcutChipActions();
     populateFilterCodec();
     populateQualityMetricSelect();
+
+    weightQualityEl.value = String(state.weights.quality);
+    weightSizeEl.value = String(state.weights.size);
+    weightTimeEl.value = String(state.weights.time);
     updateWeightLabels();
 
     updatePlayerControls(playerA);
