@@ -581,7 +581,10 @@ def build_ffmpeg_command(source_video: Path, codec: CodecSpec, preset: str, qval
     if codec.ffmpeg_encoder in {"libx264", "libx265"}:
         cmd.extend(["-crf", str(qvalue), "-pix_fmt", "yuv420p"])
     elif codec.ffmpeg_encoder in {"h264_nvenc", "hevc_nvenc"}:
-        cmd.extend(["-rc:v", "vbr", "-cq", str(qvalue), "-b:v", "10M"])
+        # -b:v 0 makes -cq the sole rate controller. With a non-zero target
+        # bitrate, VBR targets that bitrate and treats -cq as a mere ceiling,
+        # so low cq values all collapse to the same bitrate-bound output.
+        cmd.extend(["-rc:v", "vbr", "-cq", str(qvalue), "-b:v", "0"])
     elif codec.ffmpeg_encoder == "libsvtav1":
         cmd.extend(["-crf", str(qvalue), "-pix_fmt", "yuv420p"])
     elif codec.ffmpeg_encoder == "libvpx-vp9":
