@@ -1963,20 +1963,6 @@
     },
     {
       "codec_name": "AV1",
-      "preset": "-1",
-      "crf_value": 35,
-      "encode_time_seconds": 24288.526,
-      "file_size_bytes": 84660075,
-      "quality_metric": "ssim",
-      "quality_score": 0.919806,
-      "quality_scores": {
-        "ssim": 0.919806,
-        "psnr": 36.210848
-      },
-      "output_filename": "encodes/av1__1__q35.mp4"
-    },
-    {
-      "codec_name": "AV1",
       "preset": "0",
       "crf_value": 35,
       "encode_time_seconds": 3115.407,
@@ -1988,20 +1974,6 @@
         "psnr": 35.960744
       },
       "output_filename": "encodes/av1__0__q35.mp4"
-    },
-    {
-      "codec_name": "AV1",
-      "preset": "1",
-      "crf_value": 35,
-      "encode_time_seconds": 1084.128,
-      "file_size_bytes": 79379024,
-      "quality_metric": "ssim",
-      "quality_score": 0.91484,
-      "quality_scores": {
-        "ssim": 0.91484,
-        "psnr": 35.893399
-      },
-      "output_filename": "encodes/av1__1__q35.mp4"
     },
     {
       "codec_name": "AV1",
