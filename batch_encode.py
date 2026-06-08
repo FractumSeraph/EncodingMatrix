@@ -146,7 +146,10 @@ CODECS: List[CodecSpec] = [
     CodecSpec(
         codec_name="AV1",
         ffmpeg_encoder="libsvtav1",
-        presets=[str(i) for i in range(-1, 14)],
+        # Presets above 9 produced byte-identical output to preset 9 (the
+        # encoder clamps/aliases the fastest presets), so they are excluded
+        # to avoid redundant encodes. Range is -1..9.
+        presets=[str(i) for i in range(-1, 10)],
         qmin=0,
         qmax=63,
         qflag="crf",
