@@ -33,6 +33,18 @@ const shortcutChipEls = document.querySelectorAll(".shortcut-chip[data-action]")
 const UI_STORAGE_KEY = "fractumseraph.encoding-comparisons.ui.v1";
 const ENCODE_CACHE_KEY = "fractumseraph.encoding-comparisons.encode-cache.v1";
 const FRAME_STEP_SECONDS = 1 / 30;
+const DEFAULT_PLAYER_SELECTIONS = {
+  A: {
+    codec: "H.264 CPU",
+    preset: "placebo",
+    crf: 28,
+  },
+  B: {
+    codec: "H.264 Nvidia",
+    preset: "p1",
+    crf: 51,
+  },
+};
 
 const state = {
   manifestResults: [],
@@ -1420,6 +1432,8 @@ function frameIndexForTime(currentTime, frameStepSeconds, direction) {
 async function refreshUiAfterManifestLoad(statusMessage = "", preferences = null) {
   const playerA = state.players.A;
   const playerB = state.players.B;
+  const playerSelectionA = preferences?.players?.A || DEFAULT_PLAYER_SELECTIONS.A;
+  const playerSelectionB = preferences?.players?.B || DEFAULT_PLAYER_SELECTIONS.B;
 
   populateFilterCodec();
   populateQualityMetricSelect();
@@ -1429,8 +1443,8 @@ async function refreshUiAfterManifestLoad(statusMessage = "", preferences = null
   weightTimeEl.value = String(state.weights.time);
   updateWeightLabels();
 
-  updatePlayerControls(playerA, preferences?.players?.A || null);
-  updatePlayerControls(playerB, preferences?.players?.B || null);
+  updatePlayerControls(playerA, playerSelectionA);
+  updatePlayerControls(playerB, playerSelectionB);
 
   refreshPlayer(playerA, false);
   refreshPlayer(playerB, false);
