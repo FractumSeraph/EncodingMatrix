@@ -187,7 +187,8 @@ python batch_encode.py --max-jobs 40 --schedule fast-first
 ## Frontend Behavior
 
 - UI options are generated from manifest data only.
-- Available encode options are cached in the browser and can be rebuilt with the Regenerate Encode Cache button.
+- Completed encodes are read directly from manifest.json (no per-file existence probing).
+- The viewer auto-refreshes manifest changes in the background while open and also supports manual Reload Manifest.
 - Viewer preferences persist across sessions, including player selections, lock sync, diff mode, weights, filters, and active player.
 - Frame stepping uses the source video's frame rate from the manifest when available.
 - Two independent players (A and B) each have their own Codec, Preset, and CRF controls.

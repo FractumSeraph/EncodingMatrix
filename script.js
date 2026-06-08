@@ -31,8 +31,8 @@ const scoreFormulaTextEl = document.getElementById("scoreFormulaText");
 const shortcutChipEls = document.querySelectorAll(".shortcut-chip[data-action]");
 
 const UI_STORAGE_KEY = "fractumseraph.encoding-comparisons.ui.v1";
-const ENCODE_CACHE_KEY = "fractumseraph.encoding-comparisons.encode-cache.v1";
 const FRAME_STEP_SECONDS = 1 / 30;
+const MANIFEST_POLL_INTERVAL_MS = 60 * 60 * 1000;
 const DEFAULT_PLAYER_SELECTIONS = {
   A: {
     codec: "H.264 CPU",
@@ -49,6 +49,8 @@ const DEFAULT_PLAYER_SELECTIONS = {
 const state = {
   manifestResults: [],
   manifestSourceRows: [],
+  manifestSignature: "",
+  manifestPollTimerId: null,
   sourceFrameRate: 30,
   activePlayer: "A",
   syncMaster: "A",
@@ -341,31 +343,62 @@ function applyPlayerSelection(player, selection) {
 }
 
 async function loadAvailableEncodes(manifestRows, forceRefresh = false) {
-  const signature = manifestSignature(manifestRows);
-  if (!forceRefresh) {
-    const cached = readStorageJson(ENCODE_CACHE_KEY);
-    if (cached && cached.signature === signature && Array.isArray(cached.results)) {
-      return { results: cached.results, source: "cache" };
-    }
-  }
-
-  const results = await keepOnlyEncodedRows(manifestRows);
-  writeStorageJson(ENCODE_CACHE_KEY, {
-    signature,
-    results,
-    createdAt: Date.now(),
-  });
-  return { results, source: forceRefresh ? "rebuilt" : "scanned" };
+  const _forceRefresh = forceRefresh;
+  void _forceRefresh;
+  return { results: manifestRows, source: "manifest" };
 }
 
 async function rebuildEncodeCache() {
   const manifestData = await loadManifest();
   state.manifestSourceRows = manifestData.rows;
   state.sourceFrameRate = manifestData.sourceFrameRate;
+  state.manifestSignature = manifestSignature(manifestData.rows);
 
-  const cache = await loadAvailableEncodes(manifestData.rows, true);
-  state.manifestResults = cache.results;
-  await refreshUiAfterManifestLoad(`Encode cache rebuilt from ${state.manifestSourceRows.length} manifest entries.`);
+  const manifestRows = await loadAvailableEncodes(manifestData.rows, true);
+  state.manifestResults = manifestRows.results;
+  await refreshUiAfterManifestLoad(`Manifest reloaded with ${state.manifestSourceRows.length} completed entries.`);
+}
+
+function stopManifestAutoRefresh() {
+  if (state.manifestPollTimerId !== null) {
+    clearInterval(state.manifestPollTimerId);
+    state.manifestPollTimerId = null;
+  }
+}
+
+function startManifestAutoRefresh() {
+  stopManifestAutoRefresh();
+  state.manifestPollTimerId = setInterval(() => {
+    if (document.hidden) {
+      return;
+    }
+    refreshManifestIfChanged().catch(() => {
+      // Keep polling even if a single refresh fails.
+    });
+  }, MANIFEST_POLL_INTERVAL_MS);
+}
+
+async function refreshManifestIfChanged() {
+  const manifestData = await loadManifest();
+  const nextSignature = manifestSignature(manifestData.rows);
+  if (nextSignature === state.manifestSignature) {
+    return;
+  }
+
+  const previousSelections = {
+    A: capturePlayerSelection(state.players.A),
+    B: capturePlayerSelection(state.players.B),
+  };
+
+  state.manifestSourceRows = manifestData.rows;
+  state.manifestSignature = nextSignature;
+  state.sourceFrameRate = manifestData.sourceFrameRate;
+  state.manifestResults = manifestData.rows;
+
+  await refreshUiAfterManifestLoad(
+    `Manifest updated automatically: ${state.manifestResults.length} completed entries.`,
+    { players: previousSelections }
+  );
 }
 
 function clearSelect(selectEl) {
@@ -1280,9 +1313,9 @@ function wireActions() {
   });
 
   refreshEncodeCacheButton.addEventListener("click", () => {
-    setStatus("Rebuilding encode cache...");
+    setStatus("Reloading manifest...");
     rebuildEncodeCache().catch((error) => {
-      setStatus(`Could not rebuild encode cache: ${error.message}`);
+      setStatus(`Could not reload manifest: ${error.message}`);
     });
   });
 
@@ -1492,47 +1525,6 @@ async function loadManifest() {
   };
 }
 
-async function outputFileExists(path) {
-  if (!path || typeof path !== "string") {
-    return false;
-  }
-
-  const cacheBustedPath = `${path}?t=${Date.now()}`;
-
-  try {
-    const response = await fetch(cacheBustedPath, {
-      method: "HEAD",
-      cache: "no-store",
-    });
-    if (response.ok) {
-      return true;
-    }
-    if (response.status !== 405) {
-      return false;
-    }
-  } catch {
-    // Fall back to a lightweight GET probe if HEAD is not supported.
-  }
-
-  try {
-    const response = await fetch(cacheBustedPath, {
-      method: "GET",
-      cache: "no-store",
-      headers: {
-        Range: "bytes=0-0",
-      },
-    });
-    return response.ok || response.status === 206;
-  } catch {
-    return false;
-  }
-}
-
-async function keepOnlyEncodedRows(rows) {
-  const exists = await Promise.all(rows.map((row) => outputFileExists(row?.output_filename)));
-  return rows.filter((_, index) => exists[index]);
-}
-
 async function initialize() {
   try {
     const preferences = loadPreferences();
@@ -1540,13 +1532,13 @@ async function initialize() {
 
     const manifestData = await loadManifest();
     state.manifestSourceRows = manifestData.rows;
+    state.manifestSignature = manifestSignature(manifestData.rows);
     state.sourceFrameRate = manifestData.sourceFrameRate;
 
-    const availableEncodes = await loadAvailableEncodes(manifestData.rows);
-    state.manifestResults = availableEncodes.results;
+    state.manifestResults = manifestData.rows;
 
     if (!state.manifestResults.length) {
-      setStatus("No encoded output files were found. Run batch_encode.py first.");
+      setStatus("No completed entries found in manifest.json yet. Run batch_encode.py first.");
       return;
     }
 
@@ -1559,9 +1551,10 @@ async function initialize() {
     wireActions();
     wireKeyboardShortcuts();
     wireShortcutChipActions();
+    startManifestAutoRefresh();
 
     await refreshUiAfterManifestLoad(
-      availableEncodes.source === "cache" ? "Loaded cached available-encode list." : "Refreshed available-encode list.",
+      `Loaded ${state.manifestResults.length} completed entries from manifest.json.`,
       preferences
     );
   } catch (error) {
