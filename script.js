@@ -33,6 +33,7 @@ const shortcutChipEls = document.querySelectorAll(".shortcut-chip[data-action]")
 const UI_STORAGE_KEY = "fractumseraph.encoding-comparisons.ui.v1";
 const FRAME_STEP_SECONDS = 1 / 30;
 const MANIFEST_POLL_INTERVAL_MS = 60 * 60 * 1000;
+const UI_PREFERENCES_VERSION = 2;
 const DEFAULT_PLAYER_SELECTIONS = {
   A: {
     codec: "H.264 CPU",
@@ -247,6 +248,7 @@ function capturePlayerSelection(player) {
 
 function capturePreferences() {
   return {
+    preferencesVersion: UI_PREFERENCES_VERSION,
     activePlayer: state.activePlayer,
     spotlightMode: state.spotlightMode,
     lockSync: state.lockSync,
@@ -272,6 +274,9 @@ function loadPreferences() {
   if (!stored || typeof stored !== "object") {
     return null;
   }
+
+  const storedVersion = Number(stored.preferencesVersion || 0);
+  const useSavedPlayerSelections = storedVersion >= UI_PREFERENCES_VERSION;
 
   return {
     activePlayer: stored.activePlayer === "B" ? "B" : "A",
@@ -302,8 +307,14 @@ function loadPreferences() {
           : toFiniteNumber(stored.filters.maxTimeS, null),
     },
     players: {
-      A: stored?.players?.A && typeof stored.players.A === "object" ? stored.players.A : null,
-      B: stored?.players?.B && typeof stored.players.B === "object" ? stored.players.B : null,
+      A:
+        useSavedPlayerSelections && stored?.players?.A && typeof stored.players.A === "object"
+          ? stored.players.A
+          : null,
+      B:
+        useSavedPlayerSelections && stored?.players?.B && typeof stored.players.B === "object"
+          ? stored.players.B
+          : null,
     },
   };
 }
