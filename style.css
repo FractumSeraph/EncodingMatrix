@@ -148,6 +148,19 @@ kbd {
   grid-template-columns: 1fr 1fr;
 }
 
+.compare-grid.diff-controls-only .compare-card video,
+.compare-grid.diff-controls-only .compare-card .metadata {
+  display: none;
+}
+
+.compare-grid.diff-controls-only .compare-card {
+  padding-bottom: 10px;
+}
+
+.compare-grid.diff-controls-only .controls-panel {
+  padding-bottom: 0;
+}
+
 .compare-card {
   padding: 14px;
   transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;

@@ -43,7 +43,7 @@ const state = {
   spotlightMode: false,
   lockSync: true,
   syncGuard: false,
-  diffMode: false,
+  diffMode: true,
   diffSide: "A",
   diffTimerId: null,
   diffSyncGuard: false,
@@ -263,7 +263,7 @@ function loadPreferences() {
     activePlayer: stored.activePlayer === "B" ? "B" : "A",
     spotlightMode: Boolean(stored.spotlightMode),
     lockSync: typeof stored.lockSync === "boolean" ? stored.lockSync : state.lockSync,
-    diffMode: Boolean(stored.diffMode),
+    diffMode: typeof stored.diffMode === "boolean" ? stored.diffMode : state.diffMode,
     wipePosition: toFiniteNumber(stored.wipePosition, state.wipePosition),
     syncMaster: stored.syncMaster === "B" ? "B" : "A",
     activeQualityMetric: typeof stored.activeQualityMetric === "string" ? stored.activeQualityMetric : state.activeQualityMetric,
@@ -1090,19 +1090,18 @@ async function refreshDiffView() {
 function setDiffMode(enabled) {
   state.diffMode = enabled;
   updateDiffButtonUi();
+  compareGridEl.classList.toggle("diff-controls-only", state.diffMode);
 
   if (!enabled) {
     stopDiffLoop();
     diffVideoAEl.pause();
     diffVideoBEl.pause();
-    compareGridEl.classList.remove("hidden");
     diffStageEl.classList.add("hidden");
     updateWipeTransportUi();
     savePreferences();
     return;
   }
 
-  compareGridEl.classList.add("hidden");
   diffStageEl.classList.remove("hidden");
   refreshDiffView().catch(() => {
     setStatus("Could not initialize side-by-side wipe.");
@@ -1439,7 +1438,7 @@ async function refreshUiAfterManifestLoad(statusMessage = "", preferences = null
   setActivePlayer(state.activePlayer);
   applySpotlight();
 
-  compareGridEl.classList.toggle("hidden", state.diffMode);
+  compareGridEl.classList.toggle("diff-controls-only", state.diffMode);
   diffStageEl.classList.toggle("hidden", !state.diffMode);
   setWipePosition(state.wipePosition, false);
 
