@@ -11,6 +11,18 @@ const wipeSliderEl = document.getElementById("wipeSlider");
 const wipeSeekBarEl = document.getElementById("wipeSeekBar");
 const wipePlayPauseButton = document.getElementById("wipePlayPauseButton");
 const wipeTimeLabelEl = document.getElementById("wipeTimeLabel");
+const diffMetaCodecAEl = document.getElementById("diffMetaCodecA");
+const diffMetaPresetAEl = document.getElementById("diffMetaPresetA");
+const diffMetaCrfAEl = document.getElementById("diffMetaCrfA");
+const diffMetaQualityAEl = document.getElementById("diffMetaQualityA");
+const diffMetaSizeAEl = document.getElementById("diffMetaSizeA");
+const diffMetaTimeAEl = document.getElementById("diffMetaTimeA");
+const diffMetaCodecBEl = document.getElementById("diffMetaCodecB");
+const diffMetaPresetBEl = document.getElementById("diffMetaPresetB");
+const diffMetaCrfBEl = document.getElementById("diffMetaCrfB");
+const diffMetaQualityBEl = document.getElementById("diffMetaQualityB");
+const diffMetaSizeBEl = document.getElementById("diffMetaSizeB");
+const diffMetaTimeBEl = document.getElementById("diffMetaTimeB");
 const toggleLockButton = document.getElementById("toggleLockButton");
 const toggleDiffButton = document.getElementById("toggleDiffButton");
 const exportCsvButton = document.getElementById("exportCsvButton");
@@ -595,6 +607,25 @@ function updateMetadata(player, entry) {
   player.meta.file.textContent = entry.output_filename;
 }
 
+function updateDiffMetadata() {
+  const entryA = getCurrentEntryForPlayer(state.players.A);
+  const entryB = getCurrentEntryForPlayer(state.players.B);
+
+  diffMetaCodecAEl.textContent = entryA?.codec_name || "-";
+  diffMetaPresetAEl.textContent = entryA?.preset || "-";
+  diffMetaCrfAEl.textContent = entryA ? String(entryA.crf_value) : "-";
+  diffMetaQualityAEl.textContent = entryA ? qualityToDisplay(entryA) : "-";
+  diffMetaSizeAEl.textContent = entryA ? sizeToMB(Number(entryA.file_size_bytes)) : "-";
+  diffMetaTimeAEl.textContent = entryA ? timeToDisplay(Number(entryA.encode_time_seconds)) : "-";
+
+  diffMetaCodecBEl.textContent = entryB?.codec_name || "-";
+  diffMetaPresetBEl.textContent = entryB?.preset || "-";
+  diffMetaCrfBEl.textContent = entryB ? String(entryB.crf_value) : "-";
+  diffMetaQualityBEl.textContent = entryB ? qualityToDisplay(entryB) : "-";
+  diffMetaSizeBEl.textContent = entryB ? sizeToMB(Number(entryB.file_size_bytes)) : "-";
+  diffMetaTimeBEl.textContent = entryB ? timeToDisplay(Number(entryB.encode_time_seconds)) : "-";
+}
+
 function setActivePlayer(id) {
   state.activePlayer = id;
   const playerA = state.players.A;
@@ -752,6 +783,7 @@ function refreshPlayer(player, refreshDiff = true) {
 
   setStatus("");
   swapVideoSource(player, entry.output_filename, entry);
+  updateDiffMetadata();
 
   if (refreshDiff && state.diffMode) {
     refreshDiffView().catch(() => {
@@ -1118,6 +1150,7 @@ async function refreshDiffView() {
 
   const entryA = getCurrentEntryForPlayer(state.players.A);
   const entryB = getCurrentEntryForPlayer(state.players.B);
+  updateDiffMetadata();
   if (!entryA || !entryB) {
     setStatus("Side-by-side wipe needs valid selections in both players.");
     return;
@@ -1146,6 +1179,7 @@ async function refreshDiffView() {
 function setDiffMode(enabled) {
   state.diffMode = enabled;
   updateDiffButtonUi();
+  updateDiffMetadata();
   compareGridEl.classList.toggle("diff-controls-only", state.diffMode);
 
   if (!enabled) {

@@ -355,6 +355,32 @@ input[type="number"] {
   color: var(--muted);
 }
 
+.diff-metadata-grid {
+  margin-top: 12px;
+  display: grid;
+  gap: 12px;
+  grid-template-columns: 1fr 1fr;
+}
+
+.diff-meta-card {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 10px;
+  background: rgba(3, 10, 12, 0.45);
+}
+
+.diff-meta-card h3 {
+  margin: 0 0 8px;
+  font-size: 0.92rem;
+}
+
+.diff-meta-items {
+  display: grid;
+  gap: 6px;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.9rem;
+}
+
 .diff-video {
   position: absolute;
   inset: 0;
@@ -454,6 +480,10 @@ tbody tr:hover {
   }
 
   .metadata {
+    grid-template-columns: 1fr;
+  }
+
+  .diff-metadata-grid {
     grid-template-columns: 1fr;
   }
 
