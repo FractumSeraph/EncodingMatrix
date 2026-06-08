@@ -1429,6 +1429,21 @@ function wireActions() {
 
 function wireKeyboardShortcuts() {
   document.addEventListener("keydown", (event) => {
+    // Don't hijack typing in form fields or browser/OS shortcut combos.
+    if (event.ctrlKey || event.metaKey || event.altKey) {
+      return;
+    }
+    const target = event.target;
+    if (
+      target &&
+      (target.tagName === "INPUT" ||
+        target.tagName === "SELECT" ||
+        target.tagName === "TEXTAREA" ||
+        target.isContentEditable)
+    ) {
+      return;
+    }
+
     if (event.key === "1") {
       runShortcutAction("focusA");
       return;

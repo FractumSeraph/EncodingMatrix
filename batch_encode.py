@@ -383,7 +383,15 @@ def center_out(values: List[int]) -> List[int]:
 
 
 def slugify(value: str) -> str:
-    return "".join(ch.lower() if ch.isalnum() else "_" for ch in value).strip("_")
+    # Preserve a leading minus sign so signed presets (e.g. AV1 "-1") do not
+    # collapse onto their positive counterparts: "-1" -> "neg1", "1" -> "1".
+    text = value.strip().lower()
+    sign = ""
+    if text.startswith("-"):
+        sign = "neg"
+        text = text[1:]
+    slug = "".join(ch if ch.isalnum() else "_" for ch in text).strip("_")
+    return f"{sign}{slug}" if sign else slug
 
 
 def load_manifest(manifest_path: Path, source_video: Path) -> Dict:
