@@ -463,6 +463,2121 @@
         "psnr": 36.210848
       },
       "output_filename": "encodes/av1__neg1__q35.mp4"
+    },
+    {
+      "codec_name": "H.264 Nvidia",
+      "preset": "p1",
+      "crf_value": 29,
+      "encode_time_seconds": 5.224,
+      "file_size_bytes": 78737075,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.872604,
+      "quality_scores": {
+        "ssim": 0.872604,
+        "psnr": 33.716209
+      },
+      "output_filename": "encodes/h_264_nvidia__p1__q29.mp4"
+    },
+    {
+      "codec_name": "H.264 Nvidia",
+      "preset": "p2",
+      "crf_value": 29,
+      "encode_time_seconds": 8.268,
+      "file_size_bytes": 78676796,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.872622,
+      "quality_scores": {
+        "ssim": 0.872622,
+        "psnr": 33.717138
+      },
+      "output_filename": "encodes/h_264_nvidia__p2__q29.mp4"
+    },
+    {
+      "codec_name": "H.264 Nvidia",
+      "preset": "p3",
+      "crf_value": 29,
+      "encode_time_seconds": 10.397,
+      "file_size_bytes": 71565639,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.874092,
+      "quality_scores": {
+        "ssim": 0.874092,
+        "psnr": 33.73115
+      },
+      "output_filename": "encodes/h_264_nvidia__p3__q29.mp4"
+    },
+    {
+      "codec_name": "H.264 Nvidia",
+      "preset": "p4",
+      "crf_value": 29,
+      "encode_time_seconds": 15.567,
+      "file_size_bytes": 69926869,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.878505,
+      "quality_scores": {
+        "ssim": 0.878505,
+        "psnr": 33.79987
+      },
+      "output_filename": "encodes/h_264_nvidia__p4__q29.mp4"
+    },
+    {
+      "codec_name": "H.264 Nvidia",
+      "preset": "p5",
+      "crf_value": 29,
+      "encode_time_seconds": 12.179,
+      "file_size_bytes": 70141603,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.87852,
+      "quality_scores": {
+        "ssim": 0.87852,
+        "psnr": 33.81586
+      },
+      "output_filename": "encodes/h_264_nvidia__p5__q29.mp4"
+    },
+    {
+      "codec_name": "H.264 Nvidia",
+      "preset": "p6",
+      "crf_value": 29,
+      "encode_time_seconds": 10.292,
+      "file_size_bytes": 70065715,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.87804,
+      "quality_scores": {
+        "ssim": 0.87804,
+        "psnr": 33.803749
+      },
+      "output_filename": "encodes/h_264_nvidia__p6__q29.mp4"
+    },
+    {
+      "codec_name": "H.264 Nvidia",
+      "preset": "p7",
+      "crf_value": 29,
+      "encode_time_seconds": 24.029,
+      "file_size_bytes": 70108020,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.878083,
+      "quality_scores": {
+        "ssim": 0.878083,
+        "psnr": 33.808711
+      },
+      "output_filename": "encodes/h_264_nvidia__p7__q29.mp4"
+    },
+    {
+      "codec_name": "H.265 Nvidia",
+      "preset": "p1",
+      "crf_value": 29,
+      "encode_time_seconds": 6.638,
+      "file_size_bytes": 40615831,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.848946,
+      "quality_scores": {
+        "ssim": 0.848946,
+        "psnr": 32.298216
+      },
+      "output_filename": "encodes/h_265_nvidia__p1__q29.mp4"
+    },
+    {
+      "codec_name": "H.265 Nvidia",
+      "preset": "p2",
+      "crf_value": 29,
+      "encode_time_seconds": 9.431,
+      "file_size_bytes": 40668212,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.85657,
+      "quality_scores": {
+        "ssim": 0.85657,
+        "psnr": 32.59371
+      },
+      "output_filename": "encodes/h_265_nvidia__p2__q29.mp4"
+    },
+    {
+      "codec_name": "H.265 Nvidia",
+      "preset": "p3",
+      "crf_value": 29,
+      "encode_time_seconds": 11.274,
+      "file_size_bytes": 40584672,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.858341,
+      "quality_scores": {
+        "ssim": 0.858341,
+        "psnr": 32.657809
+      },
+      "output_filename": "encodes/h_265_nvidia__p3__q29.mp4"
+    },
+    {
+      "codec_name": "H.265 Nvidia",
+      "preset": "p4",
+      "crf_value": 29,
+      "encode_time_seconds": 12.025,
+      "file_size_bytes": 40458396,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.865248,
+      "quality_scores": {
+        "ssim": 0.865248,
+        "psnr": 32.720067
+      },
+      "output_filename": "encodes/h_265_nvidia__p4__q29.mp4"
+    },
+    {
+      "codec_name": "H.265 Nvidia",
+      "preset": "p5",
+      "crf_value": 29,
+      "encode_time_seconds": 11.817,
+      "file_size_bytes": 40461972,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.865575,
+      "quality_scores": {
+        "ssim": 0.865575,
+        "psnr": 32.729298
+      },
+      "output_filename": "encodes/h_265_nvidia__p5__q29.mp4"
+    },
+    {
+      "codec_name": "H.265 Nvidia",
+      "preset": "p6",
+      "crf_value": 29,
+      "encode_time_seconds": 18.514,
+      "file_size_bytes": 40466660,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.865745,
+      "quality_scores": {
+        "ssim": 0.865745,
+        "psnr": 32.7373
+      },
+      "output_filename": "encodes/h_265_nvidia__p6__q29.mp4"
+    },
+    {
+      "codec_name": "H.265 Nvidia",
+      "preset": "p7",
+      "crf_value": 29,
+      "encode_time_seconds": 18.4,
+      "file_size_bytes": 40455330,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.865698,
+      "quality_scores": {
+        "ssim": 0.865698,
+        "psnr": 32.737621
+      },
+      "output_filename": "encodes/h_265_nvidia__p7__q29.mp4"
+    },
+    {
+      "codec_name": "H.264 Nvidia",
+      "preset": "p1",
+      "crf_value": 23,
+      "encode_time_seconds": 12.904,
+      "file_size_bytes": 153814117,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.906827,
+      "quality_scores": {
+        "ssim": 0.906827,
+        "psnr": 35.699569
+      },
+      "output_filename": "encodes/h_264_nvidia__p1__q23.mp4"
+    },
+    {
+      "codec_name": "H.264 Nvidia",
+      "preset": "p2",
+      "crf_value": 23,
+      "encode_time_seconds": 16.384,
+      "file_size_bytes": 154584777,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.907057,
+      "quality_scores": {
+        "ssim": 0.907057,
+        "psnr": 35.712508
+      },
+      "output_filename": "encodes/h_264_nvidia__p2__q23.mp4"
+    },
+    {
+      "codec_name": "H.264 Nvidia",
+      "preset": "p3",
+      "crf_value": 23,
+      "encode_time_seconds": 11.491,
+      "file_size_bytes": 154876438,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.910577,
+      "quality_scores": {
+        "ssim": 0.910577,
+        "psnr": 35.881376
+      },
+      "output_filename": "encodes/h_264_nvidia__p3__q23.mp4"
+    },
+    {
+      "codec_name": "H.264 Nvidia",
+      "preset": "p4",
+      "crf_value": 23,
+      "encode_time_seconds": 11.481,
+      "file_size_bytes": 151202357,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.912221,
+      "quality_scores": {
+        "ssim": 0.912221,
+        "psnr": 35.860233
+      },
+      "output_filename": "encodes/h_264_nvidia__p4__q23.mp4"
+    },
+    {
+      "codec_name": "H.264 Nvidia",
+      "preset": "p5",
+      "crf_value": 23,
+      "encode_time_seconds": 10.456,
+      "file_size_bytes": 151838052,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.912453,
+      "quality_scores": {
+        "ssim": 0.912453,
+        "psnr": 35.874478
+      },
+      "output_filename": "encodes/h_264_nvidia__p5__q23.mp4"
+    },
+    {
+      "codec_name": "H.264 Nvidia",
+      "preset": "p6",
+      "crf_value": 23,
+      "encode_time_seconds": 11.299,
+      "file_size_bytes": 152737866,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.912243,
+      "quality_scores": {
+        "ssim": 0.912243,
+        "psnr": 35.881577
+      },
+      "output_filename": "encodes/h_264_nvidia__p6__q23.mp4"
+    },
+    {
+      "codec_name": "H.264 Nvidia",
+      "preset": "p7",
+      "crf_value": 23,
+      "encode_time_seconds": 18.153,
+      "file_size_bytes": 153630918,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.912735,
+      "quality_scores": {
+        "ssim": 0.912735,
+        "psnr": 35.900171
+      },
+      "output_filename": "encodes/h_264_nvidia__p7__q23.mp4"
+    },
+    {
+      "codec_name": "H.265 Nvidia",
+      "preset": "p1",
+      "crf_value": 23,
+      "encode_time_seconds": 11.531,
+      "file_size_bytes": 40615831,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.848946,
+      "quality_scores": {
+        "ssim": 0.848946,
+        "psnr": 32.298216
+      },
+      "output_filename": "encodes/h_265_nvidia__p1__q23.mp4"
+    },
+    {
+      "codec_name": "H.265 Nvidia",
+      "preset": "p2",
+      "crf_value": 23,
+      "encode_time_seconds": 12.909,
+      "file_size_bytes": 40692963,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.856519,
+      "quality_scores": {
+        "ssim": 0.856519,
+        "psnr": 32.591325
+      },
+      "output_filename": "encodes/h_265_nvidia__p2__q23.mp4"
+    },
+    {
+      "codec_name": "H.265 Nvidia",
+      "preset": "p3",
+      "crf_value": 23,
+      "encode_time_seconds": 12.315,
+      "file_size_bytes": 40601493,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.858287,
+      "quality_scores": {
+        "ssim": 0.858287,
+        "psnr": 32.655651
+      },
+      "output_filename": "encodes/h_265_nvidia__p3__q23.mp4"
+    },
+    {
+      "codec_name": "H.265 Nvidia",
+      "preset": "p4",
+      "crf_value": 23,
+      "encode_time_seconds": 14.619,
+      "file_size_bytes": 40452265,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.865212,
+      "quality_scores": {
+        "ssim": 0.865212,
+        "psnr": 32.717075
+      },
+      "output_filename": "encodes/h_265_nvidia__p4__q23.mp4"
+    },
+    {
+      "codec_name": "H.265 Nvidia",
+      "preset": "p5",
+      "crf_value": 23,
+      "encode_time_seconds": 17.248,
+      "file_size_bytes": 40460695,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.865519,
+      "quality_scores": {
+        "ssim": 0.865519,
+        "psnr": 32.727078
+      },
+      "output_filename": "encodes/h_265_nvidia__p5__q23.mp4"
+    },
+    {
+      "codec_name": "H.265 Nvidia",
+      "preset": "p6",
+      "crf_value": 23,
+      "encode_time_seconds": 15.818,
+      "file_size_bytes": 40473645,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.865633,
+      "quality_scores": {
+        "ssim": 0.865633,
+        "psnr": 32.732579
+      },
+      "output_filename": "encodes/h_265_nvidia__p6__q23.mp4"
+    },
+    {
+      "codec_name": "H.265 Nvidia",
+      "preset": "p7",
+      "crf_value": 23,
+      "encode_time_seconds": 16.859,
+      "file_size_bytes": 40493674,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.865693,
+      "quality_scores": {
+        "ssim": 0.865693,
+        "psnr": 32.739587
+      },
+      "output_filename": "encodes/h_265_nvidia__p7__q23.mp4"
+    },
+    {
+      "codec_name": "H.264 Nvidia",
+      "preset": "p1",
+      "crf_value": 34,
+      "encode_time_seconds": 8.9,
+      "file_size_bytes": 41133822,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.827802,
+      "quality_scores": {
+        "ssim": 0.827802,
+        "psnr": 31.670599
+      },
+      "output_filename": "encodes/h_264_nvidia__p1__q34.mp4"
+    },
+    {
+      "codec_name": "H.264 Nvidia",
+      "preset": "p2",
+      "crf_value": 34,
+      "encode_time_seconds": 9.104,
+      "file_size_bytes": 41212298,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.828112,
+      "quality_scores": {
+        "ssim": 0.828112,
+        "psnr": 31.68295
+      },
+      "output_filename": "encodes/h_264_nvidia__p2__q34.mp4"
+    },
+    {
+      "codec_name": "H.264 Nvidia",
+      "preset": "p3",
+      "crf_value": 34,
+      "encode_time_seconds": 7.815,
+      "file_size_bytes": 38255186,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.832026,
+      "quality_scores": {
+        "ssim": 0.832026,
+        "psnr": 31.806593
+      },
+      "output_filename": "encodes/h_264_nvidia__p3__q34.mp4"
+    },
+    {
+      "codec_name": "H.264 Nvidia",
+      "preset": "p4",
+      "crf_value": 34,
+      "encode_time_seconds": 10.661,
+      "file_size_bytes": 36760052,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.837994,
+      "quality_scores": {
+        "ssim": 0.837994,
+        "psnr": 31.902213
+      },
+      "output_filename": "encodes/h_264_nvidia__p4__q34.mp4"
+    },
+    {
+      "codec_name": "H.264 Nvidia",
+      "preset": "p5",
+      "crf_value": 34,
+      "encode_time_seconds": 12.956,
+      "file_size_bytes": 37058918,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.838028,
+      "quality_scores": {
+        "ssim": 0.838028,
+        "psnr": 31.926748
+      },
+      "output_filename": "encodes/h_264_nvidia__p5__q34.mp4"
+    },
+    {
+      "codec_name": "H.264 Nvidia",
+      "preset": "p6",
+      "crf_value": 34,
+      "encode_time_seconds": 13.277,
+      "file_size_bytes": 36939941,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.836522,
+      "quality_scores": {
+        "ssim": 0.836522,
+        "psnr": 31.886423
+      },
+      "output_filename": "encodes/h_264_nvidia__p6__q34.mp4"
+    },
+    {
+      "codec_name": "H.264 Nvidia",
+      "preset": "p7",
+      "crf_value": 34,
+      "encode_time_seconds": 15.906,
+      "file_size_bytes": 36870826,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.836643,
+      "quality_scores": {
+        "ssim": 0.836643,
+        "psnr": 31.890688
+      },
+      "output_filename": "encodes/h_264_nvidia__p7__q34.mp4"
+    },
+    {
+      "codec_name": "H.265 Nvidia",
+      "preset": "p1",
+      "crf_value": 34,
+      "encode_time_seconds": 10.065,
+      "file_size_bytes": 40408913,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.849109,
+      "quality_scores": {
+        "ssim": 0.849109,
+        "psnr": 32.32256
+      },
+      "output_filename": "encodes/h_265_nvidia__p1__q34.mp4"
+    },
+    {
+      "codec_name": "H.265 Nvidia",
+      "preset": "p2",
+      "crf_value": 34,
+      "encode_time_seconds": 10.172,
+      "file_size_bytes": 38225845,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.854167,
+      "quality_scores": {
+        "ssim": 0.854167,
+        "psnr": 32.487672
+      },
+      "output_filename": "encodes/h_265_nvidia__p2__q34.mp4"
+    },
+    {
+      "codec_name": "H.265 Nvidia",
+      "preset": "p3",
+      "crf_value": 34,
+      "encode_time_seconds": 11.528,
+      "file_size_bytes": 35463157,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.851757,
+      "quality_scores": {
+        "ssim": 0.851757,
+        "psnr": 32.346791
+      },
+      "output_filename": "encodes/h_265_nvidia__p3__q34.mp4"
+    },
+    {
+      "codec_name": "H.265 Nvidia",
+      "preset": "p4",
+      "crf_value": 34,
+      "encode_time_seconds": 10.127,
+      "file_size_bytes": 35462548,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.856662,
+      "quality_scores": {
+        "ssim": 0.856662,
+        "psnr": 32.439215
+      },
+      "output_filename": "encodes/h_265_nvidia__p4__q34.mp4"
+    },
+    {
+      "codec_name": "H.265 Nvidia",
+      "preset": "p5",
+      "crf_value": 34,
+      "encode_time_seconds": 10.891,
+      "file_size_bytes": 35367213,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.856776,
+      "quality_scores": {
+        "ssim": 0.856776,
+        "psnr": 32.442278
+      },
+      "output_filename": "encodes/h_265_nvidia__p5__q34.mp4"
+    },
+    {
+      "codec_name": "H.265 Nvidia",
+      "preset": "p6",
+      "crf_value": 34,
+      "encode_time_seconds": 16.379,
+      "file_size_bytes": 35514294,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.857305,
+      "quality_scores": {
+        "ssim": 0.857305,
+        "psnr": 32.464921
+      },
+      "output_filename": "encodes/h_265_nvidia__p6__q34.mp4"
+    },
+    {
+      "codec_name": "H.265 Nvidia",
+      "preset": "p7",
+      "crf_value": 34,
+      "encode_time_seconds": 22.742,
+      "file_size_bytes": 35591945,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.857434,
+      "quality_scores": {
+        "ssim": 0.857434,
+        "psnr": 32.474298
+      },
+      "output_filename": "encodes/h_265_nvidia__p7__q34.mp4"
+    },
+    {
+      "codec_name": "H.264 Nvidia",
+      "preset": "p1",
+      "crf_value": 18,
+      "encode_time_seconds": 12.84,
+      "file_size_bytes": 155498696,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.907124,
+      "quality_scores": {
+        "ssim": 0.907124,
+        "psnr": 35.711527
+      },
+      "output_filename": "encodes/h_264_nvidia__p1__q18.mp4"
+    },
+    {
+      "codec_name": "H.264 Nvidia",
+      "preset": "p2",
+      "crf_value": 18,
+      "encode_time_seconds": 11.284,
+      "file_size_bytes": 153820212,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.906762,
+      "quality_scores": {
+        "ssim": 0.906762,
+        "psnr": 35.689336
+      },
+      "output_filename": "encodes/h_264_nvidia__p2__q18.mp4"
+    },
+    {
+      "codec_name": "H.264 Nvidia",
+      "preset": "p3",
+      "crf_value": 18,
+      "encode_time_seconds": 11.395,
+      "file_size_bytes": 156153862,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.910478,
+      "quality_scores": {
+        "ssim": 0.910478,
+        "psnr": 35.855621
+      },
+      "output_filename": "encodes/h_264_nvidia__p3__q18.mp4"
+    },
+    {
+      "codec_name": "H.264 Nvidia",
+      "preset": "p4",
+      "crf_value": 18,
+      "encode_time_seconds": 11.429,
+      "file_size_bytes": 154773712,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.913117,
+      "quality_scores": {
+        "ssim": 0.913117,
+        "psnr": 35.797296
+      },
+      "output_filename": "encodes/h_264_nvidia__p4__q18.mp4"
+    },
+    {
+      "codec_name": "H.264 Nvidia",
+      "preset": "p5",
+      "crf_value": 18,
+      "encode_time_seconds": 12.817,
+      "file_size_bytes": 154925351,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.913155,
+      "quality_scores": {
+        "ssim": 0.913155,
+        "psnr": 35.809789
+      },
+      "output_filename": "encodes/h_264_nvidia__p5__q18.mp4"
+    },
+    {
+      "codec_name": "H.264 Nvidia",
+      "preset": "p6",
+      "crf_value": 18,
+      "encode_time_seconds": 13.774,
+      "file_size_bytes": 155190372,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.912751,
+      "quality_scores": {
+        "ssim": 0.912751,
+        "psnr": 35.807071
+      },
+      "output_filename": "encodes/h_264_nvidia__p6__q18.mp4"
+    },
+    {
+      "codec_name": "H.264 Nvidia",
+      "preset": "p7",
+      "crf_value": 18,
+      "encode_time_seconds": 20.122,
+      "file_size_bytes": 155133272,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.912582,
+      "quality_scores": {
+        "ssim": 0.912582,
+        "psnr": 35.813489
+      },
+      "output_filename": "encodes/h_264_nvidia__p7__q18.mp4"
+    },
+    {
+      "codec_name": "H.265 Nvidia",
+      "preset": "p1",
+      "crf_value": 18,
+      "encode_time_seconds": 9.145,
+      "file_size_bytes": 40615831,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.848946,
+      "quality_scores": {
+        "ssim": 0.848946,
+        "psnr": 32.298216
+      },
+      "output_filename": "encodes/h_265_nvidia__p1__q18.mp4"
+    },
+    {
+      "codec_name": "H.265 Nvidia",
+      "preset": "p2",
+      "crf_value": 18,
+      "encode_time_seconds": 9.495,
+      "file_size_bytes": 40692963,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.856519,
+      "quality_scores": {
+        "ssim": 0.856519,
+        "psnr": 32.591325
+      },
+      "output_filename": "encodes/h_265_nvidia__p2__q18.mp4"
+    },
+    {
+      "codec_name": "H.265 Nvidia",
+      "preset": "p3",
+      "crf_value": 18,
+      "encode_time_seconds": 10.252,
+      "file_size_bytes": 40601493,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.858287,
+      "quality_scores": {
+        "ssim": 0.858287,
+        "psnr": 32.655651
+      },
+      "output_filename": "encodes/h_265_nvidia__p3__q18.mp4"
+    },
+    {
+      "codec_name": "H.265 Nvidia",
+      "preset": "p4",
+      "crf_value": 18,
+      "encode_time_seconds": 14.17,
+      "file_size_bytes": 40452265,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.865212,
+      "quality_scores": {
+        "ssim": 0.865212,
+        "psnr": 32.717075
+      },
+      "output_filename": "encodes/h_265_nvidia__p4__q18.mp4"
+    },
+    {
+      "codec_name": "H.265 Nvidia",
+      "preset": "p5",
+      "crf_value": 18,
+      "encode_time_seconds": 25.296,
+      "file_size_bytes": 40460695,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.865519,
+      "quality_scores": {
+        "ssim": 0.865519,
+        "psnr": 32.727078
+      },
+      "output_filename": "encodes/h_265_nvidia__p5__q18.mp4"
+    },
+    {
+      "codec_name": "H.265 Nvidia",
+      "preset": "p6",
+      "crf_value": 18,
+      "encode_time_seconds": 18.097,
+      "file_size_bytes": 40473645,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.865633,
+      "quality_scores": {
+        "ssim": 0.865633,
+        "psnr": 32.732579
+      },
+      "output_filename": "encodes/h_265_nvidia__p6__q18.mp4"
+    },
+    {
+      "codec_name": "H.265 Nvidia",
+      "preset": "p7",
+      "crf_value": 18,
+      "encode_time_seconds": 19.105,
+      "file_size_bytes": 40493674,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.865693,
+      "quality_scores": {
+        "ssim": 0.865693,
+        "psnr": 32.739587
+      },
+      "output_filename": "encodes/h_265_nvidia__p7__q18.mp4"
+    },
+    {
+      "codec_name": "H.264 Nvidia",
+      "preset": "p1",
+      "crf_value": 40,
+      "encode_time_seconds": 10.109,
+      "file_size_bytes": 18875778,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.762398,
+      "quality_scores": {
+        "ssim": 0.762398,
+        "psnr": 29.152822
+      },
+      "output_filename": "encodes/h_264_nvidia__p1__q40.mp4"
+    },
+    {
+      "codec_name": "H.264 Nvidia",
+      "preset": "p2",
+      "crf_value": 40,
+      "encode_time_seconds": 10.37,
+      "file_size_bytes": 18958965,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.762958,
+      "quality_scores": {
+        "ssim": 0.762958,
+        "psnr": 29.175134
+      },
+      "output_filename": "encodes/h_264_nvidia__p2__q40.mp4"
+    },
+    {
+      "codec_name": "H.264 Nvidia",
+      "preset": "p3",
+      "crf_value": 40,
+      "encode_time_seconds": 10.535,
+      "file_size_bytes": 17781180,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.766979,
+      "quality_scores": {
+        "ssim": 0.766979,
+        "psnr": 29.333039
+      },
+      "output_filename": "encodes/h_264_nvidia__p3__q40.mp4"
+    },
+    {
+      "codec_name": "H.264 Nvidia",
+      "preset": "p4",
+      "crf_value": 40,
+      "encode_time_seconds": 11.649,
+      "file_size_bytes": 16639547,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.769917,
+      "quality_scores": {
+        "ssim": 0.769917,
+        "psnr": 29.342965
+      },
+      "output_filename": "encodes/h_264_nvidia__p4__q40.mp4"
+    },
+    {
+      "codec_name": "H.264 Nvidia",
+      "preset": "p5",
+      "crf_value": 40,
+      "encode_time_seconds": 10.705,
+      "file_size_bytes": 16707435,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.769194,
+      "quality_scores": {
+        "ssim": 0.769194,
+        "psnr": 29.330783
+      },
+      "output_filename": "encodes/h_264_nvidia__p5__q40.mp4"
+    },
+    {
+      "codec_name": "H.264 Nvidia",
+      "preset": "p6",
+      "crf_value": 40,
+      "encode_time_seconds": 15.872,
+      "file_size_bytes": 16851500,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.769621,
+      "quality_scores": {
+        "ssim": 0.769621,
+        "psnr": 29.359166
+      },
+      "output_filename": "encodes/h_264_nvidia__p6__q40.mp4"
+    },
+    {
+      "codec_name": "H.264 Nvidia",
+      "preset": "p7",
+      "crf_value": 40,
+      "encode_time_seconds": 26.903,
+      "file_size_bytes": 16871958,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.768606,
+      "quality_scores": {
+        "ssim": 0.768606,
+        "psnr": 29.326227
+      },
+      "output_filename": "encodes/h_264_nvidia__p7__q40.mp4"
+    },
+    {
+      "codec_name": "H.265 Nvidia",
+      "preset": "p1",
+      "crf_value": 40,
+      "encode_time_seconds": 9.598,
+      "file_size_bytes": 19338639,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.797379,
+      "quality_scores": {
+        "ssim": 0.797379,
+        "psnr": 30.118009
+      },
+      "output_filename": "encodes/h_265_nvidia__p1__q40.mp4"
+    },
+    {
+      "codec_name": "H.265 Nvidia",
+      "preset": "p2",
+      "crf_value": 40,
+      "encode_time_seconds": 19.683,
+      "file_size_bytes": 17455958,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.800828,
+      "quality_scores": {
+        "ssim": 0.800828,
+        "psnr": 30.266913
+      },
+      "output_filename": "encodes/h_265_nvidia__p2__q40.mp4"
+    },
+    {
+      "codec_name": "H.265 Nvidia",
+      "preset": "p3",
+      "crf_value": 40,
+      "encode_time_seconds": 13.239,
+      "file_size_bytes": 16363465,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.800346,
+      "quality_scores": {
+        "ssim": 0.800346,
+        "psnr": 30.22148
+      },
+      "output_filename": "encodes/h_265_nvidia__p3__q40.mp4"
+    },
+    {
+      "codec_name": "H.265 Nvidia",
+      "preset": "p4",
+      "crf_value": 40,
+      "encode_time_seconds": 15.645,
+      "file_size_bytes": 16081935,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.804765,
+      "quality_scores": {
+        "ssim": 0.804765,
+        "psnr": 30.26198
+      },
+      "output_filename": "encodes/h_265_nvidia__p4__q40.mp4"
+    },
+    {
+      "codec_name": "H.265 Nvidia",
+      "preset": "p5",
+      "crf_value": 40,
+      "encode_time_seconds": 12.093,
+      "file_size_bytes": 16084501,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.80527,
+      "quality_scores": {
+        "ssim": 0.80527,
+        "psnr": 30.276015
+      },
+      "output_filename": "encodes/h_265_nvidia__p5__q40.mp4"
+    },
+    {
+      "codec_name": "H.265 Nvidia",
+      "preset": "p6",
+      "crf_value": 40,
+      "encode_time_seconds": 17.395,
+      "file_size_bytes": 16051582,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.804991,
+      "quality_scores": {
+        "ssim": 0.804991,
+        "psnr": 30.267112
+      },
+      "output_filename": "encodes/h_265_nvidia__p6__q40.mp4"
+    },
+    {
+      "codec_name": "H.265 Nvidia",
+      "preset": "p7",
+      "crf_value": 40,
+      "encode_time_seconds": 15.512,
+      "file_size_bytes": 16069943,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.805222,
+      "quality_scores": {
+        "ssim": 0.805222,
+        "psnr": 30.278021
+      },
+      "output_filename": "encodes/h_265_nvidia__p7__q40.mp4"
+    },
+    {
+      "codec_name": "H.264 Nvidia",
+      "preset": "p1",
+      "crf_value": 12,
+      "encode_time_seconds": 8.72,
+      "file_size_bytes": 155498696,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.907124,
+      "quality_scores": {
+        "ssim": 0.907124,
+        "psnr": 35.711527
+      },
+      "output_filename": "encodes/h_264_nvidia__p1__q12.mp4"
+    },
+    {
+      "codec_name": "H.264 Nvidia",
+      "preset": "p2",
+      "crf_value": 12,
+      "encode_time_seconds": 8.315,
+      "file_size_bytes": 153820212,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.906762,
+      "quality_scores": {
+        "ssim": 0.906762,
+        "psnr": 35.689336
+      },
+      "output_filename": "encodes/h_264_nvidia__p2__q12.mp4"
+    },
+    {
+      "codec_name": "H.264 Nvidia",
+      "preset": "p3",
+      "crf_value": 12,
+      "encode_time_seconds": 6.634,
+      "file_size_bytes": 156153862,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.910478,
+      "quality_scores": {
+        "ssim": 0.910478,
+        "psnr": 35.855621
+      },
+      "output_filename": "encodes/h_264_nvidia__p3__q12.mp4"
+    },
+    {
+      "codec_name": "H.264 Nvidia",
+      "preset": "p4",
+      "crf_value": 12,
+      "encode_time_seconds": 10.85,
+      "file_size_bytes": 155497840,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.913232,
+      "quality_scores": {
+        "ssim": 0.913232,
+        "psnr": 35.805436
+      },
+      "output_filename": "encodes/h_264_nvidia__p4__q12.mp4"
+    },
+    {
+      "codec_name": "H.264 Nvidia",
+      "preset": "p5",
+      "crf_value": 12,
+      "encode_time_seconds": 12.231,
+      "file_size_bytes": 154909448,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.913027,
+      "quality_scores": {
+        "ssim": 0.913027,
+        "psnr": 35.803847
+      },
+      "output_filename": "encodes/h_264_nvidia__p5__q12.mp4"
+    },
+    {
+      "codec_name": "H.264 Nvidia",
+      "preset": "p6",
+      "crf_value": 12,
+      "encode_time_seconds": 21.75,
+      "file_size_bytes": 155190372,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.912751,
+      "quality_scores": {
+        "ssim": 0.912751,
+        "psnr": 35.807071
+      },
+      "output_filename": "encodes/h_264_nvidia__p6__q12.mp4"
+    },
+    {
+      "codec_name": "H.264 Nvidia",
+      "preset": "p7",
+      "crf_value": 12,
+      "encode_time_seconds": 29.768,
+      "file_size_bytes": 155133272,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.912582,
+      "quality_scores": {
+        "ssim": 0.912582,
+        "psnr": 35.813489
+      },
+      "output_filename": "encodes/h_264_nvidia__p7__q12.mp4"
+    },
+    {
+      "codec_name": "H.265 Nvidia",
+      "preset": "p1",
+      "crf_value": 12,
+      "encode_time_seconds": 11.812,
+      "file_size_bytes": 40615831,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.848946,
+      "quality_scores": {
+        "ssim": 0.848946,
+        "psnr": 32.298216
+      },
+      "output_filename": "encodes/h_265_nvidia__p1__q12.mp4"
+    },
+    {
+      "codec_name": "H.265 Nvidia",
+      "preset": "p2",
+      "crf_value": 12,
+      "encode_time_seconds": 11.653,
+      "file_size_bytes": 40692963,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.856519,
+      "quality_scores": {
+        "ssim": 0.856519,
+        "psnr": 32.591325
+      },
+      "output_filename": "encodes/h_265_nvidia__p2__q12.mp4"
+    },
+    {
+      "codec_name": "H.265 Nvidia",
+      "preset": "p3",
+      "crf_value": 12,
+      "encode_time_seconds": 13.236,
+      "file_size_bytes": 40601493,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.858287,
+      "quality_scores": {
+        "ssim": 0.858287,
+        "psnr": 32.655651
+      },
+      "output_filename": "encodes/h_265_nvidia__p3__q12.mp4"
+    },
+    {
+      "codec_name": "H.265 Nvidia",
+      "preset": "p4",
+      "crf_value": 12,
+      "encode_time_seconds": 12.25,
+      "file_size_bytes": 40452265,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.865212,
+      "quality_scores": {
+        "ssim": 0.865212,
+        "psnr": 32.717075
+      },
+      "output_filename": "encodes/h_265_nvidia__p4__q12.mp4"
+    },
+    {
+      "codec_name": "H.265 Nvidia",
+      "preset": "p5",
+      "crf_value": 12,
+      "encode_time_seconds": 13.389,
+      "file_size_bytes": 40460695,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.865519,
+      "quality_scores": {
+        "ssim": 0.865519,
+        "psnr": 32.727078
+      },
+      "output_filename": "encodes/h_265_nvidia__p5__q12.mp4"
+    },
+    {
+      "codec_name": "H.265 Nvidia",
+      "preset": "p6",
+      "crf_value": 12,
+      "encode_time_seconds": 14.682,
+      "file_size_bytes": 40473645,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.865633,
+      "quality_scores": {
+        "ssim": 0.865633,
+        "psnr": 32.732579
+      },
+      "output_filename": "encodes/h_265_nvidia__p6__q12.mp4"
+    },
+    {
+      "codec_name": "H.265 Nvidia",
+      "preset": "p7",
+      "crf_value": 12,
+      "encode_time_seconds": 15.352,
+      "file_size_bytes": 40493674,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.865693,
+      "quality_scores": {
+        "ssim": 0.865693,
+        "psnr": 32.739587
+      },
+      "output_filename": "encodes/h_265_nvidia__p7__q12.mp4"
+    },
+    {
+      "codec_name": "H.264 Nvidia",
+      "preset": "p1",
+      "crf_value": 45,
+      "encode_time_seconds": 7.279,
+      "file_size_bytes": 9758396,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.699182,
+      "quality_scores": {
+        "ssim": 0.699182,
+        "psnr": 27.122329
+      },
+      "output_filename": "encodes/h_264_nvidia__p1__q45.mp4"
+    },
+    {
+      "codec_name": "H.264 Nvidia",
+      "preset": "p2",
+      "crf_value": 45,
+      "encode_time_seconds": 7.519,
+      "file_size_bytes": 9744972,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.699332,
+      "quality_scores": {
+        "ssim": 0.699332,
+        "psnr": 27.131345
+      },
+      "output_filename": "encodes/h_264_nvidia__p2__q45.mp4"
+    },
+    {
+      "codec_name": "H.264 Nvidia",
+      "preset": "p3",
+      "crf_value": 45,
+      "encode_time_seconds": 10.873,
+      "file_size_bytes": 9200586,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.707331,
+      "quality_scores": {
+        "ssim": 0.707331,
+        "psnr": 27.385241
+      },
+      "output_filename": "encodes/h_264_nvidia__p3__q45.mp4"
+    },
+    {
+      "codec_name": "H.264 Nvidia",
+      "preset": "p4",
+      "crf_value": 45,
+      "encode_time_seconds": 13.157,
+      "file_size_bytes": 8406136,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.711255,
+      "quality_scores": {
+        "ssim": 0.711255,
+        "psnr": 27.46319
+      },
+      "output_filename": "encodes/h_264_nvidia__p4__q45.mp4"
+    },
+    {
+      "codec_name": "H.264 Nvidia",
+      "preset": "p5",
+      "crf_value": 45,
+      "encode_time_seconds": 12.293,
+      "file_size_bytes": 8483075,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.711344,
+      "quality_scores": {
+        "ssim": 0.711344,
+        "psnr": 27.472227
+      },
+      "output_filename": "encodes/h_264_nvidia__p5__q45.mp4"
+    },
+    {
+      "codec_name": "H.264 Nvidia",
+      "preset": "p6",
+      "crf_value": 45,
+      "encode_time_seconds": 16.183,
+      "file_size_bytes": 8563255,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.712398,
+      "quality_scores": {
+        "ssim": 0.712398,
+        "psnr": 27.510412
+      },
+      "output_filename": "encodes/h_264_nvidia__p6__q45.mp4"
+    },
+    {
+      "codec_name": "H.264 Nvidia",
+      "preset": "p7",
+      "crf_value": 45,
+      "encode_time_seconds": 35.494,
+      "file_size_bytes": 8534678,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.712309,
+      "quality_scores": {
+        "ssim": 0.712309,
+        "psnr": 27.509158
+      },
+      "output_filename": "encodes/h_264_nvidia__p7__q45.mp4"
+    },
+    {
+      "codec_name": "H.265 Nvidia",
+      "preset": "p1",
+      "crf_value": 45,
+      "encode_time_seconds": 8.401,
+      "file_size_bytes": 9648568,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.741724,
+      "quality_scores": {
+        "ssim": 0.741724,
+        "psnr": 28.239778
+      },
+      "output_filename": "encodes/h_265_nvidia__p1__q45.mp4"
+    },
+    {
+      "codec_name": "H.265 Nvidia",
+      "preset": "p2",
+      "crf_value": 45,
+      "encode_time_seconds": 10.292,
+      "file_size_bytes": 8864757,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.747148,
+      "quality_scores": {
+        "ssim": 0.747148,
+        "psnr": 28.45694
+      },
+      "output_filename": "encodes/h_265_nvidia__p2__q45.mp4"
+    },
+    {
+      "codec_name": "H.265 Nvidia",
+      "preset": "p3",
+      "crf_value": 45,
+      "encode_time_seconds": 8.82,
+      "file_size_bytes": 8220356,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.747553,
+      "quality_scores": {
+        "ssim": 0.747553,
+        "psnr": 28.461765
+      },
+      "output_filename": "encodes/h_265_nvidia__p3__q45.mp4"
+    },
+    {
+      "codec_name": "H.265 Nvidia",
+      "preset": "p4",
+      "crf_value": 45,
+      "encode_time_seconds": 10.05,
+      "file_size_bytes": 8164646,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.751727,
+      "quality_scores": {
+        "ssim": 0.751727,
+        "psnr": 28.53431
+      },
+      "output_filename": "encodes/h_265_nvidia__p4__q45.mp4"
+    },
+    {
+      "codec_name": "H.265 Nvidia",
+      "preset": "p5",
+      "crf_value": 45,
+      "encode_time_seconds": 11.767,
+      "file_size_bytes": 8162483,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.752249,
+      "quality_scores": {
+        "ssim": 0.752249,
+        "psnr": 28.549034
+      },
+      "output_filename": "encodes/h_265_nvidia__p5__q45.mp4"
+    },
+    {
+      "codec_name": "H.265 Nvidia",
+      "preset": "p6",
+      "crf_value": 45,
+      "encode_time_seconds": 15.474,
+      "file_size_bytes": 8165984,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.75242,
+      "quality_scores": {
+        "ssim": 0.75242,
+        "psnr": 28.548943
+      },
+      "output_filename": "encodes/h_265_nvidia__p6__q45.mp4"
+    },
+    {
+      "codec_name": "H.265 Nvidia",
+      "preset": "p7",
+      "crf_value": 45,
+      "encode_time_seconds": 18.659,
+      "file_size_bytes": 8150388,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.752295,
+      "quality_scores": {
+        "ssim": 0.752295,
+        "psnr": 28.549529
+      },
+      "output_filename": "encodes/h_265_nvidia__p7__q45.mp4"
+    },
+    {
+      "codec_name": "H.264 Nvidia",
+      "preset": "p1",
+      "crf_value": 7,
+      "encode_time_seconds": 12.599,
+      "file_size_bytes": 155498696,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.907124,
+      "quality_scores": {
+        "ssim": 0.907124,
+        "psnr": 35.711527
+      },
+      "output_filename": "encodes/h_264_nvidia__p1__q7.mp4"
+    },
+    {
+      "codec_name": "H.264 Nvidia",
+      "preset": "p2",
+      "crf_value": 7,
+      "encode_time_seconds": 11.951,
+      "file_size_bytes": 153820212,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.906762,
+      "quality_scores": {
+        "ssim": 0.906762,
+        "psnr": 35.689336
+      },
+      "output_filename": "encodes/h_264_nvidia__p2__q7.mp4"
+    },
+    {
+      "codec_name": "H.264 Nvidia",
+      "preset": "p3",
+      "crf_value": 7,
+      "encode_time_seconds": 9.658,
+      "file_size_bytes": 156153862,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.910478,
+      "quality_scores": {
+        "ssim": 0.910478,
+        "psnr": 35.855621
+      },
+      "output_filename": "encodes/h_264_nvidia__p3__q7.mp4"
+    },
+    {
+      "codec_name": "H.264 Nvidia",
+      "preset": "p4",
+      "crf_value": 7,
+      "encode_time_seconds": 12.992,
+      "file_size_bytes": 155497840,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.913232,
+      "quality_scores": {
+        "ssim": 0.913232,
+        "psnr": 35.805436
+      },
+      "output_filename": "encodes/h_264_nvidia__p4__q7.mp4"
+    },
+    {
+      "codec_name": "H.264 Nvidia",
+      "preset": "p5",
+      "crf_value": 7,
+      "encode_time_seconds": 14.048,
+      "file_size_bytes": 154909448,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.913027,
+      "quality_scores": {
+        "ssim": 0.913027,
+        "psnr": 35.803847
+      },
+      "output_filename": "encodes/h_264_nvidia__p5__q7.mp4"
+    },
+    {
+      "codec_name": "H.264 Nvidia",
+      "preset": "p6",
+      "crf_value": 7,
+      "encode_time_seconds": 21.314,
+      "file_size_bytes": 155190372,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.912751,
+      "quality_scores": {
+        "ssim": 0.912751,
+        "psnr": 35.807071
+      },
+      "output_filename": "encodes/h_264_nvidia__p6__q7.mp4"
+    },
+    {
+      "codec_name": "H.264 Nvidia",
+      "preset": "p7",
+      "crf_value": 7,
+      "encode_time_seconds": 22.009,
+      "file_size_bytes": 155133272,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.912582,
+      "quality_scores": {
+        "ssim": 0.912582,
+        "psnr": 35.813489
+      },
+      "output_filename": "encodes/h_264_nvidia__p7__q7.mp4"
+    },
+    {
+      "codec_name": "H.265 Nvidia",
+      "preset": "p1",
+      "crf_value": 7,
+      "encode_time_seconds": 12.048,
+      "file_size_bytes": 40615831,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.848946,
+      "quality_scores": {
+        "ssim": 0.848946,
+        "psnr": 32.298216
+      },
+      "output_filename": "encodes/h_265_nvidia__p1__q7.mp4"
+    },
+    {
+      "codec_name": "H.265 Nvidia",
+      "preset": "p2",
+      "crf_value": 7,
+      "encode_time_seconds": 10.397,
+      "file_size_bytes": 40692963,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.856519,
+      "quality_scores": {
+        "ssim": 0.856519,
+        "psnr": 32.591325
+      },
+      "output_filename": "encodes/h_265_nvidia__p2__q7.mp4"
+    },
+    {
+      "codec_name": "H.265 Nvidia",
+      "preset": "p3",
+      "crf_value": 7,
+      "encode_time_seconds": 10.355,
+      "file_size_bytes": 40601493,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.858287,
+      "quality_scores": {
+        "ssim": 0.858287,
+        "psnr": 32.655651
+      },
+      "output_filename": "encodes/h_265_nvidia__p3__q7.mp4"
+    },
+    {
+      "codec_name": "H.265 Nvidia",
+      "preset": "p4",
+      "crf_value": 7,
+      "encode_time_seconds": 11.059,
+      "file_size_bytes": 40452265,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.865212,
+      "quality_scores": {
+        "ssim": 0.865212,
+        "psnr": 32.717075
+      },
+      "output_filename": "encodes/h_265_nvidia__p4__q7.mp4"
+    },
+    {
+      "codec_name": "H.265 Nvidia",
+      "preset": "p5",
+      "crf_value": 7,
+      "encode_time_seconds": 12.123,
+      "file_size_bytes": 40460695,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.865519,
+      "quality_scores": {
+        "ssim": 0.865519,
+        "psnr": 32.727078
+      },
+      "output_filename": "encodes/h_265_nvidia__p5__q7.mp4"
+    },
+    {
+      "codec_name": "H.265 Nvidia",
+      "preset": "p6",
+      "crf_value": 7,
+      "encode_time_seconds": 14.733,
+      "file_size_bytes": 40473645,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.865633,
+      "quality_scores": {
+        "ssim": 0.865633,
+        "psnr": 32.732579
+      },
+      "output_filename": "encodes/h_265_nvidia__p6__q7.mp4"
+    },
+    {
+      "codec_name": "H.265 Nvidia",
+      "preset": "p7",
+      "crf_value": 7,
+      "encode_time_seconds": 18.12,
+      "file_size_bytes": 40493674,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.865693,
+      "quality_scores": {
+        "ssim": 0.865693,
+        "psnr": 32.739587
+      },
+      "output_filename": "encodes/h_265_nvidia__p7__q7.mp4"
+    },
+    {
+      "codec_name": "H.264 Nvidia",
+      "preset": "p1",
+      "crf_value": 51,
+      "encode_time_seconds": 11.429,
+      "file_size_bytes": 5750737,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.642741,
+      "quality_scores": {
+        "ssim": 0.642741,
+        "psnr": 25.463695
+      },
+      "output_filename": "encodes/h_264_nvidia__p1__q51.mp4"
+    },
+    {
+      "codec_name": "H.264 Nvidia",
+      "preset": "p2",
+      "crf_value": 51,
+      "encode_time_seconds": 9.569,
+      "file_size_bytes": 5750971,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.642942,
+      "quality_scores": {
+        "ssim": 0.642942,
+        "psnr": 25.473384
+      },
+      "output_filename": "encodes/h_264_nvidia__p2__q51.mp4"
+    },
+    {
+      "codec_name": "H.264 Nvidia",
+      "preset": "p3",
+      "crf_value": 51,
+      "encode_time_seconds": 9.052,
+      "file_size_bytes": 5022721,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.643549,
+      "quality_scores": {
+        "ssim": 0.643549,
+        "psnr": 25.481393
+      },
+      "output_filename": "encodes/h_264_nvidia__p3__q51.mp4"
+    },
+    {
+      "codec_name": "H.264 Nvidia",
+      "preset": "p4",
+      "crf_value": 51,
+      "encode_time_seconds": 11.633,
+      "file_size_bytes": 4665453,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.640102,
+      "quality_scores": {
+        "ssim": 0.640102,
+        "psnr": 25.389362
+      },
+      "output_filename": "encodes/h_264_nvidia__p4__q51.mp4"
+    },
+    {
+      "codec_name": "H.264 Nvidia",
+      "preset": "p5",
+      "crf_value": 51,
+      "encode_time_seconds": 10.609,
+      "file_size_bytes": 4713474,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.640584,
+      "quality_scores": {
+        "ssim": 0.640584,
+        "psnr": 25.404537
+      },
+      "output_filename": "encodes/h_264_nvidia__p5__q51.mp4"
+    },
+    {
+      "codec_name": "H.264 Nvidia",
+      "preset": "p6",
+      "crf_value": 51,
+      "encode_time_seconds": 10.367,
+      "file_size_bytes": 4673300,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.64028,
+      "quality_scores": {
+        "ssim": 0.64028,
+        "psnr": 25.393465
+      },
+      "output_filename": "encodes/h_264_nvidia__p6__q51.mp4"
+    },
+    {
+      "codec_name": "H.264 Nvidia",
+      "preset": "p7",
+      "crf_value": 51,
+      "encode_time_seconds": 16.157,
+      "file_size_bytes": 4685925,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.64081,
+      "quality_scores": {
+        "ssim": 0.64081,
+        "psnr": 25.4085
+      },
+      "output_filename": "encodes/h_264_nvidia__p7__q51.mp4"
+    },
+    {
+      "codec_name": "H.265 Nvidia",
+      "preset": "p1",
+      "crf_value": 51,
+      "encode_time_seconds": 7.45,
+      "file_size_bytes": 4526228,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.684032,
+      "quality_scores": {
+        "ssim": 0.684032,
+        "psnr": 26.558762
+      },
+      "output_filename": "encodes/h_265_nvidia__p1__q51.mp4"
+    },
+    {
+      "codec_name": "H.265 Nvidia",
+      "preset": "p2",
+      "crf_value": 51,
+      "encode_time_seconds": 9.452,
+      "file_size_bytes": 4150840,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.681583,
+      "quality_scores": {
+        "ssim": 0.681583,
+        "psnr": 26.548766
+      },
+      "output_filename": "encodes/h_265_nvidia__p2__q51.mp4"
+    },
+    {
+      "codec_name": "H.265 Nvidia",
+      "preset": "p3",
+      "crf_value": 51,
+      "encode_time_seconds": 8.403,
+      "file_size_bytes": 3975253,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.68043,
+      "quality_scores": {
+        "ssim": 0.68043,
+        "psnr": 26.543016
+      },
+      "output_filename": "encodes/h_265_nvidia__p3__q51.mp4"
+    },
+    {
+      "codec_name": "H.265 Nvidia",
+      "preset": "p4",
+      "crf_value": 51,
+      "encode_time_seconds": 12.357,
+      "file_size_bytes": 4052613,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.680387,
+      "quality_scores": {
+        "ssim": 0.680387,
+        "psnr": 26.555432
+      },
+      "output_filename": "encodes/h_265_nvidia__p4__q51.mp4"
+    },
+    {
+      "codec_name": "H.265 Nvidia",
+      "preset": "p5",
+      "crf_value": 51,
+      "encode_time_seconds": 20.42,
+      "file_size_bytes": 4055556,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.68069,
+      "quality_scores": {
+        "ssim": 0.68069,
+        "psnr": 26.565125
+      },
+      "output_filename": "encodes/h_265_nvidia__p5__q51.mp4"
+    },
+    {
+      "codec_name": "H.265 Nvidia",
+      "preset": "p6",
+      "crf_value": 51,
+      "encode_time_seconds": 16.502,
+      "file_size_bytes": 4049927,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.680789,
+      "quality_scores": {
+        "ssim": 0.680789,
+        "psnr": 26.566682
+      },
+      "output_filename": "encodes/h_265_nvidia__p6__q51.mp4"
+    },
+    {
+      "codec_name": "H.265 Nvidia",
+      "preset": "p7",
+      "crf_value": 51,
+      "encode_time_seconds": 21.361,
+      "file_size_bytes": 4051241,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.68081,
+      "quality_scores": {
+        "ssim": 0.68081,
+        "psnr": 26.572047
+      },
+      "output_filename": "encodes/h_265_nvidia__p7__q51.mp4"
+    },
+    {
+      "codec_name": "H.264 Nvidia",
+      "preset": "p1",
+      "crf_value": 1,
+      "encode_time_seconds": 10.077,
+      "file_size_bytes": 155498696,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.907124,
+      "quality_scores": {
+        "ssim": 0.907124,
+        "psnr": 35.711527
+      },
+      "output_filename": "encodes/h_264_nvidia__p1__q1.mp4"
+    },
+    {
+      "codec_name": "H.264 Nvidia",
+      "preset": "p2",
+      "crf_value": 1,
+      "encode_time_seconds": 12.24,
+      "file_size_bytes": 153820212,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.906762,
+      "quality_scores": {
+        "ssim": 0.906762,
+        "psnr": 35.689336
+      },
+      "output_filename": "encodes/h_264_nvidia__p2__q1.mp4"
+    },
+    {
+      "codec_name": "H.264 Nvidia",
+      "preset": "p3",
+      "crf_value": 1,
+      "encode_time_seconds": 16.017,
+      "file_size_bytes": 156153862,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.910478,
+      "quality_scores": {
+        "ssim": 0.910478,
+        "psnr": 35.855621
+      },
+      "output_filename": "encodes/h_264_nvidia__p3__q1.mp4"
+    },
+    {
+      "codec_name": "H.264 Nvidia",
+      "preset": "p4",
+      "crf_value": 1,
+      "encode_time_seconds": 14.782,
+      "file_size_bytes": 155497840,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.913232,
+      "quality_scores": {
+        "ssim": 0.913232,
+        "psnr": 35.805436
+      },
+      "output_filename": "encodes/h_264_nvidia__p4__q1.mp4"
+    },
+    {
+      "codec_name": "H.264 Nvidia",
+      "preset": "p5",
+      "crf_value": 1,
+      "encode_time_seconds": 17.06,
+      "file_size_bytes": 154909448,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.913027,
+      "quality_scores": {
+        "ssim": 0.913027,
+        "psnr": 35.803847
+      },
+      "output_filename": "encodes/h_264_nvidia__p5__q1.mp4"
+    },
+    {
+      "codec_name": "H.264 Nvidia",
+      "preset": "p6",
+      "crf_value": 1,
+      "encode_time_seconds": 15.985,
+      "file_size_bytes": 155190372,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.912751,
+      "quality_scores": {
+        "ssim": 0.912751,
+        "psnr": 35.807071
+      },
+      "output_filename": "encodes/h_264_nvidia__p6__q1.mp4"
+    },
+    {
+      "codec_name": "H.264 Nvidia",
+      "preset": "p7",
+      "crf_value": 1,
+      "encode_time_seconds": 20.197,
+      "file_size_bytes": 155133272,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.912582,
+      "quality_scores": {
+        "ssim": 0.912582,
+        "psnr": 35.813489
+      },
+      "output_filename": "encodes/h_264_nvidia__p7__q1.mp4"
+    },
+    {
+      "codec_name": "H.265 Nvidia",
+      "preset": "p1",
+      "crf_value": 1,
+      "encode_time_seconds": 11.538,
+      "file_size_bytes": 40615831,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.848946,
+      "quality_scores": {
+        "ssim": 0.848946,
+        "psnr": 32.298216
+      },
+      "output_filename": "encodes/h_265_nvidia__p1__q1.mp4"
+    },
+    {
+      "codec_name": "H.265 Nvidia",
+      "preset": "p2",
+      "crf_value": 1,
+      "encode_time_seconds": 14.973,
+      "file_size_bytes": 40692963,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.856519,
+      "quality_scores": {
+        "ssim": 0.856519,
+        "psnr": 32.591325
+      },
+      "output_filename": "encodes/h_265_nvidia__p2__q1.mp4"
+    },
+    {
+      "codec_name": "H.265 Nvidia",
+      "preset": "p3",
+      "crf_value": 1,
+      "encode_time_seconds": 12.572,
+      "file_size_bytes": 40601493,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.858287,
+      "quality_scores": {
+        "ssim": 0.858287,
+        "psnr": 32.655651
+      },
+      "output_filename": "encodes/h_265_nvidia__p3__q1.mp4"
+    },
+    {
+      "codec_name": "H.265 Nvidia",
+      "preset": "p4",
+      "crf_value": 1,
+      "encode_time_seconds": 10.3,
+      "file_size_bytes": 40452265,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.865212,
+      "quality_scores": {
+        "ssim": 0.865212,
+        "psnr": 32.717075
+      },
+      "output_filename": "encodes/h_265_nvidia__p4__q1.mp4"
+    },
+    {
+      "codec_name": "H.265 Nvidia",
+      "preset": "p5",
+      "crf_value": 1,
+      "encode_time_seconds": 12.44,
+      "file_size_bytes": 40460695,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.865519,
+      "quality_scores": {
+        "ssim": 0.865519,
+        "psnr": 32.727078
+      },
+      "output_filename": "encodes/h_265_nvidia__p5__q1.mp4"
+    },
+    {
+      "codec_name": "H.265 Nvidia",
+      "preset": "p6",
+      "crf_value": 1,
+      "encode_time_seconds": 16.043,
+      "file_size_bytes": 40473645,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.865633,
+      "quality_scores": {
+        "ssim": 0.865633,
+        "psnr": 32.732579
+      },
+      "output_filename": "encodes/h_265_nvidia__p6__q1.mp4"
+    },
+    {
+      "codec_name": "H.265 Nvidia",
+      "preset": "p7",
+      "crf_value": 1,
+      "encode_time_seconds": 16.704,
+      "file_size_bytes": 40493674,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.865693,
+      "quality_scores": {
+        "ssim": 0.865693,
+        "psnr": 32.739587
+      },
+      "output_filename": "encodes/h_265_nvidia__p7__q1.mp4"
+    },
+    {
+      "codec_name": "AV1",
+      "preset": "1",
+      "crf_value": 35,
+      "encode_time_seconds": 2460.875,
+      "file_size_bytes": 79379024,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.91484,
+      "quality_scores": {
+        "ssim": 0.91484,
+        "psnr": 35.893399
+      },
+      "output_filename": "encodes/av1__1__q35.mp4"
     }
   ],
   "source_frame_rate": 50.0
