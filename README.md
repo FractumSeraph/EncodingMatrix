@@ -2,6 +2,24 @@
 
 This project lets you generate a large FFmpeg encode matrix and then interactively compare output quality, file size, and encode time in a browser.
 
+## Live Demo
+
+https://encoding.26001337.xyz
+
+## Screenshots
+
+### Compare View
+
+![Compare View](screenshots/FractumEncodeMatrix01_Compare.png)
+
+### Wipe Compare View
+
+![Wipe Compare View](screenshots/FractumEncodeMatrix02_WipeCompare.png)
+
+### Ranking View
+
+![Ranking View](screenshots/FractumEncodeMatrix03_Rank.png)
+
 ## Files
 
 - batch_encode.py: batch encoder with resumable manifest tracking.
