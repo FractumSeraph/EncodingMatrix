@@ -45,15 +45,15 @@ const shortcutChipEls = document.querySelectorAll(".shortcut-chip[data-action]")
 const UI_STORAGE_KEY = "fractumseraph.encoding-comparisons.ui.v1";
 const FRAME_STEP_SECONDS = 1 / 30;
 const MANIFEST_POLL_INTERVAL_MS = 60 * 60 * 1000;
-const UI_PREFERENCES_VERSION = 2;
+const UI_PREFERENCES_VERSION = 3;
 const DEFAULT_PLAYER_SELECTIONS = {
   A: {
-    codec: "H.264 CPU",
-    preset: "placebo",
-    crf: 28,
+    codec: "AV1",
+    preset: "-1",
+    crf: 35,
   },
   B: {
-    codec: "H.264 Nvidia",
+    codec: "H.265 Nvidia",
     preset: "p1",
     crf: 51,
   },
