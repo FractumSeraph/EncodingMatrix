@@ -214,8 +214,8 @@ input[type="range"] {
 }
 
 .crf-ticks {
-  display: grid;
-  grid-template-columns: repeat(10, minmax(0, 1fr));
+  display: flex;
+  justify-content: space-between;
   gap: 6px;
   margin-top: 6px;
   font-family: "IBM Plex Mono", monospace;
@@ -225,6 +225,7 @@ input[type="range"] {
 
 .crf-ticks span {
   text-align: center;
+  white-space: nowrap;
   opacity: 0.8;
 }
 
@@ -485,9 +486,5 @@ tbody tr:hover {
 
   .diff-metadata-grid {
     grid-template-columns: 1fr;
-  }
-
-  .crf-ticks {
-    grid-template-columns: repeat(5, minmax(0, 1fr));
   }
 }

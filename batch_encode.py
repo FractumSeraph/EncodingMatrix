@@ -32,6 +32,7 @@ from __future__ import annotations
 import argparse
 import concurrent.futures
 import json
+import os
 import re
 import shutil
 import signal
@@ -717,23 +718,47 @@ def run_command_capture(cmd: List[str]) -> Tuple[int, str]:
         unregister_process(process)
 
 
+def discard_temp_file(path: Path) -> None:
+    try:
+        path.unlink(missing_ok=True)
+    except OSError:
+        pass
+
+
 def run_encode(source_video: Path, job: EncodeJob) -> Tuple[bool, float, int, str]:
     if STOP_REQUESTED.is_set():
         return False, 0.0, 0, "Stopped before start."
     record_job_running(job)
     print(f"[START] {job_label(job)}", flush=True)
-    cmd = build_ffmpeg_command(source_video, job.codec, job.preset, job.qvalue, job.output_path)
+
+    # Encode into a git-ignored ".partial" folder first, then move the finished
+    # file into place atomically. This keeps the output folder free of partial
+    # or corrupt files when an encode is interrupted (e.g. Ctrl+C).
+    temp_dir = job.output_path.parent / ".partial"
+    temp_dir.mkdir(parents=True, exist_ok=True)
+    temp_path = temp_dir / job.output_path.name
+
+    cmd = build_ffmpeg_command(source_video, job.codec, job.preset, job.qvalue, temp_path)
     start = time.perf_counter()
     returncode, output = run_command_capture(cmd)
     elapsed = time.perf_counter() - start
 
     if returncode != 0:
+        discard_temp_file(temp_path)
         record_job_failed(job)
         return False, elapsed, 0, output
 
-    if not job.output_path.exists():
+    if not temp_path.exists():
         record_job_failed(job)
         return False, elapsed, 0, "FFmpeg reported success but output file was not created."
+
+    try:
+        job.output_path.parent.mkdir(parents=True, exist_ok=True)
+        os.replace(temp_path, job.output_path)
+    except OSError as exc:
+        discard_temp_file(temp_path)
+        record_job_failed(job)
+        return False, elapsed, 0, f"Failed to move completed encode into place: {exc}"
 
     record_job_finished(job)
     return True, elapsed, job.output_path.stat().st_size, output

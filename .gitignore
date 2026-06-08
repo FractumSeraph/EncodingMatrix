@@ -4,3 +4,6 @@ source.y4m
 # Python bytecode cache
 __pycache__/
 *.pyc
+
+# In-progress encodes (moved into the output folder once complete)
+.partial/
