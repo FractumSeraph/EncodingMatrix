@@ -17,62 +17,6 @@
     },
     {
       "codec_name": "AV1",
-      "preset": "10",
-      "crf_value": 35,
-      "encode_time_seconds": 25.579,
-      "file_size_bytes": 110748304,
-      "quality_metric": "ssim",
-      "quality_score": 0.913009,
-      "quality_scores": {
-        "ssim": 0.913009,
-        "psnr": 35.688891
-      },
-      "output_filename": "encodes/av1__10__q35.mp4"
-    },
-    {
-      "codec_name": "AV1",
-      "preset": "11",
-      "crf_value": 35,
-      "encode_time_seconds": 25.721,
-      "file_size_bytes": 110748304,
-      "quality_metric": "ssim",
-      "quality_score": 0.913009,
-      "quality_scores": {
-        "ssim": 0.913009,
-        "psnr": 35.688891
-      },
-      "output_filename": "encodes/av1__11__q35.mp4"
-    },
-    {
-      "codec_name": "AV1",
-      "preset": "12",
-      "crf_value": 35,
-      "encode_time_seconds": 26.144,
-      "file_size_bytes": 110748304,
-      "quality_metric": "ssim",
-      "quality_score": 0.913009,
-      "quality_scores": {
-        "ssim": 0.913009,
-        "psnr": 35.688891
-      },
-      "output_filename": "encodes/av1__12__q35.mp4"
-    },
-    {
-      "codec_name": "AV1",
-      "preset": "13",
-      "crf_value": 35,
-      "encode_time_seconds": 26.046,
-      "file_size_bytes": 110748304,
-      "quality_metric": "ssim",
-      "quality_score": 0.913009,
-      "quality_scores": {
-        "ssim": 0.913009,
-        "psnr": 35.688891
-      },
-      "output_filename": "encodes/av1__13__q35.mp4"
-    },
-    {
-      "codec_name": "AV1",
       "preset": "2",
       "crf_value": 35,
       "encode_time_seconds": 394.922,
@@ -519,21 +463,6 @@
         "psnr": 36.210848
       },
       "output_filename": "encodes/av1__neg1__q35.mp4"
-    },
-    {
-      "codec_name": "AV1",
-      "preset": "1",
-      "crf_value": 35,
-      "encode_time_seconds": 1205.411,
-      "file_size_bytes": 79379024,
-      "source_frame_rate": 50.0,
-      "quality_metric": "ssim",
-      "quality_score": 0.91484,
-      "quality_scores": {
-        "ssim": 0.91484,
-        "psnr": 35.893399
-      },
-      "output_filename": "encodes/av1__1__q35.mp4"
     }
   ],
   "source_frame_rate": 50.0
