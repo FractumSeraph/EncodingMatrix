@@ -1,2 +1,6 @@
 # Large source and generated encode outputs
 source.y4m
+
+# Python bytecode cache
+__pycache__/
+*.pyc
