@@ -207,6 +207,11 @@ def parse_args() -> argparse.Namespace:
         "Metrics whose FFmpeg filter is unavailable are skipped (the primary --quality-metric is required).",
     )
     parser.add_argument("--dry-run", action="store_true", help="Print plan without running FFmpeg")
+    parser.add_argument(
+        "--skip-backfill",
+        action="store_true",
+        help="Skip computing missing metrics for already-encoded files (only run new encodes)",
+    )
     return parser.parse_args()
 
 
@@ -458,27 +463,50 @@ def backfill_missing_quality(
     primary_metric: str,
     metrics_to_compute: List[str],
 ) -> int:
-    updated = 0
+    pending = []
     for entry in manifest["results"]:
         missing_metrics = [m for m in metrics_to_compute if not has_quality_score(entry, m)]
         if not missing_metrics:
             continue
+        if not resolve_output_path(entry, manifest_path).exists():
+            continue
+        pending.append((entry, missing_metrics))
+
+    if not pending:
+        return 0
+
+    total = len(pending)
+    print(
+        f"[BACKFILL] {total} existing encode(s) are missing requested metrics; computing them "
+        f"before scheduling new jobs. This can take a while (use --skip-backfill to skip).",
+        flush=True,
+    )
+
+    updated = 0
+    for idx, (entry, missing_metrics) in enumerate(pending, start=1):
+        if STOP_REQUESTED.is_set():
+            print("[BACKFILL] Stop requested; remaining metrics will be computed on a later run.", flush=True)
+            break
+
+        label = f"{entry.get('codec_name')} | preset={entry.get('preset')} | q={entry.get('crf_value')}"
+        print(f"[BACKFILL {idx}/{total}] {label} | computing: {', '.join(missing_metrics)}", flush=True)
 
         output_path = resolve_output_path(entry, manifest_path)
-        if not output_path.exists():
-            continue
-
         scores = entry.get("quality_scores")
         if not isinstance(scores, dict):
             scores = {}
 
         changed = False
         for metric in missing_metrics:
+            if STOP_REQUESTED.is_set():
+                break
             quality_score, _ = measure_quality(source_video, output_path, metric)
             if quality_score is None:
+                print(f"    {metric}: could not be measured (skipped)", flush=True)
                 continue
             scores[metric] = round(quality_score, 6)
             changed = True
+            print(f"    {metric}={scores[metric]}", flush=True)
 
         if not changed:
             continue
@@ -494,9 +522,11 @@ def backfill_missing_quality(
                 entry["quality_score"] = round(fallback_score, 6)
 
         updated += 1
+        # Persist after each entry so progress survives an interruption.
+        save_manifest(manifest_path, manifest)
 
     if updated > 0:
-        save_manifest(manifest_path, manifest)
+        print(f"[BACKFILL] Done. Updated {updated} entr(ies).", flush=True)
 
     return updated
 
@@ -1048,7 +1078,13 @@ def main() -> None:
     source_frame_rate = probe_source_frame_rate(source_video)
     manifest["source_frame_rate"] = round(source_frame_rate, 6)
     save_manifest(manifest_path, manifest)
-    backfilled = backfill_missing_quality(manifest, manifest_path, source_video, args.quality_metric, metrics_to_compute)
+    if args.skip_backfill:
+        backfilled = 0
+        print("[BACKFILL] Skipped (--skip-backfill).", flush=True)
+    else:
+        backfilled = backfill_missing_quality(
+            manifest, manifest_path, source_video, args.quality_metric, metrics_to_compute
+        )
     completed = build_completed_index(manifest["results"])
 
     active_codecs = []
