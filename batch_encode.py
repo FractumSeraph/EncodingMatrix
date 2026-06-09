@@ -190,8 +190,9 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--quality-metrics",
-        default="",
-        help="Comma-separated list of metrics to compute (ssim,psnr,vmaf) or 'all'. Empty means primary metric only.",
+        default="all",
+        help="Comma-separated list of metrics to compute (ssim,psnr,vmaf) or 'all' (default). "
+        "Metrics whose FFmpeg filter is unavailable are skipped (the primary --quality-metric is required).",
     )
     parser.add_argument("--dry-run", action="store_true", help="Print plan without running FFmpeg")
     return parser.parse_args()
@@ -940,11 +941,20 @@ def main() -> None:
 
     supported = ffmpeg_supported_encoders()
     supported_filters = ffmpeg_supported_filters()
+    metric_filters = {"ssim": "ssim", "psnr": "psnr", "vmaf": "libvmaf"}
+    available_metrics = []
     for metric in metrics_to_compute:
-        required_filter = {"ssim": "ssim", "psnr": "psnr", "vmaf": "libvmaf"}[metric]
-        if required_filter not in supported_filters:
-            print(f"ERROR: FFmpeg filter '{required_filter}' is not available, so metric '{metric}' cannot be used.")
+        if metric_filters[metric] in supported_filters:
+            available_metrics.append(metric)
+        elif metric == args.quality_metric:
+            print(
+                f"ERROR: FFmpeg filter '{metric_filters[metric]}' is not available, "
+                f"so the primary metric '{metric}' cannot be used."
+            )
             sys.exit(1)
+        else:
+            print(f"[SKIP METRIC] {metric}: FFmpeg filter '{metric_filters[metric]}' is not available in this build")
+    metrics_to_compute = available_metrics
 
     manifest = load_manifest(manifest_path, source_video)
     source_frame_rate = probe_source_frame_rate(source_video)
