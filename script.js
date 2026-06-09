@@ -60,6 +60,14 @@ const DEFAULT_PLAYER_SELECTIONS = {
   },
 };
 
+// Metrics where a lower score means better quality (e.g. Butteraugli distance).
+// Everything else is treated as higher-is-better.
+const METRIC_LOWER_IS_BETTER = new Set(["butteraugli"]);
+
+function metricLowerIsBetter(metric) {
+  return METRIC_LOWER_IS_BETTER.has(String(metric).toLowerCase());
+}
+
 const state = {
   manifestResults: [],
   manifestSourceRows: [],
@@ -891,10 +899,10 @@ function renderSummaryTable() {
   const headHtml =
     ["Rank", "Codec", "Preset", "CRF/CQ"].map((h) => `<th>${h}</th>`).join("") +
     metrics
-      .map(
-        (m) =>
-          `<th${m === state.activeQualityMetric ? ' class="metric-active"' : ""}>${m.toUpperCase()}</th>`
-      )
+      .map((m) => {
+        const arrow = metricLowerIsBetter(m) ? " ↓" : " ↑";
+        return `<th${m === state.activeQualityMetric ? ' class="metric-active"' : ""}>${m.toUpperCase()}${arrow}</th>`;
+      })
       .join("") +
     ["Size (MB)", "Time (s)", "Score"].map((h) => `<th>${h}</th>`).join("");
   summaryTableHead.innerHTML = `<tr>${headHtml}</tr>`;
@@ -927,7 +935,9 @@ function renderSummaryTable() {
       const timeNorm = (Number(entry.encode_time_seconds) - minTime) / denomTime;
       const qualityScore = getQualityScore(entry, state.activeQualityMetric);
       const qualityNorm = Number.isFinite(qualityScore) ? (qualityScore - minQuality) / denomQuality : 0.5;
-      const qualityLoss = 1 - qualityNorm;
+      // For lower-is-better metrics (e.g. Butteraugli) a higher raw score is
+      // worse, so the "loss" rises with the score instead of falling.
+      const qualityLoss = metricLowerIsBetter(state.activeQualityMetric) ? qualityNorm : 1 - qualityNorm;
       const score =
         state.weights.size * sizeNorm +
         state.weights.time * timeNorm +
