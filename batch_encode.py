@@ -68,7 +68,19 @@ class EncodeJob:
 
 SSIM_ALL_RE = re.compile(r"All:([0-9]+(?:\.[0-9]+)?)")
 PSNR_AVG_RE = re.compile(r"average:([0-9]+(?:\.[0-9]+)?)")
-SUPPORTED_QUALITY_METRICS = ("ssim", "psnr", "vmaf")
+
+# Metrics computed with FFmpeg filters vs. the external FFVship GPU CLI
+# (https://github.com/Line-fr/Vship). FFVship covers SSIMULACRA2, Butteraugli
+# and CVVDP; selected via its -m flag.
+FFMPEG_METRICS = ("ssim", "psnr", "vmaf")
+FFVSHIP_METRIC_FLAG = {
+    "ssimulacra2": "SSIMULACRA2",
+    "butteraugli": "Butteraugli",
+    "cvvdp": "CVVDP",
+}
+SUPPORTED_QUALITY_METRICS = FFMPEG_METRICS + tuple(FFVSHIP_METRIC_FLAG)
+# Metrics where a lower score means better quality (everything else is higher-is-better).
+LOWER_IS_BETTER_METRICS = ("butteraugli",)
 
 STOP_REQUESTED = threading.Event()
 ACTIVE_PROCESSES_LOCK = threading.Lock()
@@ -765,9 +777,79 @@ def run_encode(source_video: Path, job: EncodeJob) -> Tuple[bool, float, int, st
     return True, elapsed, job.output_path.stat().st_size, output
 
 
+def ffvship_executable() -> str | None:
+    for name in ("FFVship", "ffvship", "FFVship.exe"):
+        path = shutil.which(name)
+        if path:
+            return path
+    return None
+
+
+def aggregate_ffvship_scores(metric: str, per_frame: list) -> float | None:
+    # FFVship --json writes a list of per-frame arrays (no top-level keys):
+    #   SSIMULACRA2: [[score], ...]                 higher is better -> mean
+    #   Butteraugli: [[QNorm, 3Norm, INFNorm], ...] lower is better  -> worst-case INFNorm
+    #   CVVDP:       [[cumulative], ...]            higher is better  -> last value (whole-clip)
+    rows = [row for row in per_frame if isinstance(row, list) and row]
+    if not rows:
+        return None
+    try:
+        if metric == "ssimulacra2":
+            values = [float(row[0]) for row in rows]
+            return sum(values) / len(values)
+        if metric == "butteraugli":
+            return max(float(row[2] if len(row) >= 3 else row[-1]) for row in rows)
+        if metric == "cvvdp":
+            return float(rows[-1][0])
+    except (TypeError, ValueError, IndexError):
+        return None
+    return None
+
+
+def measure_quality_ffvship(source_video: Path, encoded_video: Path, quality_metric: str) -> Tuple[float | None, str]:
+    exe = ffvship_executable()
+    if exe is None:
+        return None, "FFVship executable was not found in PATH."
+
+    with tempfile.NamedTemporaryFile(delete=False, suffix=".json") as tmp:
+        log_path = Path(tmp.name)
+    try:
+        cmd = [
+            exe,
+            "--source",
+            str(source_video),
+            "--encoded",
+            str(encoded_video),
+            "-m",
+            FFVSHIP_METRIC_FLAG[quality_metric],
+            "--json",
+            str(log_path),
+        ]
+        _, output = run_command_capture(cmd)
+        if not log_path.exists():
+            return None, output
+        try:
+            with log_path.open("r", encoding="utf-8") as f:
+                data = json.load(f)
+        except Exception:
+            return None, output
+        if not isinstance(data, list):
+            return None, output
+        score = aggregate_ffvship_scores(quality_metric, data)
+        return score, output
+    finally:
+        try:
+            log_path.unlink(missing_ok=True)
+        except Exception:
+            pass
+
+
 def measure_quality(source_video: Path, encoded_video: Path, quality_metric: str) -> Tuple[float | None, str]:
     if STOP_REQUESTED.is_set():
         return None, "Stopped before quality analysis."
+
+    if quality_metric in FFVSHIP_METRIC_FLAG:
+        return measure_quality_ffvship(source_video, encoded_video, quality_metric)
 
     if quality_metric == "ssim":
         cmd = [
@@ -941,19 +1023,25 @@ def main() -> None:
 
     supported = ffmpeg_supported_encoders()
     supported_filters = ffmpeg_supported_filters()
-    metric_filters = {"ssim": "ssim", "psnr": "psnr", "vmaf": "libvmaf"}
+    ffmpeg_metric_filters = {"ssim": "ssim", "psnr": "psnr", "vmaf": "libvmaf"}
+    ffvship_path = ffvship_executable()
+
+    def metric_availability(metric: str) -> Tuple[bool, str]:
+        if metric in ffmpeg_metric_filters:
+            required = ffmpeg_metric_filters[metric]
+            return required in supported_filters, f"FFmpeg filter '{required}'"
+        return ffvship_path is not None, "the FFVship executable"
+
     available_metrics = []
     for metric in metrics_to_compute:
-        if metric_filters[metric] in supported_filters:
+        ok, requirement = metric_availability(metric)
+        if ok:
             available_metrics.append(metric)
         elif metric == args.quality_metric:
-            print(
-                f"ERROR: FFmpeg filter '{metric_filters[metric]}' is not available, "
-                f"so the primary metric '{metric}' cannot be used."
-            )
+            print(f"ERROR: {requirement} is not available, so the primary metric '{metric}' cannot be used.")
             sys.exit(1)
         else:
-            print(f"[SKIP METRIC] {metric}: FFmpeg filter '{metric_filters[metric]}' is not available in this build")
+            print(f"[SKIP METRIC] {metric}: {requirement} is not available")
     metrics_to_compute = available_metrics
 
     manifest = load_manifest(manifest_path, source_video)
