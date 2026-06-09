@@ -950,7 +950,6 @@ function renderSummaryTable() {
     .map((x, idx) => ({ ...x, rank: idx + 1 }));
 
   summaryTableBody.innerHTML = state.rankedRows
-    .slice(0, 100)
     .map((row) =>
       rowHtml([
         row.rank,
