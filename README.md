@@ -136,7 +136,7 @@ Visual quality:
 
 - The encoder computes an objective post-encode quality score against the original source.
 - FFmpeg metrics: SSIM, PSNR, and VMAF (when the required FFmpeg filter is available).
-- GPU metrics: SSIMULACRA2, Butteraugli, and CVVDP via the FFVship CLI (https://github.com/Line-fr/Vship). On Windows, run `install_metrics.ps1` to install FFVship; metrics whose tool is missing are skipped automatically.
+- GPU metrics: SSIMULACRA2, Butteraugli, and CVVDP via the FFVship CLI (Vship; releases at https://codeberg.org/Line-fr/Vship/releases). On Windows, run `install_metrics.ps1` to install FFVship (use `-AssetUrl <url>` if auto-detection misses); metrics whose tool is missing are skipped automatically.
 - `--quality-metrics` defaults to `all`; keep one primary metric (used for ranking) via `--quality-metric`.
 - The scoreboard shows every available metric as its own column. Note Butteraugli is lower-is-better (marked with a down arrow); all others are higher-is-better.
 - Existing manifest entries missing requested metrics are backfilled on later runs without re-encoding.

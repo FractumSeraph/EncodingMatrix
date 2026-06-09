@@ -24,7 +24,11 @@
 [CmdletBinding()]
 param(
     [string]$InstallDir = "$env:LOCALAPPDATA\EncodingMatrix\tools",
-    [ValidateSet('nvidia', 'amd')][string]$Gpu = 'nvidia'
+    [ValidateSet('nvidia', 'amd')][string]$Gpu = 'nvidia',
+    # Vship release binaries now live on Codeberg (the GitHub repo is archived).
+    [ValidateSet('codeberg', 'github')][string]$Source = 'codeberg',
+    # Bypass auto-detection: pass a direct asset download URL (from the release page).
+    [string]$AssetUrl
 )
 
 $ErrorActionPreference = 'Stop'
@@ -40,37 +44,68 @@ if ($Gpu -eq 'nvidia' -and -not (Get-Command nvidia-smi -ErrorAction SilentlyCon
 
 New-Item -ItemType Directory -Force -Path $InstallDir | Out-Null
 
-# 2. Find the latest Vship release and pick the right Windows asset
-Write-Host "Querying latest Vship release..."
-$release = Invoke-RestMethod -Headers $headers -Uri 'https://api.github.com/repos/Line-fr/Vship/releases/latest'
-Write-Host "Latest release: $($release.tag_name)"
-
-$gpuPattern = if ($Gpu -eq 'amd') { 'amd|hip|rocm' } else { 'nvidia|cuda' }
-$asset =
-    ($release.assets | Where-Object { $_.name -match 'win' -and $_.name -match $gpuPattern } | Select-Object -First 1)
-if (-not $asset) {
-    $asset = $release.assets | Where-Object { $_.name -match 'win' } | Select-Object -First 1
+# 2. Resolve the download URL. Releases live on Codeberg; -AssetUrl overrides.
+$releasesPage = if ($Source -eq 'github') {
+    'https://github.com/Line-fr/Vship/releases'
+} else {
+    'https://codeberg.org/Line-fr/Vship/releases'
 }
-if (-not $asset) {
-    Write-Host "Could not auto-detect a Windows asset. Available assets:" -ForegroundColor Yellow
-    $release.assets | ForEach-Object { Write-Host "  $($_.name)" }
-    throw "No Windows FFVship asset found automatically. Download one manually from $($release.html_url)"
+
+if ($AssetUrl) {
+    $downloadUrl = $AssetUrl
+    $assetName = Split-Path $AssetUrl -Leaf
+    Write-Host "Using provided asset URL: $AssetUrl"
+}
+else {
+    $apiUri = if ($Source -eq 'github') {
+        'https://api.github.com/repos/Line-fr/Vship/releases/latest'
+    } else {
+        'https://codeberg.org/api/v1/repos/Line-fr/Vship/releases/latest'
+    }
+    Write-Host "Querying latest Vship release from $Source ..."
+    $release = Invoke-RestMethod -Headers $headers -Uri $apiUri
+    Write-Host "Latest release: $($release.tag_name)"
+
+    $gpuPattern = if ($Gpu -eq 'amd') { 'amd|hip|rocm' } else { 'nvidia|cuda' }
+    $asset =
+        ($release.assets | Where-Object { $_.name -match 'win' -and $_.name -match $gpuPattern } | Select-Object -First 1)
+    if (-not $asset) {
+        $asset = $release.assets | Where-Object { $_.name -match 'win' } | Select-Object -First 1
+    }
+    if (-not $asset) {
+        Write-Host "Could not auto-detect a Windows asset in the $Source release. Available assets:" -ForegroundColor Yellow
+        if ($release.assets) {
+            $release.assets | ForEach-Object { Write-Host "  $($_.name)  ->  $($_.browser_download_url)" }
+        } else {
+            Write-Host "  (this release lists no binary assets)"
+        }
+        throw "No Windows asset matched automatically. Open $releasesPage, copy a Windows download link, and re-run with:  -AssetUrl <url>"
+    }
+    $downloadUrl = $asset.browser_download_url
+    $assetName = $asset.name
 }
 
 # 3. Download
-$download = Join-Path $env:TEMP $asset.name
-Write-Host "Downloading $($asset.name)..."
-Invoke-WebRequest -Headers $headers -Uri $asset.browser_download_url -OutFile $download
+$download = Join-Path $env:TEMP $assetName
+Write-Host "Downloading $assetName ..."
+Invoke-WebRequest -Headers $headers -Uri $downloadUrl -OutFile $download
 
 # 4. Extract / place
-if ($asset.name -match '\.zip$') {
+if ($assetName -match '\.zip$') {
     Expand-Archive -Path $download -DestinationPath $InstallDir -Force
 }
-elseif ($asset.name -match '\.exe$') {
+elseif ($assetName -match '\.exe$') {
     Copy-Item $download -Destination $InstallDir -Force
 }
+elseif ($assetName -match '\.7z$') {
+    $sevenZip = Get-Command 7z, 7za -ErrorAction SilentlyContinue | Select-Object -First 1
+    if (-not $sevenZip) {
+        throw "Asset '$assetName' is a .7z archive but 7-Zip was not found. Install 7-Zip (https://www.7-zip.org), or extract it into '$InstallDir' manually, then re-run."
+    }
+    & $sevenZip.Source x "-o$InstallDir" -y $download | Out-Null
+}
 else {
-    throw "Asset '$($asset.name)' is not a .zip/.exe. Extract it into '$InstallDir' manually (e.g. with 7-Zip) and re-run."
+    throw "Asset '$assetName' is not a recognized archive. Extract it into '$InstallDir' manually and re-run."
 }
 
 # 5. Locate the FFVship executable (it may be inside a nested folder)
