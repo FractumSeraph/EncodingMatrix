@@ -1,5 +1,6 @@
 const statusEl = document.getElementById("status");
 const summaryTableBody = document.querySelector("#summaryTable tbody");
+const summaryTableHead = document.querySelector("#summaryTable thead");
 const compareGridEl = document.getElementById("compareGrid");
 const diffStageEl = document.getElementById("diffStage");
 const diffVideoAEl = document.getElementById("diffVideoA");
@@ -810,10 +811,6 @@ function updatePlayerControls(player, preferredSelection = null) {
   updateCrfControl(player, crfValues, Number.isFinite(Number(preferredCrf)) ? Number(preferredCrf) : null);
 }
 
-function rowHtml(cells) {
-  return `<tr>${cells.map((x) => `<td>${x}</td>`).join("")}</tr>`;
-}
-
 function toggleLockSync() {
   state.lockSync = !state.lockSync;
   updateLockButtonUi();
@@ -887,6 +884,21 @@ function runShortcutAction(action) {
 }
 
 function renderSummaryTable() {
+  const metrics = availableQualityMetrics();
+
+  // Header: one column per available quality metric. The active metric (the
+  // one driving the Score / ranking) is highlighted.
+  const headHtml =
+    ["Rank", "Codec", "Preset", "CRF/CQ"].map((h) => `<th>${h}</th>`).join("") +
+    metrics
+      .map(
+        (m) =>
+          `<th${m === state.activeQualityMetric ? ' class="metric-active"' : ""}>${m.toUpperCase()}</th>`
+      )
+      .join("") +
+    ["Size (MB)", "Time (s)", "Score"].map((h) => `<th>${h}</th>`).join("");
+  summaryTableHead.innerHTML = `<tr>${headHtml}</tr>`;
+
   if (!state.manifestResults.length) {
     summaryTableBody.innerHTML = "";
     state.rankedRows = [];
@@ -920,12 +932,17 @@ function renderSummaryTable() {
         state.weights.size * sizeNorm +
         state.weights.time * timeNorm +
         state.weights.quality * qualityLoss;
+      const metricScores = {};
+      metrics.forEach((m) => {
+        metricScores[m] = getQualityScore(entry, m);
+      });
       return {
         codec_name: entry.codec_name,
         preset: entry.preset,
         crf_value: Number(entry.crf_value),
         quality_metric: state.activeQualityMetric,
         quality_score: Number.isFinite(qualityScore) ? qualityScore : null,
+        metricScores,
         size_mb: Number(entry.file_size_bytes) / (1024 * 1024),
         time_s: Number(entry.encode_time_seconds),
         score,
@@ -950,18 +967,20 @@ function renderSummaryTable() {
     .map((x, idx) => ({ ...x, rank: idx + 1 }));
 
   summaryTableBody.innerHTML = state.rankedRows
-    .map((row) =>
-      rowHtml([
-        row.rank,
-        row.codec_name,
-        row.preset,
-        row.crf_value,
-        row.quality_score === null ? "n/a" : `${row.quality_metric.toUpperCase()} ${row.quality_score.toFixed(6)}`,
-        row.size_mb.toFixed(2),
-        row.time_s.toFixed(2),
-        row.score.toFixed(3),
-      ])
-    )
+    .map((row) => {
+      const metricCells = metrics
+        .map((m) => {
+          const value = row.metricScores[m];
+          const text = Number.isFinite(Number(value)) ? Number(value).toFixed(6) : "n/a";
+          return `<td${m === state.activeQualityMetric ? ' class="metric-active"' : ""}>${text}</td>`;
+        })
+        .join("");
+      return (
+        `<tr><td>${row.rank}</td><td>${row.codec_name}</td><td>${row.preset}</td><td>${row.crf_value}</td>` +
+        metricCells +
+        `<td>${row.size_mb.toFixed(2)}</td><td>${row.time_s.toFixed(2)}</td><td>${row.score.toFixed(3)}</td></tr>`
+      );
+    })
     .join("");
 }
 
@@ -971,19 +990,23 @@ function exportSummaryCsv() {
     return;
   }
 
+  const metrics = availableQualityMetrics();
   const lines = [
-    ["rank", "codec_name", "preset", "crf_value", "quality_metric", "quality_score", "size_mb", "time_s", "score"].join(","),
+    ["rank", "codec_name", "preset", "crf_value", ...metrics, "size_mb", "time_s", "score", "score_metric"].join(","),
     ...state.rankedRows.map((row) =>
       [
         row.rank,
         `"${String(row.codec_name).replace(/"/g, '""')}"`,
         `"${String(row.preset).replace(/"/g, '""')}"`,
         row.crf_value,
-        `"${String(row.quality_metric).replace(/"/g, '""')}"`,
-        row.quality_score === null ? "" : row.quality_score.toFixed(6),
+        ...metrics.map((m) => {
+          const value = row.metricScores?.[m];
+          return Number.isFinite(Number(value)) ? Number(value).toFixed(6) : "";
+        }),
         row.size_mb.toFixed(4),
         row.time_s.toFixed(4),
         row.score.toFixed(6),
+        `"${String(row.quality_metric).replace(/"/g, '""')}"`,
       ].join(",")
     ),
   ];

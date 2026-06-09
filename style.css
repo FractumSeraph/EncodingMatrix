@@ -461,6 +461,16 @@ thead th {
   background: var(--bg-2);
 }
 
+th.metric-active {
+  color: var(--accent);
+  background: var(--bg-1);
+  border-bottom: 2px solid var(--accent);
+}
+
+td.metric-active {
+  background: rgba(130, 242, 223, 0.08);
+}
+
 tbody tr:hover {
   background: rgba(255, 194, 122, 0.08);
 }
