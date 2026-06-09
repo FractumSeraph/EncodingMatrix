@@ -2593,6 +2593,501 @@
         "psnr": 37.484952
       },
       "output_filename": "encodes/av1__neg1__q28.mp4"
+    },
+    {
+      "codec_name": "AV1",
+      "preset": "0",
+      "crf_value": 28,
+      "encode_time_seconds": 3867.214,
+      "file_size_bytes": 138572684,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.930082,
+      "quality_scores": {
+        "ssim": 0.930082,
+        "psnr": 37.201048
+      },
+      "output_filename": "encodes/av1__0__q28.mp4"
+    },
+    {
+      "codec_name": "AV1",
+      "preset": "1",
+      "crf_value": 28,
+      "encode_time_seconds": 1378.141,
+      "file_size_bytes": 140855876,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.929267,
+      "quality_scores": {
+        "ssim": 0.929267,
+        "psnr": 37.160207
+      },
+      "output_filename": "encodes/av1__1__q28.mp4"
+    },
+    {
+      "codec_name": "AV1",
+      "preset": "2",
+      "crf_value": 28,
+      "encode_time_seconds": 473.65,
+      "file_size_bytes": 144666637,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.928095,
+      "quality_scores": {
+        "ssim": 0.928095,
+        "psnr": 37.058953
+      },
+      "output_filename": "encodes/av1__2__q28.mp4"
+    },
+    {
+      "codec_name": "AV1",
+      "preset": "3",
+      "crf_value": 28,
+      "encode_time_seconds": 273.38,
+      "file_size_bytes": 146048315,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.926401,
+      "quality_scores": {
+        "ssim": 0.926401,
+        "psnr": 36.940019
+      },
+      "output_filename": "encodes/av1__3__q28.mp4"
+    },
+    {
+      "codec_name": "AV1",
+      "preset": "4",
+      "crf_value": 28,
+      "encode_time_seconds": 107.582,
+      "file_size_bytes": 153050340,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.92528,
+      "quality_scores": {
+        "ssim": 0.92528,
+        "psnr": 36.852477
+      },
+      "output_filename": "encodes/av1__4__q28.mp4"
+    },
+    {
+      "codec_name": "AV1",
+      "preset": "5",
+      "crf_value": 28,
+      "encode_time_seconds": 81.985,
+      "file_size_bytes": 155016832,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.925024,
+      "quality_scores": {
+        "ssim": 0.925024,
+        "psnr": 36.866993
+      },
+      "output_filename": "encodes/av1__5__q28.mp4"
+    },
+    {
+      "codec_name": "AV1",
+      "preset": "6",
+      "crf_value": 28,
+      "encode_time_seconds": 63.893,
+      "file_size_bytes": 196451882,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.931137,
+      "quality_scores": {
+        "ssim": 0.931137,
+        "psnr": 37.315668
+      },
+      "output_filename": "encodes/av1__6__q28.mp4"
+    },
+    {
+      "codec_name": "AV1",
+      "preset": "7",
+      "crf_value": 28,
+      "encode_time_seconds": 54.196,
+      "file_size_bytes": 194980555,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.929639,
+      "quality_scores": {
+        "ssim": 0.929639,
+        "psnr": 37.166126
+      },
+      "output_filename": "encodes/av1__7__q28.mp4"
+    },
+    {
+      "codec_name": "AV1",
+      "preset": "8",
+      "crf_value": 28,
+      "encode_time_seconds": 44.332,
+      "file_size_bytes": 202600965,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.930645,
+      "quality_scores": {
+        "ssim": 0.930645,
+        "psnr": 37.217077
+      },
+      "output_filename": "encodes/av1__8__q28.mp4"
+    },
+    {
+      "codec_name": "AV1",
+      "preset": "9",
+      "crf_value": 28,
+      "encode_time_seconds": 33.408,
+      "file_size_bytes": 214678741,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.929625,
+      "quality_scores": {
+        "ssim": 0.929625,
+        "psnr": 37.083413
+      },
+      "output_filename": "encodes/av1__9__q28.mp4"
+    },
+    {
+      "codec_name": "H.264 CPU",
+      "preset": "fast",
+      "crf_value": 23,
+      "encode_time_seconds": 33.029,
+      "file_size_bytes": 98052242,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.904117,
+      "quality_scores": {
+        "ssim": 0.904117,
+        "psnr": 34.868294
+      },
+      "output_filename": "encodes/h_264_cpu__fast__q23.mp4"
+    },
+    {
+      "codec_name": "H.264 CPU",
+      "preset": "faster",
+      "crf_value": 23,
+      "encode_time_seconds": 23.186,
+      "file_size_bytes": 94316915,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.898893,
+      "quality_scores": {
+        "ssim": 0.898893,
+        "psnr": 34.693731
+      },
+      "output_filename": "encodes/h_264_cpu__faster__q23.mp4"
+    },
+    {
+      "codec_name": "H.264 CPU",
+      "preset": "medium",
+      "crf_value": 23,
+      "encode_time_seconds": 48.611,
+      "file_size_bytes": 98757928,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.903782,
+      "quality_scores": {
+        "ssim": 0.903782,
+        "psnr": 34.832459
+      },
+      "output_filename": "encodes/h_264_cpu__medium__q23.mp4"
+    },
+    {
+      "codec_name": "H.264 CPU",
+      "preset": "placebo",
+      "crf_value": 23,
+      "encode_time_seconds": 843.293,
+      "file_size_bytes": 98153397,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.902422,
+      "quality_scores": {
+        "ssim": 0.902422,
+        "psnr": 34.69483
+      },
+      "output_filename": "encodes/h_264_cpu__placebo__q23.mp4"
+    },
+    {
+      "codec_name": "H.264 CPU",
+      "preset": "slow",
+      "crf_value": 23,
+      "encode_time_seconds": 70.054,
+      "file_size_bytes": 100129488,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.90386,
+      "quality_scores": {
+        "ssim": 0.90386,
+        "psnr": 34.842882
+      },
+      "output_filename": "encodes/h_264_cpu__slow__q23.mp4"
+    },
+    {
+      "codec_name": "H.264 CPU",
+      "preset": "slower",
+      "crf_value": 23,
+      "encode_time_seconds": 127.297,
+      "file_size_bytes": 100742632,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.903989,
+      "quality_scores": {
+        "ssim": 0.903989,
+        "psnr": 34.828011
+      },
+      "output_filename": "encodes/h_264_cpu__slower__q23.mp4"
+    },
+    {
+      "codec_name": "H.264 CPU",
+      "preset": "superfast",
+      "crf_value": 23,
+      "encode_time_seconds": 15.309,
+      "file_size_bytes": 82751323,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.882339,
+      "quality_scores": {
+        "ssim": 0.882339,
+        "psnr": 33.677081
+      },
+      "output_filename": "encodes/h_264_cpu__superfast__q23.mp4"
+    },
+    {
+      "codec_name": "H.264 CPU",
+      "preset": "ultrafast",
+      "crf_value": 23,
+      "encode_time_seconds": 6.9,
+      "file_size_bytes": 186394634,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.874009,
+      "quality_scores": {
+        "ssim": 0.874009,
+        "psnr": 33.727544
+      },
+      "output_filename": "encodes/h_264_cpu__ultrafast__q23.mp4"
+    },
+    {
+      "codec_name": "H.264 CPU",
+      "preset": "veryfast",
+      "crf_value": 23,
+      "encode_time_seconds": 18.467,
+      "file_size_bytes": 84451111,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.889556,
+      "quality_scores": {
+        "ssim": 0.889556,
+        "psnr": 34.129437
+      },
+      "output_filename": "encodes/h_264_cpu__veryfast__q23.mp4"
+    },
+    {
+      "codec_name": "H.264 CPU",
+      "preset": "veryslow",
+      "crf_value": 23,
+      "encode_time_seconds": 236.244,
+      "file_size_bytes": 95746523,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.902039,
+      "quality_scores": {
+        "ssim": 0.902039,
+        "psnr": 34.672421
+      },
+      "output_filename": "encodes/h_264_cpu__veryslow__q23.mp4"
+    },
+    {
+      "codec_name": "H.265 CPU",
+      "preset": "fast",
+      "crf_value": 23,
+      "encode_time_seconds": 75.828,
+      "file_size_bytes": 102447511,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.9097,
+      "quality_scores": {
+        "ssim": 0.9097,
+        "psnr": 35.261392
+      },
+      "output_filename": "encodes/h_265_cpu__fast__q23.mp4"
+    },
+    {
+      "codec_name": "H.265 CPU",
+      "preset": "faster",
+      "crf_value": 23,
+      "encode_time_seconds": 68.337,
+      "file_size_bytes": 102144436,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.909326,
+      "quality_scores": {
+        "ssim": 0.909326,
+        "psnr": 35.237652
+      },
+      "output_filename": "encodes/h_265_cpu__faster__q23.mp4"
+    },
+    {
+      "codec_name": "H.265 CPU",
+      "preset": "medium",
+      "crf_value": 23,
+      "encode_time_seconds": 112.646,
+      "file_size_bytes": 114506589,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.913558,
+      "quality_scores": {
+        "ssim": 0.913558,
+        "psnr": 35.555557
+      },
+      "output_filename": "encodes/h_265_cpu__medium__q23.mp4"
+    },
+    {
+      "codec_name": "H.265 CPU",
+      "preset": "placebo",
+      "crf_value": 23,
+      "encode_time_seconds": 3941.659,
+      "file_size_bytes": 132015644,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.918941,
+      "quality_scores": {
+        "ssim": 0.918941,
+        "psnr": 36.081709
+      },
+      "output_filename": "encodes/h_265_cpu__placebo__q23.mp4"
+    },
+    {
+      "codec_name": "H.265 CPU",
+      "preset": "slow",
+      "crf_value": 23,
+      "encode_time_seconds": 274.083,
+      "file_size_bytes": 124992395,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.91906,
+      "quality_scores": {
+        "ssim": 0.91906,
+        "psnr": 36.085498
+      },
+      "output_filename": "encodes/h_265_cpu__slow__q23.mp4"
+    },
+    {
+      "codec_name": "H.265 CPU",
+      "preset": "slower",
+      "crf_value": 23,
+      "encode_time_seconds": 1194.979,
+      "file_size_bytes": 128300901,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.918202,
+      "quality_scores": {
+        "ssim": 0.918202,
+        "psnr": 36.034446
+      },
+      "output_filename": "encodes/h_265_cpu__slower__q23.mp4"
+    },
+    {
+      "codec_name": "H.265 CPU",
+      "preset": "superfast",
+      "crf_value": 23,
+      "encode_time_seconds": 59.019,
+      "file_size_bytes": 104247024,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.905839,
+      "quality_scores": {
+        "ssim": 0.905839,
+        "psnr": 35.279234
+      },
+      "output_filename": "encodes/h_265_cpu__superfast__q23.mp4"
+    },
+    {
+      "codec_name": "H.265 CPU",
+      "preset": "ultrafast",
+      "crf_value": 23,
+      "encode_time_seconds": 37.95,
+      "file_size_bytes": 89556843,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.895492,
+      "quality_scores": {
+        "ssim": 0.895492,
+        "psnr": 34.645587
+      },
+      "output_filename": "encodes/h_265_cpu__ultrafast__q23.mp4"
+    },
+    {
+      "codec_name": "H.265 CPU",
+      "preset": "veryfast",
+      "crf_value": 23,
+      "encode_time_seconds": 66.093,
+      "file_size_bytes": 102198139,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.909307,
+      "quality_scores": {
+        "ssim": 0.909307,
+        "psnr": 35.235449
+      },
+      "output_filename": "encodes/h_265_cpu__veryfast__q23.mp4"
+    },
+    {
+      "codec_name": "H.265 CPU",
+      "preset": "veryslow",
+      "crf_value": 23,
+      "encode_time_seconds": 2201.958,
+      "file_size_bytes": 127590570,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.918456,
+      "quality_scores": {
+        "ssim": 0.918456,
+        "psnr": 36.053659
+      },
+      "output_filename": "encodes/h_265_cpu__veryslow__q23.mp4"
+    },
+    {
+      "codec_name": "VP9",
+      "preset": "best",
+      "crf_value": 28,
+      "encode_time_seconds": 6498.781,
+      "file_size_bytes": 311408162,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.938555,
+      "quality_scores": {
+        "ssim": 0.938555,
+        "psnr": 37.956749
+      },
+      "output_filename": "encodes/vp9__best__q28.webm"
+    },
+    {
+      "codec_name": "VP9",
+      "preset": "good",
+      "crf_value": 28,
+      "encode_time_seconds": 789.442,
+      "file_size_bytes": 311820307,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.938296,
+      "quality_scores": {
+        "ssim": 0.938296,
+        "psnr": 37.918647
+      },
+      "output_filename": "encodes/vp9__good__q28.webm"
+    },
+    {
+      "codec_name": "VP9",
+      "preset": "realtime",
+      "crf_value": 28,
+      "encode_time_seconds": 79.21,
+      "file_size_bytes": 327403391,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.93642,
+      "quality_scores": {
+        "ssim": 0.93642,
+        "psnr": 37.746699
+      },
+      "output_filename": "encodes/vp9__realtime__q28.webm"
     }
   ],
   "source_frame_rate": 50.0
