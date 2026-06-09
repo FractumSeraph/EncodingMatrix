@@ -2578,6 +2578,21 @@
         "psnr": 35.893399
       },
       "output_filename": "encodes/av1__1__q35.mp4"
+    },
+    {
+      "codec_name": "AV1",
+      "preset": "-1",
+      "crf_value": 28,
+      "encode_time_seconds": 30853.314,
+      "file_size_bytes": 151668363,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.933536,
+      "quality_scores": {
+        "ssim": 0.933536,
+        "psnr": 37.484952
+      },
+      "output_filename": "encodes/av1__neg1__q28.mp4"
     }
   ],
   "source_frame_rate": 50.0
