@@ -24,7 +24,7 @@
 [CmdletBinding()]
 param(
     [string]$InstallDir = "$env:LOCALAPPDATA\EncodingMatrix\tools",
-    [ValidateSet('nvidia', 'amd')][string]$Gpu = 'nvidia',
+    [ValidateSet('nvidia', 'amd', 'vulkan')][string]$Gpu = 'nvidia',
     # Vship release binaries now live on Codeberg (the GitHub repo is archived).
     [ValidateSet('codeberg', 'github')][string]$Source = 'codeberg',
     # Bypass auto-detection: pass a direct asset download URL (from the release page).
@@ -66,12 +66,18 @@ else {
     $release = Invoke-RestMethod -Headers $headers -Uri $apiUri
     Write-Host "Latest release: $($release.tag_name)"
 
-    $gpuPattern = if ($Gpu -eq 'amd') { 'amd|hip|rocm' } else { 'nvidia|cuda' }
-    $asset =
-        ($release.assets | Where-Object { $_.name -match 'win' -and $_.name -match $gpuPattern } | Select-Object -First 1)
-    if (-not $asset) {
-        $asset = $release.assets | Where-Object { $_.name -match 'win' } | Select-Object -First 1
+    $gpuPattern = switch ($Gpu) {
+        'amd'    { 'amd|hip|rocm' }
+        'vulkan' { 'vulkan' }
+        default  { 'nvidia|cuda' }
     }
+    # Release assets are named like FFVship_nvidia.zip / FFVship_amd.zip /
+    # FFVship_Vulkan.zip (all Windows builds, distinguished only by GPU backend -
+    # there is no "win" marker). Match the FFVship CLI for the chosen backend,
+    # excluding the libvship_* library archives.
+    $asset = $release.assets |
+        Where-Object { $_.name -match 'ffvship' -and $_.name -match $gpuPattern } |
+        Select-Object -First 1
     if (-not $asset) {
         Write-Host "Could not auto-detect a Windows asset in the $Source release. Available assets:" -ForegroundColor Yellow
         if ($release.assets) {
