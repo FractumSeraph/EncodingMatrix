@@ -928,12 +928,15 @@ def measure_quality(source_video: Path, encoded_video: Path, quality_metric: str
         match = PSNR_AVG_RE.search(output)
         return (float(match.group(1)), output) if match else (None, output)
 
-    with tempfile.NamedTemporaryFile(delete=False, suffix=".json") as tmp:
-        vmaf_log_path = Path(tmp.name)
+    # libvmaf writes its result to log_path, which is embedded in the filtergraph
+    # where ':' separates options. A Windows drive letter ("C:/...") there breaks
+    # filter parsing and can't be reliably escaped, so use a colon-free RELATIVE
+    # path in the current working directory (ffmpeg inherits our cwd) and clean up.
+    tmp = tempfile.NamedTemporaryFile(prefix="vmaf_", suffix=".json", dir=os.getcwd(), delete=False)
+    tmp.close()
+    vmaf_log_path = Path(tmp.name)
     try:
-        # The log_path is embedded in the filtergraph, where ':' separates options.
-        # A Windows drive letter ("C:/...") otherwise breaks parsing, so escape it.
-        escaped_log_path = vmaf_log_path.as_posix().replace(":", "\\:")
+        log_arg = vmaf_log_path.name  # relative filename, no drive-letter colon
         # libvmaf's first input pad is the distorted video and the second is the
         # reference, so feed [encoded][source] explicitly.
         cmd = [
@@ -946,7 +949,7 @@ def measure_quality(source_video: Path, encoded_video: Path, quality_metric: str
             "-i",
             str(encoded_video),
             "-lavfi",
-            f"[1:v][0:v]libvmaf=log_fmt=json:log_path={escaped_log_path}",
+            f"[1:v][0:v]libvmaf=log_fmt=json:log_path={log_arg}",
             "-f",
             "null",
             "-",
