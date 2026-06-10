@@ -3267,7 +3267,11 @@
       "quality_score": 0.91484,
       "quality_scores": {
         "ssim": 0.91484,
-        "psnr": 35.893399
+        "psnr": 35.893399,
+        "vmaf": 98.877886,
+        "ssimulacra2": 47.460186,
+        "butteraugli": 19.741507,
+        "cvvdp": 9.375968
       },
       "output_filename": "encodes/av1__1__q35.mp4"
     },
@@ -3282,7 +3286,11 @@
       "quality_score": 0.933536,
       "quality_scores": {
         "ssim": 0.933536,
-        "psnr": 37.484952
+        "psnr": 37.484952,
+        "vmaf": 99.536713,
+        "ssimulacra2": 59.312783,
+        "butteraugli": 18.951683,
+        "cvvdp": 9.625887
       },
       "output_filename": "encodes/av1__neg1__q28.mp4"
     },
@@ -3297,7 +3305,11 @@
       "quality_score": 0.930082,
       "quality_scores": {
         "ssim": 0.930082,
-        "psnr": 37.201048
+        "psnr": 37.201048,
+        "vmaf": 99.457787,
+        "ssimulacra2": 57.595203,
+        "butteraugli": 18.21747,
+        "cvvdp": 9.592888
       },
       "output_filename": "encodes/av1__0__q28.mp4"
     },
@@ -3312,7 +3324,11 @@
       "quality_score": 0.929267,
       "quality_scores": {
         "ssim": 0.929267,
-        "psnr": 37.160207
+        "psnr": 37.160207,
+        "vmaf": 99.456291,
+        "ssimulacra2": 57.318033,
+        "butteraugli": 18.934259,
+        "cvvdp": 9.588567
       },
       "output_filename": "encodes/av1__1__q28.mp4"
     },
@@ -3327,7 +3343,11 @@
       "quality_score": 0.928095,
       "quality_scores": {
         "ssim": 0.928095,
-        "psnr": 37.058953
+        "psnr": 37.058953,
+        "vmaf": 99.403413,
+        "ssimulacra2": 56.548638,
+        "butteraugli": 16.137379,
+        "cvvdp": 9.570314
       },
       "output_filename": "encodes/av1__2__q28.mp4"
     },
@@ -3342,7 +3362,11 @@
       "quality_score": 0.926401,
       "quality_scores": {
         "ssim": 0.926401,
-        "psnr": 36.940019
+        "psnr": 36.940019,
+        "vmaf": 99.321742,
+        "ssimulacra2": 55.580399,
+        "butteraugli": 15.135783,
+        "cvvdp": 9.550044
       },
       "output_filename": "encodes/av1__3__q28.mp4"
     },
@@ -3357,7 +3381,11 @@
       "quality_score": 0.92528,
       "quality_scores": {
         "ssim": 0.92528,
-        "psnr": 36.852477
+        "psnr": 36.852477,
+        "vmaf": 99.276955,
+        "ssimulacra2": 55.278375,
+        "butteraugli": 20.238396,
+        "cvvdp": 9.544094
       },
       "output_filename": "encodes/av1__4__q28.mp4"
     },
@@ -3372,7 +3400,11 @@
       "quality_score": 0.925024,
       "quality_scores": {
         "ssim": 0.925024,
-        "psnr": 36.866993
+        "psnr": 36.866993,
+        "vmaf": 99.312516,
+        "ssimulacra2": 55.212567,
+        "butteraugli": 15.677811,
+        "cvvdp": 9.541154
       },
       "output_filename": "encodes/av1__5__q28.mp4"
     },
@@ -3387,7 +3419,11 @@
       "quality_score": 0.931137,
       "quality_scores": {
         "ssim": 0.931137,
-        "psnr": 37.315668
+        "psnr": 37.315668,
+        "vmaf": 99.401377,
+        "ssimulacra2": 57.699258,
+        "butteraugli": 16.290731,
+        "cvvdp": 9.588692
       },
       "output_filename": "encodes/av1__6__q28.mp4"
     },
@@ -3402,7 +3438,11 @@
       "quality_score": 0.929639,
       "quality_scores": {
         "ssim": 0.929639,
-        "psnr": 37.166126
+        "psnr": 37.166126,
+        "vmaf": 99.345557,
+        "ssimulacra2": 57.336654,
+        "butteraugli": 22.501118,
+        "cvvdp": 9.529804
       },
       "output_filename": "encodes/av1__7__q28.mp4"
     },
@@ -3417,7 +3457,11 @@
       "quality_score": 0.930645,
       "quality_scores": {
         "ssim": 0.930645,
-        "psnr": 37.217077
+        "psnr": 37.217077,
+        "vmaf": 99.357979,
+        "ssimulacra2": 57.869187,
+        "butteraugli": 21.762257,
+        "cvvdp": 9.549068
       },
       "output_filename": "encodes/av1__8__q28.mp4"
     },
@@ -3432,7 +3476,11 @@
       "quality_score": 0.929625,
       "quality_scores": {
         "ssim": 0.929625,
-        "psnr": 37.083413
+        "psnr": 37.083413,
+        "vmaf": 99.322296,
+        "ssimulacra2": 57.449883,
+        "butteraugli": 18.398766,
+        "cvvdp": 9.546244
       },
       "output_filename": "encodes/av1__9__q28.mp4"
     },
@@ -3447,7 +3495,11 @@
       "quality_score": 0.904117,
       "quality_scores": {
         "ssim": 0.904117,
-        "psnr": 34.868294
+        "psnr": 34.868294,
+        "vmaf": 95.509924,
+        "ssimulacra2": 46.212846,
+        "butteraugli": 18.726416,
+        "cvvdp": 9.251948
       },
       "output_filename": "encodes/h_264_cpu__fast__q23.mp4"
     },
@@ -3462,7 +3514,11 @@
       "quality_score": 0.898893,
       "quality_scores": {
         "ssim": 0.898893,
-        "psnr": 34.693731
+        "psnr": 34.693731,
+        "vmaf": 95.171961,
+        "ssimulacra2": 44.154304,
+        "butteraugli": 17.39286,
+        "cvvdp": 9.230313
       },
       "output_filename": "encodes/h_264_cpu__faster__q23.mp4"
     },
@@ -3477,7 +3533,11 @@
       "quality_score": 0.903782,
       "quality_scores": {
         "ssim": 0.903782,
-        "psnr": 34.832459
+        "psnr": 34.832459,
+        "vmaf": 96.374727,
+        "ssimulacra2": 45.98729,
+        "butteraugli": 19.01049,
+        "cvvdp": 9.261553
       },
       "output_filename": "encodes/h_264_cpu__medium__q23.mp4"
     },
@@ -3492,7 +3552,11 @@
       "quality_score": 0.902422,
       "quality_scores": {
         "ssim": 0.902422,
-        "psnr": 34.69483
+        "psnr": 34.69483,
+        "vmaf": 97.240825,
+        "ssimulacra2": 45.496747,
+        "butteraugli": 17.437714,
+        "cvvdp": 9.273986
       },
       "output_filename": "encodes/h_264_cpu__placebo__q23.mp4"
     },
@@ -3507,7 +3571,11 @@
       "quality_score": 0.90386,
       "quality_scores": {
         "ssim": 0.90386,
-        "psnr": 34.842882
+        "psnr": 34.842882,
+        "vmaf": 96.859604,
+        "ssimulacra2": 46.03733,
+        "butteraugli": 19.088726,
+        "cvvdp": 9.288132
       },
       "output_filename": "encodes/h_264_cpu__slow__q23.mp4"
     },
@@ -3522,7 +3590,11 @@
       "quality_score": 0.903989,
       "quality_scores": {
         "ssim": 0.903989,
-        "psnr": 34.828011
+        "psnr": 34.828011,
+        "vmaf": 97.339132,
+        "ssimulacra2": 46.384899,
+        "butteraugli": 17.993986,
+        "cvvdp": 9.30161
       },
       "output_filename": "encodes/h_264_cpu__slower__q23.mp4"
     },
@@ -3537,7 +3609,11 @@
       "quality_score": 0.882339,
       "quality_scores": {
         "ssim": 0.882339,
-        "psnr": 33.677081
+        "psnr": 33.677081,
+        "vmaf": 87.852189,
+        "ssimulacra2": 32.60613,
+        "butteraugli": 23.24752,
+        "cvvdp": 8.965183
       },
       "output_filename": "encodes/h_264_cpu__superfast__q23.mp4"
     },
@@ -3552,7 +3628,11 @@
       "quality_score": 0.874009,
       "quality_scores": {
         "ssim": 0.874009,
-        "psnr": 33.727544
+        "psnr": 33.727544,
+        "vmaf": 96.357174,
+        "ssimulacra2": 32.43362,
+        "butteraugli": 16.988083,
+        "cvvdp": 9.117117
       },
       "output_filename": "encodes/h_264_cpu__ultrafast__q23.mp4"
     },
@@ -3567,7 +3647,11 @@
       "quality_score": 0.889556,
       "quality_scores": {
         "ssim": 0.889556,
-        "psnr": 34.129437
+        "psnr": 34.129437,
+        "vmaf": 90.485049,
+        "ssimulacra2": 35.592357,
+        "butteraugli": 19.640932,
+        "cvvdp": 9.05683
       },
       "output_filename": "encodes/h_264_cpu__veryfast__q23.mp4"
     },
@@ -3582,7 +3666,11 @@
       "quality_score": 0.902039,
       "quality_scores": {
         "ssim": 0.902039,
-        "psnr": 34.672421
+        "psnr": 34.672421,
+        "vmaf": 97.004376,
+        "ssimulacra2": 44.879644,
+        "butteraugli": 17.006811,
+        "cvvdp": 9.266056
       },
       "output_filename": "encodes/h_264_cpu__veryslow__q23.mp4"
     },
@@ -3597,7 +3685,11 @@
       "quality_score": 0.9097,
       "quality_scores": {
         "ssim": 0.9097,
-        "psnr": 35.261392
+        "psnr": 35.261392,
+        "vmaf": 95.975906,
+        "ssimulacra2": 45.057761,
+        "butteraugli": 17.655111,
+        "cvvdp": 9.25395
       },
       "output_filename": "encodes/h_265_cpu__fast__q23.mp4"
     },
