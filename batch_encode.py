@@ -483,6 +483,7 @@ def backfill_missing_quality(
     )
 
     updated = 0
+    detailed_failures: set = set()
     for idx, (entry, missing_metrics) in enumerate(pending, start=1):
         if STOP_REQUESTED.is_set():
             print("[BACKFILL] Stop requested; remaining metrics will be computed on a later run.", flush=True)
@@ -500,9 +501,15 @@ def backfill_missing_quality(
         for metric in missing_metrics:
             if STOP_REQUESTED.is_set():
                 break
-            quality_score, _ = measure_quality(source_video, output_path, metric)
+            quality_score, metric_log = measure_quality(source_video, output_path, metric)
             if quality_score is None:
-                print(f"    {metric}: could not be measured (skipped)", flush=True)
+                if metric not in detailed_failures:
+                    # Surface the real reason once per metric (e.g. a missing VMAF model).
+                    tail = " | ".join(ln.strip() for ln in metric_log.splitlines() if ln.strip())[-400:]
+                    print(f"    {metric}: could not be measured -> {tail or 'no output captured'}", flush=True)
+                    detailed_failures.add(metric)
+                else:
+                    print(f"    {metric}: could not be measured (skipped)", flush=True)
                 continue
             scores[metric] = round(quality_score, 6)
             changed = True
