@@ -1500,7 +1500,11 @@
       "quality_score": 0.912751,
       "quality_scores": {
         "ssim": 0.912751,
-        "psnr": 35.807071
+        "psnr": 35.807071,
+        "vmaf": 97.290573,
+        "ssimulacra2": 46.592298,
+        "butteraugli": 19.904032,
+        "cvvdp": 9.327215
       },
       "output_filename": "encodes/h_264_nvidia__p6__q18.mp4"
     },
@@ -1515,7 +1519,11 @@
       "quality_score": 0.912582,
       "quality_scores": {
         "ssim": 0.912582,
-        "psnr": 35.813489
+        "psnr": 35.813489,
+        "vmaf": 97.35057,
+        "ssimulacra2": 46.565028,
+        "butteraugli": 21.232824,
+        "cvvdp": 9.328304
       },
       "output_filename": "encodes/h_264_nvidia__p7__q18.mp4"
     },
@@ -1530,7 +1538,11 @@
       "quality_score": 0.848946,
       "quality_scores": {
         "ssim": 0.848946,
-        "psnr": 32.298216
+        "psnr": 32.298216,
+        "vmaf": 80.637013,
+        "ssimulacra2": 7.161735,
+        "butteraugli": 25.272213,
+        "cvvdp": 8.275529
       },
       "output_filename": "encodes/h_265_nvidia__p1__q18.mp4"
     },
@@ -1545,7 +1557,11 @@
       "quality_score": 0.856519,
       "quality_scores": {
         "ssim": 0.856519,
-        "psnr": 32.591325
+        "psnr": 32.591325,
+        "vmaf": 81.309965,
+        "ssimulacra2": 10.710207,
+        "butteraugli": 29.399113,
+        "cvvdp": 8.329347
       },
       "output_filename": "encodes/h_265_nvidia__p2__q18.mp4"
     },
@@ -1560,7 +1576,11 @@
       "quality_score": 0.858287,
       "quality_scores": {
         "ssim": 0.858287,
-        "psnr": 32.655651
+        "psnr": 32.655651,
+        "vmaf": 81.448679,
+        "ssimulacra2": 11.673794,
+        "butteraugli": 29.37779,
+        "cvvdp": 8.34177
       },
       "output_filename": "encodes/h_265_nvidia__p3__q18.mp4"
     },
@@ -1575,7 +1595,11 @@
       "quality_score": 0.865212,
       "quality_scores": {
         "ssim": 0.865212,
-        "psnr": 32.717075
+        "psnr": 32.717075,
+        "vmaf": 81.191913,
+        "ssimulacra2": 12.620575,
+        "butteraugli": 39.963848,
+        "cvvdp": 8.325712
       },
       "output_filename": "encodes/h_265_nvidia__p4__q18.mp4"
     },
@@ -1590,7 +1614,11 @@
       "quality_score": 0.865519,
       "quality_scores": {
         "ssim": 0.865519,
-        "psnr": 32.727078
+        "psnr": 32.727078,
+        "vmaf": 81.311936,
+        "ssimulacra2": 12.813446,
+        "butteraugli": 41.966263,
+        "cvvdp": 8.332058
       },
       "output_filename": "encodes/h_265_nvidia__p5__q18.mp4"
     },
@@ -1605,7 +1633,11 @@
       "quality_score": 0.865633,
       "quality_scores": {
         "ssim": 0.865633,
-        "psnr": 32.732579
+        "psnr": 32.732579,
+        "vmaf": 81.400283,
+        "ssimulacra2": 12.739998,
+        "butteraugli": 40.986641,
+        "cvvdp": 8.330063
       },
       "output_filename": "encodes/h_265_nvidia__p6__q18.mp4"
     },
@@ -1620,7 +1652,11 @@
       "quality_score": 0.865693,
       "quality_scores": {
         "ssim": 0.865693,
-        "psnr": 32.739587
+        "psnr": 32.739587,
+        "vmaf": 81.465069,
+        "ssimulacra2": 12.808594,
+        "butteraugli": 46.877373,
+        "cvvdp": 8.331442
       },
       "output_filename": "encodes/h_265_nvidia__p7__q18.mp4"
     },
@@ -1635,7 +1671,11 @@
       "quality_score": 0.762398,
       "quality_scores": {
         "ssim": 0.762398,
-        "psnr": 29.152822
+        "psnr": 29.152822,
+        "vmaf": 50.76769,
+        "ssimulacra2": -47.280154,
+        "butteraugli": 44.327194,
+        "cvvdp": 6.462605
       },
       "output_filename": "encodes/h_264_nvidia__p1__q40.mp4"
     },
@@ -1650,7 +1690,11 @@
       "quality_score": 0.762958,
       "quality_scores": {
         "ssim": 0.762958,
-        "psnr": 29.175134
+        "psnr": 29.175134,
+        "vmaf": 50.967201,
+        "ssimulacra2": -47.105518,
+        "butteraugli": 50.510071,
+        "cvvdp": 6.47339
       },
       "output_filename": "encodes/h_264_nvidia__p2__q40.mp4"
     },
@@ -1665,7 +1709,11 @@
       "quality_score": 0.766979,
       "quality_scores": {
         "ssim": 0.766979,
-        "psnr": 29.333039
+        "psnr": 29.333039,
+        "vmaf": 51.851022,
+        "ssimulacra2": -45.323194,
+        "butteraugli": 51.306816,
+        "cvvdp": 6.527542
       },
       "output_filename": "encodes/h_264_nvidia__p3__q40.mp4"
     },
@@ -1680,7 +1728,11 @@
       "quality_score": 0.769917,
       "quality_scores": {
         "ssim": 0.769917,
-        "psnr": 29.342965
+        "psnr": 29.342965,
+        "vmaf": 52.55654,
+        "ssimulacra2": -43.853615,
+        "butteraugli": 50.821217,
+        "cvvdp": 6.562967
       },
       "output_filename": "encodes/h_264_nvidia__p4__q40.mp4"
     },
@@ -1695,7 +1747,11 @@
       "quality_score": 0.769194,
       "quality_scores": {
         "ssim": 0.769194,
-        "psnr": 29.330783
+        "psnr": 29.330783,
+        "vmaf": 52.12432,
+        "ssimulacra2": -43.782915,
+        "butteraugli": 52.089516,
+        "cvvdp": 6.548541
       },
       "output_filename": "encodes/h_264_nvidia__p5__q40.mp4"
     },
@@ -1710,7 +1766,11 @@
       "quality_score": 0.769621,
       "quality_scores": {
         "ssim": 0.769621,
-        "psnr": 29.359166
+        "psnr": 29.359166,
+        "vmaf": 52.481643,
+        "ssimulacra2": -43.490526,
+        "butteraugli": 52.246708,
+        "cvvdp": 6.553001
       },
       "output_filename": "encodes/h_264_nvidia__p6__q40.mp4"
     },
@@ -1725,7 +1785,11 @@
       "quality_score": 0.768606,
       "quality_scores": {
         "ssim": 0.768606,
-        "psnr": 29.326227
+        "psnr": 29.326227,
+        "vmaf": 52.27382,
+        "ssimulacra2": -43.807132,
+        "butteraugli": 49.982738,
+        "cvvdp": 6.534682
       },
       "output_filename": "encodes/h_264_nvidia__p7__q40.mp4"
     },
@@ -1740,7 +1804,11 @@
       "quality_score": 0.797379,
       "quality_scores": {
         "ssim": 0.797379,
-        "psnr": 30.118009
+        "psnr": 30.118009,
+        "vmaf": 63.002404,
+        "ssimulacra2": -25.578581,
+        "butteraugli": 37.039978,
+        "cvvdp": 7.17613
       },
       "output_filename": "encodes/h_265_nvidia__p1__q40.mp4"
     },
@@ -1755,7 +1823,11 @@
       "quality_score": 0.800828,
       "quality_scores": {
         "ssim": 0.800828,
-        "psnr": 30.266913
+        "psnr": 30.266913,
+        "vmaf": 62.240281,
+        "ssimulacra2": -24.87713,
+        "butteraugli": 47.570229,
+        "cvvdp": 7.17301
       },
       "output_filename": "encodes/h_265_nvidia__p2__q40.mp4"
     },
@@ -1770,7 +1842,11 @@
       "quality_score": 0.800346,
       "quality_scores": {
         "ssim": 0.800346,
-        "psnr": 30.22148
+        "psnr": 30.22148,
+        "vmaf": 61.080227,
+        "ssimulacra2": -25.700489,
+        "butteraugli": 45.067654,
+        "cvvdp": 7.114682
       },
       "output_filename": "encodes/h_265_nvidia__p3__q40.mp4"
     },
@@ -1785,7 +1861,11 @@
       "quality_score": 0.804765,
       "quality_scores": {
         "ssim": 0.804765,
-        "psnr": 30.26198
+        "psnr": 30.26198,
+        "vmaf": 60.929688,
+        "ssimulacra2": -24.738483,
+        "butteraugli": 55.79063,
+        "cvvdp": 7.134886
       },
       "output_filename": "encodes/h_265_nvidia__p4__q40.mp4"
     },
@@ -1800,7 +1880,11 @@
       "quality_score": 0.80527,
       "quality_scores": {
         "ssim": 0.80527,
-        "psnr": 30.276015
+        "psnr": 30.276015,
+        "vmaf": 61.123569,
+        "ssimulacra2": -24.377707,
+        "butteraugli": 57.492611,
+        "cvvdp": 7.147652
       },
       "output_filename": "encodes/h_265_nvidia__p5__q40.mp4"
     },
@@ -1815,7 +1899,11 @@
       "quality_score": 0.804991,
       "quality_scores": {
         "ssim": 0.804991,
-        "psnr": 30.267112
+        "psnr": 30.267112,
+        "vmaf": 61.018798,
+        "ssimulacra2": -24.558322,
+        "butteraugli": 53.715939,
+        "cvvdp": 7.138493
       },
       "output_filename": "encodes/h_265_nvidia__p6__q40.mp4"
     },
@@ -1830,7 +1918,11 @@
       "quality_score": 0.805222,
       "quality_scores": {
         "ssim": 0.805222,
-        "psnr": 30.278021
+        "psnr": 30.278021,
+        "vmaf": 61.115434,
+        "ssimulacra2": -24.38964,
+        "butteraugli": 55.723816,
+        "cvvdp": 7.142835
       },
       "output_filename": "encodes/h_265_nvidia__p7__q40.mp4"
     },
@@ -1845,7 +1937,11 @@
       "quality_score": 0.907124,
       "quality_scores": {
         "ssim": 0.907124,
-        "psnr": 35.711527
+        "psnr": 35.711527,
+        "vmaf": 99.013899,
+        "ssimulacra2": 44.345277,
+        "butteraugli": 18.136515,
+        "cvvdp": 9.336298
       },
       "output_filename": "encodes/h_264_nvidia__p1__q12.mp4"
     },
@@ -1860,7 +1956,11 @@
       "quality_score": 0.906762,
       "quality_scores": {
         "ssim": 0.906762,
-        "psnr": 35.689336
+        "psnr": 35.689336,
+        "vmaf": 98.962339,
+        "ssimulacra2": 44.149284,
+        "butteraugli": 15.594208,
+        "cvvdp": 9.329281
       },
       "output_filename": "encodes/h_264_nvidia__p2__q12.mp4"
     },
@@ -1875,7 +1975,11 @@
       "quality_score": 0.910478,
       "quality_scores": {
         "ssim": 0.910478,
-        "psnr": 35.855621
+        "psnr": 35.855621,
+        "vmaf": 98.26733,
+        "ssimulacra2": 46.09396,
+        "butteraugli": 17.692156,
+        "cvvdp": 9.343456
       },
       "output_filename": "encodes/h_264_nvidia__p3__q12.mp4"
     },
@@ -1890,7 +1994,11 @@
       "quality_score": 0.913232,
       "quality_scores": {
         "ssim": 0.913232,
-        "psnr": 35.805436
+        "psnr": 35.805436,
+        "vmaf": 97.285675,
+        "ssimulacra2": 46.851946,
+        "butteraugli": 18.859058,
+        "cvvdp": 9.330049
       },
       "output_filename": "encodes/h_264_nvidia__p4__q12.mp4"
     },
@@ -1905,7 +2013,11 @@
       "quality_score": 0.913027,
       "quality_scores": {
         "ssim": 0.913027,
-        "psnr": 35.803847
+        "psnr": 35.803847,
+        "vmaf": 97.218576,
+        "ssimulacra2": 46.661473,
+        "butteraugli": 22.369179,
+        "cvvdp": 9.32844
       },
       "output_filename": "encodes/h_264_nvidia__p5__q12.mp4"
     },
@@ -1920,7 +2032,11 @@
       "quality_score": 0.912751,
       "quality_scores": {
         "ssim": 0.912751,
-        "psnr": 35.807071
+        "psnr": 35.807071,
+        "vmaf": 97.290573,
+        "ssimulacra2": 46.592298,
+        "butteraugli": 19.904032,
+        "cvvdp": 9.327215
       },
       "output_filename": "encodes/h_264_nvidia__p6__q12.mp4"
     },
@@ -1935,7 +2051,11 @@
       "quality_score": 0.912582,
       "quality_scores": {
         "ssim": 0.912582,
-        "psnr": 35.813489
+        "psnr": 35.813489,
+        "vmaf": 97.35057,
+        "ssimulacra2": 46.565028,
+        "butteraugli": 21.232824,
+        "cvvdp": 9.328304
       },
       "output_filename": "encodes/h_264_nvidia__p7__q12.mp4"
     },
@@ -1950,7 +2070,11 @@
       "quality_score": 0.848946,
       "quality_scores": {
         "ssim": 0.848946,
-        "psnr": 32.298216
+        "psnr": 32.298216,
+        "vmaf": 80.637013,
+        "ssimulacra2": 7.161735,
+        "butteraugli": 25.272213,
+        "cvvdp": 8.275529
       },
       "output_filename": "encodes/h_265_nvidia__p1__q12.mp4"
     },
@@ -1965,7 +2089,11 @@
       "quality_score": 0.856519,
       "quality_scores": {
         "ssim": 0.856519,
-        "psnr": 32.591325
+        "psnr": 32.591325,
+        "vmaf": 81.309965,
+        "ssimulacra2": 10.710207,
+        "butteraugli": 29.399113,
+        "cvvdp": 8.329347
       },
       "output_filename": "encodes/h_265_nvidia__p2__q12.mp4"
     },
@@ -1980,7 +2108,11 @@
       "quality_score": 0.858287,
       "quality_scores": {
         "ssim": 0.858287,
-        "psnr": 32.655651
+        "psnr": 32.655651,
+        "vmaf": 81.448679,
+        "ssimulacra2": 11.673794,
+        "butteraugli": 29.37779,
+        "cvvdp": 8.34177
       },
       "output_filename": "encodes/h_265_nvidia__p3__q12.mp4"
     },
@@ -1995,7 +2127,11 @@
       "quality_score": 0.865212,
       "quality_scores": {
         "ssim": 0.865212,
-        "psnr": 32.717075
+        "psnr": 32.717075,
+        "vmaf": 81.191913,
+        "ssimulacra2": 12.620575,
+        "butteraugli": 39.963848,
+        "cvvdp": 8.325712
       },
       "output_filename": "encodes/h_265_nvidia__p4__q12.mp4"
     },
@@ -2010,7 +2146,11 @@
       "quality_score": 0.865519,
       "quality_scores": {
         "ssim": 0.865519,
-        "psnr": 32.727078
+        "psnr": 32.727078,
+        "vmaf": 81.311936,
+        "ssimulacra2": 12.813446,
+        "butteraugli": 41.966263,
+        "cvvdp": 8.332058
       },
       "output_filename": "encodes/h_265_nvidia__p5__q12.mp4"
     },
@@ -2025,7 +2165,11 @@
       "quality_score": 0.865633,
       "quality_scores": {
         "ssim": 0.865633,
-        "psnr": 32.732579
+        "psnr": 32.732579,
+        "vmaf": 81.400283,
+        "ssimulacra2": 12.739998,
+        "butteraugli": 40.986641,
+        "cvvdp": 8.330063
       },
       "output_filename": "encodes/h_265_nvidia__p6__q12.mp4"
     },
@@ -2040,7 +2184,11 @@
       "quality_score": 0.865693,
       "quality_scores": {
         "ssim": 0.865693,
-        "psnr": 32.739587
+        "psnr": 32.739587,
+        "vmaf": 81.465069,
+        "ssimulacra2": 12.808594,
+        "butteraugli": 46.877373,
+        "cvvdp": 8.331442
       },
       "output_filename": "encodes/h_265_nvidia__p7__q12.mp4"
     },
@@ -2055,7 +2203,11 @@
       "quality_score": 0.699182,
       "quality_scores": {
         "ssim": 0.699182,
-        "psnr": 27.122329
+        "psnr": 27.122329,
+        "vmaf": 32.425815,
+        "ssimulacra2": -62.684545,
+        "butteraugli": 59.711529,
+        "cvvdp": 5.087608
       },
       "output_filename": "encodes/h_264_nvidia__p1__q45.mp4"
     },
@@ -2070,7 +2222,11 @@
       "quality_score": 0.699332,
       "quality_scores": {
         "ssim": 0.699332,
-        "psnr": 27.131345
+        "psnr": 27.131345,
+        "vmaf": 32.522093,
+        "ssimulacra2": -62.674181,
+        "butteraugli": 59.219467,
+        "cvvdp": 5.089556
       },
       "output_filename": "encodes/h_264_nvidia__p2__q45.mp4"
     },
@@ -2085,7 +2241,11 @@
       "quality_score": 0.707331,
       "quality_scores": {
         "ssim": 0.707331,
-        "psnr": 27.385241
+        "psnr": 27.385241,
+        "vmaf": 33.837736,
+        "ssimulacra2": -61.93166,
+        "butteraugli": 71.21476,
+        "cvvdp": 5.238762
       },
       "output_filename": "encodes/h_264_nvidia__p3__q45.mp4"
     },
@@ -2100,7 +2260,11 @@
       "quality_score": 0.711255,
       "quality_scores": {
         "ssim": 0.711255,
-        "psnr": 27.46319
+        "psnr": 27.46319,
+        "vmaf": 35.227801,
+        "ssimulacra2": -61.497717,
+        "butteraugli": 66.815308,
+        "cvvdp": 5.318782
       },
       "output_filename": "encodes/h_264_nvidia__p4__q45.mp4"
     },
@@ -2115,7 +2279,11 @@
       "quality_score": 0.711344,
       "quality_scores": {
         "ssim": 0.711344,
-        "psnr": 27.472227
+        "psnr": 27.472227,
+        "vmaf": 34.976542,
+        "ssimulacra2": -61.347137,
+        "butteraugli": 62.765289,
+        "cvvdp": 5.322991
       },
       "output_filename": "encodes/h_264_nvidia__p5__q45.mp4"
     },
@@ -2130,7 +2298,11 @@
       "quality_score": 0.712398,
       "quality_scores": {
         "ssim": 0.712398,
-        "psnr": 27.510412
+        "psnr": 27.510412,
+        "vmaf": 35.22264,
+        "ssimulacra2": -61.095938,
+        "butteraugli": 65.642242,
+        "cvvdp": 5.335553
       },
       "output_filename": "encodes/h_264_nvidia__p6__q45.mp4"
     },
@@ -2145,7 +2317,11 @@
       "quality_score": 0.712309,
       "quality_scores": {
         "ssim": 0.712309,
-        "psnr": 27.509158
+        "psnr": 27.509158,
+        "vmaf": 35.175974,
+        "ssimulacra2": -61.10035,
+        "butteraugli": 64.510544,
+        "cvvdp": 5.334841
       },
       "output_filename": "encodes/h_264_nvidia__p7__q45.mp4"
     },
@@ -2160,7 +2336,11 @@
       "quality_score": 0.741724,
       "quality_scores": {
         "ssim": 0.741724,
-        "psnr": 28.239778
+        "psnr": 28.239778,
+        "vmaf": 47.693624,
+        "ssimulacra2": -51.104131,
+        "butteraugli": 58.781342,
+        "cvvdp": 6.091178
       },
       "output_filename": "encodes/h_265_nvidia__p1__q45.mp4"
     },
@@ -2175,7 +2355,11 @@
       "quality_score": 0.747148,
       "quality_scores": {
         "ssim": 0.747148,
-        "psnr": 28.45694
+        "psnr": 28.45694,
+        "vmaf": 46.914283,
+        "ssimulacra2": -50.010945,
+        "butteraugli": 62.569477,
+        "cvvdp": 6.11297
       },
       "output_filename": "encodes/h_265_nvidia__p2__q45.mp4"
     },
@@ -2190,7 +2374,11 @@
       "quality_score": 0.747553,
       "quality_scores": {
         "ssim": 0.747553,
-        "psnr": 28.461765
+        "psnr": 28.461765,
+        "vmaf": 45.867243,
+        "ssimulacra2": -50.146975,
+        "butteraugli": 62.547466,
+        "cvvdp": 6.073963
       },
       "output_filename": "encodes/h_265_nvidia__p3__q45.mp4"
     },
@@ -2205,7 +2393,11 @@
       "quality_score": 0.751727,
       "quality_scores": {
         "ssim": 0.751727,
-        "psnr": 28.53431
+        "psnr": 28.53431,
+        "vmaf": 45.633743,
+        "ssimulacra2": -49.774097,
+        "butteraugli": 87.233109,
+        "cvvdp": 6.098258
       },
       "output_filename": "encodes/h_265_nvidia__p4__q45.mp4"
     },
@@ -2220,7 +2412,11 @@
       "quality_score": 0.752249,
       "quality_scores": {
         "ssim": 0.752249,
-        "psnr": 28.549034
+        "psnr": 28.549034,
+        "vmaf": 45.833339,
+        "ssimulacra2": -49.512262,
+        "butteraugli": 76.833786,
+        "cvvdp": 6.110433
       },
       "output_filename": "encodes/h_265_nvidia__p5__q45.mp4"
     },
@@ -2235,7 +2431,11 @@
       "quality_score": 0.75242,
       "quality_scores": {
         "ssim": 0.75242,
-        "psnr": 28.548943
+        "psnr": 28.548943,
+        "vmaf": 45.793877,
+        "ssimulacra2": -49.457207,
+        "butteraugli": 77.246162,
+        "cvvdp": 6.112146
       },
       "output_filename": "encodes/h_265_nvidia__p6__q45.mp4"
     },
@@ -2250,7 +2450,11 @@
       "quality_score": 0.752295,
       "quality_scores": {
         "ssim": 0.752295,
-        "psnr": 28.549529
+        "psnr": 28.549529,
+        "vmaf": 45.763169,
+        "ssimulacra2": -49.485154,
+        "butteraugli": 76.645615,
+        "cvvdp": 6.109196
       },
       "output_filename": "encodes/h_265_nvidia__p7__q45.mp4"
     },
@@ -2265,7 +2469,11 @@
       "quality_score": 0.907124,
       "quality_scores": {
         "ssim": 0.907124,
-        "psnr": 35.711527
+        "psnr": 35.711527,
+        "vmaf": 99.013899,
+        "ssimulacra2": 44.345277,
+        "butteraugli": 18.136515,
+        "cvvdp": 9.336298
       },
       "output_filename": "encodes/h_264_nvidia__p1__q7.mp4"
     },
@@ -2280,7 +2488,11 @@
       "quality_score": 0.906762,
       "quality_scores": {
         "ssim": 0.906762,
-        "psnr": 35.689336
+        "psnr": 35.689336,
+        "vmaf": 98.962339,
+        "ssimulacra2": 44.149284,
+        "butteraugli": 15.594208,
+        "cvvdp": 9.329281
       },
       "output_filename": "encodes/h_264_nvidia__p2__q7.mp4"
     },
@@ -2295,7 +2507,11 @@
       "quality_score": 0.910478,
       "quality_scores": {
         "ssim": 0.910478,
-        "psnr": 35.855621
+        "psnr": 35.855621,
+        "vmaf": 98.26733,
+        "ssimulacra2": 46.09396,
+        "butteraugli": 17.692156,
+        "cvvdp": 9.343456
       },
       "output_filename": "encodes/h_264_nvidia__p3__q7.mp4"
     },
@@ -2310,7 +2526,11 @@
       "quality_score": 0.913232,
       "quality_scores": {
         "ssim": 0.913232,
-        "psnr": 35.805436
+        "psnr": 35.805436,
+        "vmaf": 97.285675,
+        "ssimulacra2": 46.851946,
+        "butteraugli": 18.859058,
+        "cvvdp": 9.330049
       },
       "output_filename": "encodes/h_264_nvidia__p4__q7.mp4"
     },
@@ -2325,7 +2545,11 @@
       "quality_score": 0.913027,
       "quality_scores": {
         "ssim": 0.913027,
-        "psnr": 35.803847
+        "psnr": 35.803847,
+        "vmaf": 97.218576,
+        "ssimulacra2": 46.661473,
+        "butteraugli": 22.369179,
+        "cvvdp": 9.32844
       },
       "output_filename": "encodes/h_264_nvidia__p5__q7.mp4"
     },
@@ -2340,7 +2564,11 @@
       "quality_score": 0.912751,
       "quality_scores": {
         "ssim": 0.912751,
-        "psnr": 35.807071
+        "psnr": 35.807071,
+        "vmaf": 97.290573,
+        "ssimulacra2": 46.592298,
+        "butteraugli": 19.904032,
+        "cvvdp": 9.327215
       },
       "output_filename": "encodes/h_264_nvidia__p6__q7.mp4"
     },
@@ -2355,7 +2583,11 @@
       "quality_score": 0.912582,
       "quality_scores": {
         "ssim": 0.912582,
-        "psnr": 35.813489
+        "psnr": 35.813489,
+        "vmaf": 97.35057,
+        "ssimulacra2": 46.565028,
+        "butteraugli": 21.232824,
+        "cvvdp": 9.328304
       },
       "output_filename": "encodes/h_264_nvidia__p7__q7.mp4"
     },
@@ -2370,7 +2602,11 @@
       "quality_score": 0.848946,
       "quality_scores": {
         "ssim": 0.848946,
-        "psnr": 32.298216
+        "psnr": 32.298216,
+        "vmaf": 80.637013,
+        "ssimulacra2": 7.161735,
+        "butteraugli": 25.272213,
+        "cvvdp": 8.275529
       },
       "output_filename": "encodes/h_265_nvidia__p1__q7.mp4"
     },
@@ -2385,7 +2621,11 @@
       "quality_score": 0.856519,
       "quality_scores": {
         "ssim": 0.856519,
-        "psnr": 32.591325
+        "psnr": 32.591325,
+        "vmaf": 81.309965,
+        "ssimulacra2": 10.710207,
+        "butteraugli": 29.399113,
+        "cvvdp": 8.329347
       },
       "output_filename": "encodes/h_265_nvidia__p2__q7.mp4"
     },
@@ -2400,7 +2640,11 @@
       "quality_score": 0.858287,
       "quality_scores": {
         "ssim": 0.858287,
-        "psnr": 32.655651
+        "psnr": 32.655651,
+        "vmaf": 81.448679,
+        "ssimulacra2": 11.673794,
+        "butteraugli": 29.37779,
+        "cvvdp": 8.34177
       },
       "output_filename": "encodes/h_265_nvidia__p3__q7.mp4"
     },
@@ -2415,7 +2659,11 @@
       "quality_score": 0.865212,
       "quality_scores": {
         "ssim": 0.865212,
-        "psnr": 32.717075
+        "psnr": 32.717075,
+        "vmaf": 81.191913,
+        "ssimulacra2": 12.620575,
+        "butteraugli": 39.963848,
+        "cvvdp": 8.325712
       },
       "output_filename": "encodes/h_265_nvidia__p4__q7.mp4"
     },
@@ -2430,7 +2678,11 @@
       "quality_score": 0.865519,
       "quality_scores": {
         "ssim": 0.865519,
-        "psnr": 32.727078
+        "psnr": 32.727078,
+        "vmaf": 81.311936,
+        "ssimulacra2": 12.813446,
+        "butteraugli": 41.966263,
+        "cvvdp": 8.332058
       },
       "output_filename": "encodes/h_265_nvidia__p5__q7.mp4"
     },
@@ -2445,7 +2697,11 @@
       "quality_score": 0.865633,
       "quality_scores": {
         "ssim": 0.865633,
-        "psnr": 32.732579
+        "psnr": 32.732579,
+        "vmaf": 81.400283,
+        "ssimulacra2": 12.739998,
+        "butteraugli": 40.986641,
+        "cvvdp": 8.330063
       },
       "output_filename": "encodes/h_265_nvidia__p6__q7.mp4"
     },
@@ -2460,7 +2716,11 @@
       "quality_score": 0.865693,
       "quality_scores": {
         "ssim": 0.865693,
-        "psnr": 32.739587
+        "psnr": 32.739587,
+        "vmaf": 81.465069,
+        "ssimulacra2": 12.808594,
+        "butteraugli": 46.877373,
+        "cvvdp": 8.331442
       },
       "output_filename": "encodes/h_265_nvidia__p7__q7.mp4"
     },
@@ -2475,7 +2735,11 @@
       "quality_score": 0.642741,
       "quality_scores": {
         "ssim": 0.642741,
-        "psnr": 25.463695
+        "psnr": 25.463695,
+        "vmaf": 20.067313,
+        "ssimulacra2": -66.531093,
+        "butteraugli": 74.090073,
+        "cvvdp": 3.81554
       },
       "output_filename": "encodes/h_264_nvidia__p1__q51.mp4"
     },
@@ -2490,7 +2754,11 @@
       "quality_score": 0.642942,
       "quality_scores": {
         "ssim": 0.642942,
-        "psnr": 25.473384
+        "psnr": 25.473384,
+        "vmaf": 20.115374,
+        "ssimulacra2": -66.423678,
+        "butteraugli": 68.515106,
+        "cvvdp": 3.824698
       },
       "output_filename": "encodes/h_264_nvidia__p2__q51.mp4"
     },
@@ -2505,7 +2773,11 @@
       "quality_score": 0.643549,
       "quality_scores": {
         "ssim": 0.643549,
-        "psnr": 25.481393
+        "psnr": 25.481393,
+        "vmaf": 19.084348,
+        "ssimulacra2": -66.768352,
+        "butteraugli": 71.50502,
+        "cvvdp": 3.816056
       },
       "output_filename": "encodes/h_264_nvidia__p3__q51.mp4"
     },
@@ -2520,7 +2792,11 @@
       "quality_score": 0.640102,
       "quality_scores": {
         "ssim": 0.640102,
-        "psnr": 25.389362
+        "psnr": 25.389362,
+        "vmaf": 18.557639,
+        "ssimulacra2": -68.172732,
+        "butteraugli": 69.874451,
+        "cvvdp": 3.723523
       },
       "output_filename": "encodes/h_264_nvidia__p4__q51.mp4"
     },
@@ -2535,7 +2811,11 @@
       "quality_score": 0.640584,
       "quality_scores": {
         "ssim": 0.640584,
-        "psnr": 25.404537
+        "psnr": 25.404537,
+        "vmaf": 18.431935,
+        "ssimulacra2": -67.918347,
+        "butteraugli": 72.026741,
+        "cvvdp": 3.73218
       },
       "output_filename": "encodes/h_264_nvidia__p5__q51.mp4"
     },
@@ -2550,7 +2830,11 @@
       "quality_score": 0.64028,
       "quality_scores": {
         "ssim": 0.64028,
-        "psnr": 25.393465
+        "psnr": 25.393465,
+        "vmaf": 18.186354,
+        "ssimulacra2": -68.139294,
+        "butteraugli": 79.59301,
+        "cvvdp": 3.716657
       },
       "output_filename": "encodes/h_264_nvidia__p6__q51.mp4"
     },
@@ -2565,7 +2849,11 @@
       "quality_score": 0.64081,
       "quality_scores": {
         "ssim": 0.64081,
-        "psnr": 25.4085
+        "psnr": 25.4085,
+        "vmaf": 18.305426,
+        "ssimulacra2": -67.997163,
+        "butteraugli": 74.90731,
+        "cvvdp": 3.731535
       },
       "output_filename": "encodes/h_264_nvidia__p7__q51.mp4"
     },
@@ -2580,7 +2868,11 @@
       "quality_score": 0.684032,
       "quality_scores": {
         "ssim": 0.684032,
-        "psnr": 26.558762
+        "psnr": 26.558762,
+        "vmaf": 33.129509,
+        "ssimulacra2": -63.341603,
+        "butteraugli": 61.715183,
+        "cvvdp": 4.873005
       },
       "output_filename": "encodes/h_265_nvidia__p1__q51.mp4"
     },
@@ -2595,7 +2887,11 @@
       "quality_score": 0.681583,
       "quality_scores": {
         "ssim": 0.681583,
-        "psnr": 26.548766
+        "psnr": 26.548766,
+        "vmaf": 31.061812,
+        "ssimulacra2": -63.306384,
+        "butteraugli": 72.652657,
+        "cvvdp": 4.772512
       },
       "output_filename": "encodes/h_265_nvidia__p2__q51.mp4"
     },
@@ -2610,7 +2906,11 @@
       "quality_score": 0.68043,
       "quality_scores": {
         "ssim": 0.68043,
-        "psnr": 26.543016
+        "psnr": 26.543016,
+        "vmaf": 29.733487,
+        "ssimulacra2": -63.391698,
+        "butteraugli": 69.639717,
+        "cvvdp": 4.713906
       },
       "output_filename": "encodes/h_265_nvidia__p3__q51.mp4"
     },
@@ -2625,7 +2925,11 @@
       "quality_score": 0.680387,
       "quality_scores": {
         "ssim": 0.680387,
-        "psnr": 26.555432
+        "psnr": 26.555432,
+        "vmaf": 28.889009,
+        "ssimulacra2": -63.486312,
+        "butteraugli": 91.331436,
+        "cvvdp": 4.664989
       },
       "output_filename": "encodes/h_265_nvidia__p4__q51.mp4"
     },
@@ -2640,7 +2944,11 @@
       "quality_score": 0.68069,
       "quality_scores": {
         "ssim": 0.68069,
-        "psnr": 26.565125
+        "psnr": 26.565125,
+        "vmaf": 28.967972,
+        "ssimulacra2": -63.462836,
+        "butteraugli": 88.56955,
+        "cvvdp": 4.673676
       },
       "output_filename": "encodes/h_265_nvidia__p5__q51.mp4"
     },
@@ -2655,7 +2963,11 @@
       "quality_score": 0.680789,
       "quality_scores": {
         "ssim": 0.680789,
-        "psnr": 26.566682
+        "psnr": 26.566682,
+        "vmaf": 28.989197,
+        "ssimulacra2": -63.447735,
+        "butteraugli": 77.644699,
+        "cvvdp": 4.677592
       },
       "output_filename": "encodes/h_265_nvidia__p6__q51.mp4"
     },
@@ -2670,7 +2982,11 @@
       "quality_score": 0.68081,
       "quality_scores": {
         "ssim": 0.68081,
-        "psnr": 26.572047
+        "psnr": 26.572047,
+        "vmaf": 28.887809,
+        "ssimulacra2": -63.443547,
+        "butteraugli": 82.190758,
+        "cvvdp": 4.67538
       },
       "output_filename": "encodes/h_265_nvidia__p7__q51.mp4"
     },
@@ -2685,7 +3001,11 @@
       "quality_score": 0.907124,
       "quality_scores": {
         "ssim": 0.907124,
-        "psnr": 35.711527
+        "psnr": 35.711527,
+        "vmaf": 99.013899,
+        "ssimulacra2": 44.345277,
+        "butteraugli": 18.136515,
+        "cvvdp": 9.336298
       },
       "output_filename": "encodes/h_264_nvidia__p1__q1.mp4"
     },
@@ -2700,7 +3020,11 @@
       "quality_score": 0.906762,
       "quality_scores": {
         "ssim": 0.906762,
-        "psnr": 35.689336
+        "psnr": 35.689336,
+        "vmaf": 98.962339,
+        "ssimulacra2": 44.149284,
+        "butteraugli": 15.594208,
+        "cvvdp": 9.329281
       },
       "output_filename": "encodes/h_264_nvidia__p2__q1.mp4"
     },
@@ -2715,7 +3039,11 @@
       "quality_score": 0.910478,
       "quality_scores": {
         "ssim": 0.910478,
-        "psnr": 35.855621
+        "psnr": 35.855621,
+        "vmaf": 98.26733,
+        "ssimulacra2": 46.09396,
+        "butteraugli": 17.692156,
+        "cvvdp": 9.343456
       },
       "output_filename": "encodes/h_264_nvidia__p3__q1.mp4"
     },
@@ -2730,7 +3058,11 @@
       "quality_score": 0.913232,
       "quality_scores": {
         "ssim": 0.913232,
-        "psnr": 35.805436
+        "psnr": 35.805436,
+        "vmaf": 97.285675,
+        "ssimulacra2": 46.851946,
+        "butteraugli": 18.859058,
+        "cvvdp": 9.330049
       },
       "output_filename": "encodes/h_264_nvidia__p4__q1.mp4"
     },
@@ -2745,7 +3077,11 @@
       "quality_score": 0.913027,
       "quality_scores": {
         "ssim": 0.913027,
-        "psnr": 35.803847
+        "psnr": 35.803847,
+        "vmaf": 97.218576,
+        "ssimulacra2": 46.661473,
+        "butteraugli": 22.369179,
+        "cvvdp": 9.32844
       },
       "output_filename": "encodes/h_264_nvidia__p5__q1.mp4"
     },
@@ -2760,7 +3096,11 @@
       "quality_score": 0.912751,
       "quality_scores": {
         "ssim": 0.912751,
-        "psnr": 35.807071
+        "psnr": 35.807071,
+        "vmaf": 97.290573,
+        "ssimulacra2": 46.592298,
+        "butteraugli": 19.904032,
+        "cvvdp": 9.327215
       },
       "output_filename": "encodes/h_264_nvidia__p6__q1.mp4"
     },
@@ -2775,7 +3115,11 @@
       "quality_score": 0.912582,
       "quality_scores": {
         "ssim": 0.912582,
-        "psnr": 35.813489
+        "psnr": 35.813489,
+        "vmaf": 97.35057,
+        "ssimulacra2": 46.565028,
+        "butteraugli": 21.232824,
+        "cvvdp": 9.328304
       },
       "output_filename": "encodes/h_264_nvidia__p7__q1.mp4"
     },
@@ -2790,7 +3134,11 @@
       "quality_score": 0.848946,
       "quality_scores": {
         "ssim": 0.848946,
-        "psnr": 32.298216
+        "psnr": 32.298216,
+        "vmaf": 80.637013,
+        "ssimulacra2": 7.161735,
+        "butteraugli": 25.272213,
+        "cvvdp": 8.275529
       },
       "output_filename": "encodes/h_265_nvidia__p1__q1.mp4"
     },
@@ -2805,7 +3153,11 @@
       "quality_score": 0.856519,
       "quality_scores": {
         "ssim": 0.856519,
-        "psnr": 32.591325
+        "psnr": 32.591325,
+        "vmaf": 81.309965,
+        "ssimulacra2": 10.710207,
+        "butteraugli": 29.399113,
+        "cvvdp": 8.329347
       },
       "output_filename": "encodes/h_265_nvidia__p2__q1.mp4"
     },
@@ -2820,7 +3172,11 @@
       "quality_score": 0.858287,
       "quality_scores": {
         "ssim": 0.858287,
-        "psnr": 32.655651
+        "psnr": 32.655651,
+        "vmaf": 81.448679,
+        "ssimulacra2": 11.673794,
+        "butteraugli": 29.37779,
+        "cvvdp": 8.34177
       },
       "output_filename": "encodes/h_265_nvidia__p3__q1.mp4"
     },
@@ -2835,7 +3191,11 @@
       "quality_score": 0.865212,
       "quality_scores": {
         "ssim": 0.865212,
-        "psnr": 32.717075
+        "psnr": 32.717075,
+        "vmaf": 81.191913,
+        "ssimulacra2": 12.620575,
+        "butteraugli": 39.963848,
+        "cvvdp": 8.325712
       },
       "output_filename": "encodes/h_265_nvidia__p4__q1.mp4"
     },
@@ -2850,7 +3210,11 @@
       "quality_score": 0.865519,
       "quality_scores": {
         "ssim": 0.865519,
-        "psnr": 32.727078
+        "psnr": 32.727078,
+        "vmaf": 81.311936,
+        "ssimulacra2": 12.813446,
+        "butteraugli": 41.966263,
+        "cvvdp": 8.332058
       },
       "output_filename": "encodes/h_265_nvidia__p5__q1.mp4"
     },
@@ -2865,7 +3229,11 @@
       "quality_score": 0.865633,
       "quality_scores": {
         "ssim": 0.865633,
-        "psnr": 32.732579
+        "psnr": 32.732579,
+        "vmaf": 81.400283,
+        "ssimulacra2": 12.739998,
+        "butteraugli": 40.986641,
+        "cvvdp": 8.330063
       },
       "output_filename": "encodes/h_265_nvidia__p6__q1.mp4"
     },
@@ -2880,7 +3248,11 @@
       "quality_score": 0.865693,
       "quality_scores": {
         "ssim": 0.865693,
-        "psnr": 32.739587
+        "psnr": 32.739587,
+        "vmaf": 81.465069,
+        "ssimulacra2": 12.808594,
+        "butteraugli": 46.877373,
+        "cvvdp": 8.331442
       },
       "output_filename": "encodes/h_265_nvidia__p7__q1.mp4"
     },
