@@ -46,15 +46,15 @@ const shortcutChipEls = document.querySelectorAll(".shortcut-chip[data-action]")
 const UI_STORAGE_KEY = "fractumseraph.encoding-comparisons.ui.v1";
 const FRAME_STEP_SECONDS = 1 / 30;
 const MANIFEST_POLL_INTERVAL_MS = 60 * 60 * 1000;
-const UI_PREFERENCES_VERSION = 3;
+const UI_PREFERENCES_VERSION = 4;
 const DEFAULT_PLAYER_SELECTIONS = {
   A: {
     codec: "AV1",
     preset: "-1",
-    crf: 35,
+    crf: 28,
   },
   B: {
-    codec: "H.265 Nvidia",
+    codec: "H.264 Nvidia",
     preset: "p1",
     crf: 51,
   },
@@ -85,6 +85,7 @@ const state = {
   diffSyncGuard: false,
   wipePosition: 50,
   wipeSeekDragging: false,
+  wipeStartCentered: false,
   rankedRows: [],
   activeQualityMetric: "ssim",
   weights: {
@@ -1205,6 +1206,20 @@ async function refreshDiffView() {
   diffVideoAEl.playbackRate = 1;
   diffVideoBEl.playbackRate = 1;
   diffBadgeEl.textContent = `Comparing ${entryA.codec_name} / ${entryB.codec_name}`;
+
+  // Start the timeline at the middle of the clip on first load - that better
+  // shows the codec during motion than the static opening frames. Only done
+  // once per session so changing codec/preset keeps the current position.
+  if (!state.wipeStartCentered) {
+    const duration = wipeDurationSeconds();
+    if (duration > 0) {
+      const middle = duration / 2;
+      diffVideoAEl.currentTime = clampVideoTime(diffVideoAEl, middle);
+      diffVideoBEl.currentTime = clampVideoTime(diffVideoBEl, middle);
+      state.wipeStartCentered = true;
+    }
+  }
+
   updateWipeTransportUi();
 }
 
