@@ -7,3 +7,6 @@ __pycache__/
 
 # In-progress encodes (moved into the output folder once complete)
 .partial/
+
+# Temporary libvmaf JSON logs (written to the working dir during measurement)
+vmaf_*.json
