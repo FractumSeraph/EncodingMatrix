@@ -4566,6 +4566,212 @@
         "cvvdp": 8.950056
       },
       "output_filename": "encodes/vp9__realtime__q42.webm"
+    },
+    {
+      "codec_name": "AV1",
+      "preset": "-1",
+      "crf_value": 21,
+      "encode_time_seconds": 41489.157,
+      "file_size_bytes": 302467942,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.948272,
+      "quality_scores": {
+        "ssim": 0.948272,
+        "psnr": 39.099044,
+        "vmaf": 99.784084,
+        "ssimulacra2": 68.089198,
+        "butteraugli": 17.031824,
+        "cvvdp": 9.769629
+      },
+      "output_filename": "encodes/av1__neg1__q21.mp4"
+    },
+    {
+      "codec_name": "AV1",
+      "preset": "0",
+      "crf_value": 21,
+      "encode_time_seconds": 4228.286,
+      "file_size_bytes": 272298012,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.944318,
+      "quality_scores": {
+        "ssim": 0.944318,
+        "psnr": 38.705499,
+        "vmaf": 99.745745,
+        "ssimulacra2": 65.837052,
+        "butteraugli": 16.916792,
+        "cvvdp": 9.738258
+      },
+      "output_filename": "encodes/av1__0__q21.mp4"
+    },
+    {
+      "codec_name": "AV1",
+      "preset": "1",
+      "crf_value": 21,
+      "encode_time_seconds": 1712.263,
+      "file_size_bytes": 276597549,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.943965,
+      "quality_scores": {
+        "ssim": 0.943965,
+        "psnr": 38.682394,
+        "vmaf": 99.74606,
+        "ssimulacra2": 65.896066,
+        "butteraugli": 17.669426,
+        "cvvdp": 9.738736
+      },
+      "output_filename": "encodes/av1__1__q21.mp4"
+    },
+    {
+      "codec_name": "AV1",
+      "preset": "2",
+      "crf_value": 21,
+      "encode_time_seconds": 488.241,
+      "file_size_bytes": 285360578,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.942928,
+      "quality_scores": {
+        "ssim": 0.942928,
+        "psnr": 38.556032,
+        "vmaf": 99.719658,
+        "ssimulacra2": 64.939825,
+        "butteraugli": 15.750471,
+        "cvvdp": 9.722227
+      },
+      "output_filename": "encodes/av1__2__q21.mp4"
+    },
+    {
+      "codec_name": "AV1",
+      "preset": "3",
+      "crf_value": 21,
+      "encode_time_seconds": 302.134,
+      "file_size_bytes": 298004869,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.942849,
+      "quality_scores": {
+        "ssim": 0.942849,
+        "psnr": 38.561006,
+        "vmaf": 99.687579,
+        "ssimulacra2": 64.119404,
+        "butteraugli": 11.564422,
+        "cvvdp": 9.711423
+      },
+      "output_filename": "encodes/av1__3__q21.mp4"
+    },
+    {
+      "codec_name": "AV1",
+      "preset": "4",
+      "crf_value": 21,
+      "encode_time_seconds": 119.41,
+      "file_size_bytes": 303193442,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.942389,
+      "quality_scores": {
+        "ssim": 0.942389,
+        "psnr": 38.477092,
+        "vmaf": 99.676156,
+        "ssimulacra2": 63.930902,
+        "butteraugli": 14.332234,
+        "cvvdp": 9.708739
+      },
+      "output_filename": "encodes/av1__4__q21.mp4"
+    },
+    {
+      "codec_name": "AV1",
+      "preset": "5",
+      "crf_value": 21,
+      "encode_time_seconds": 79.251,
+      "file_size_bytes": 316088814,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.942592,
+      "quality_scores": {
+        "ssim": 0.942592,
+        "psnr": 38.558792,
+        "vmaf": 99.705588,
+        "ssimulacra2": 63.985856,
+        "butteraugli": 12.232691,
+        "cvvdp": 9.7048
+      },
+      "output_filename": "encodes/av1__5__q21.mp4"
+    },
+    {
+      "codec_name": "AV1",
+      "preset": "6",
+      "crf_value": 21,
+      "encode_time_seconds": 79.445,
+      "file_size_bytes": 400018290,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.948732,
+      "quality_scores": {
+        "ssim": 0.948732,
+        "psnr": 39.095119,
+        "vmaf": 99.749729,
+        "ssimulacra2": 67.30762,
+        "butteraugli": 11.380395,
+        "cvvdp": 9.756598
+      },
+      "output_filename": "encodes/av1__6__q21.mp4"
+    },
+    {
+      "codec_name": "AV1",
+      "preset": "7",
+      "crf_value": 21,
+      "encode_time_seconds": 68.774,
+      "file_size_bytes": 383848756,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.945156,
+      "quality_scores": {
+        "ssim": 0.945156,
+        "psnr": 38.771713,
+        "vmaf": 99.698875,
+        "ssimulacra2": 65.450673,
+        "butteraugli": 15.167666,
+        "cvvdp": 9.666158
+      },
+      "output_filename": "encodes/av1__7__q21.mp4"
+    },
+    {
+      "codec_name": "AV1",
+      "preset": "8",
+      "crf_value": 21,
+      "encode_time_seconds": 58.345,
+      "file_size_bytes": 397257653,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.945228,
+      "quality_scores": {
+        "ssim": 0.945228,
+        "psnr": 38.777149,
+        "vmaf": 99.721065,
+        "ssimulacra2": 65.759995,
+        "butteraugli": 14.507096,
+        "cvvdp": 9.680608
+      },
+      "output_filename": "encodes/av1__8__q21.mp4"
+    },
+    {
+      "codec_name": "AV1",
+      "preset": "9",
+      "crf_value": 21,
+      "encode_time_seconds": 45.987,
+      "file_size_bytes": 393221633,
+      "source_frame_rate": 50.0,
+      "quality_metric": "ssim",
+      "quality_score": 0.943488,
+      "quality_scores": {
+        "ssim": 0.943488,
+        "psnr": 38.569002,
+        "vmaf": 99.703785
+      },
+      "output_filename": "encodes/av1__9__q21.mp4"
     }
   ],
   "source_frame_rate": 50.0
