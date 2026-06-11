@@ -92,6 +92,8 @@ STATUS_STATE = {
     "completed": 0,
     "failed": 0,
     "active": {},
+    "lane_totals": {"CPU": 0, "GPU": 0},
+    "lane_done": {"CPU": 0, "GPU": 0},
 }
 
 
@@ -695,13 +697,15 @@ def job_label(job: EncodeJob) -> str:
     return f"{job.codec.codec_name} | preset={job.preset} | q={job.qvalue}"
 
 
-def record_status_start(total_jobs: int) -> None:
+def record_status_start(total_jobs: int, lane_totals: Dict[str, int]) -> None:
     with STATUS_LOCK:
         STATUS_STATE["started_at"] = time.time()
         STATUS_STATE["submitted"] = total_jobs
         STATUS_STATE["completed"] = 0
         STATUS_STATE["failed"] = 0
         STATUS_STATE["active"] = {}
+        STATUS_STATE["lane_totals"] = {"CPU": lane_totals.get("CPU", 0), "GPU": lane_totals.get("GPU", 0)}
+        STATUS_STATE["lane_done"] = {"CPU": 0, "GPU": 0}
 
 
 def record_job_running(job: EncodeJob) -> None:
@@ -716,12 +720,56 @@ def record_job_finished(job: EncodeJob) -> None:
     with STATUS_LOCK:
         STATUS_STATE["active"].pop(job_label(job), None)
         STATUS_STATE["completed"] += 1
+        STATUS_STATE["lane_done"]["GPU" if is_gpu_codec(job.codec) else "CPU"] += 1
 
 
 def record_job_failed(job: EncodeJob) -> None:
     with STATUS_LOCK:
         STATUS_STATE["active"].pop(job_label(job), None)
         STATUS_STATE["failed"] += 1
+        STATUS_STATE["lane_done"]["GPU" if is_gpu_codec(job.codec) else "CPU"] += 1
+
+
+def estimate_eta_seconds() -> float | None:
+    """Estimate remaining wall-clock time from per-lane throughput.
+
+    CPU and GPU lanes run in parallel, so the overall ETA is the slower lane's.
+    Each lane's rate (jobs/sec) self-corrects as more jobs finish, which absorbs
+    the large per-encode variance (e.g. ultrafast vs placebo)."""
+    with STATUS_LOCK:
+        started_at = STATUS_STATE["started_at"]
+        completed = STATUS_STATE["completed"]
+        failed = STATUS_STATE["failed"]
+        lane_totals = dict(STATUS_STATE["lane_totals"])
+        lane_done = dict(STATUS_STATE["lane_done"])
+
+    if started_at <= 0.0:
+        return None
+    elapsed = time.time() - started_at
+    finished = completed + failed
+    if finished <= 0 or elapsed <= 0:
+        return None
+
+    global_rate = finished / elapsed
+    lane_etas = []
+    for lane in ("CPU", "GPU"):
+        remaining = max(0, lane_totals.get(lane, 0) - lane_done.get(lane, 0))
+        if remaining <= 0:
+            continue
+        done = lane_done.get(lane, 0)
+        rate = (done / elapsed) if done > 0 else global_rate
+        if rate > 0:
+            lane_etas.append(remaining / rate)
+
+    return max(lane_etas) if lane_etas else None
+
+
+def format_eta() -> str:
+    eta = estimate_eta_seconds()
+    if eta is None:
+        return "eta=estimating"
+    finish_clock = time.strftime("%a %H:%M", time.localtime(time.time() + eta))
+    return f"eta={format_elapsed(eta)} (~{finish_clock})"
 
 
 def progress_reporter() -> None:
@@ -741,7 +789,7 @@ def progress_reporter() -> None:
         remaining = max(0, submitted - completed - failed - len(active))
         print(
             f"[PROGRESS] elapsed={format_elapsed(elapsed)} | submitted={submitted} | "
-            f"done={completed} | failed={failed} | active={len(active)} | queued={remaining}",
+            f"done={completed} | failed={failed} | active={len(active)} | queued={remaining} | {format_eta()}",
             flush=True,
         )
         if active:
@@ -1132,7 +1180,10 @@ def main() -> None:
             print(f"... ({len(scheduled) - 50} more jobs)")
         return
 
-    record_status_start(total_jobs)
+    lane_totals = {"CPU": 0, "GPU": 0}
+    for job in scheduled:
+        lane_totals["GPU" if is_gpu_codec(job.codec) else "CPU"] += 1
+    record_status_start(total_jobs, lane_totals)
     reporter_thread = threading.Thread(target=progress_reporter, name="progress-reporter", daemon=True)
     reporter_thread.start()
 
@@ -1228,7 +1279,7 @@ def main() -> None:
             ) or "n/a"
             print(
                 f"[DONE {done_count}/{total_jobs}] {lane} | {job.codec.codec_name} | preset={job.preset} | "
-                f"q={job.qvalue} | {elapsed:.2f}s | {file_size} bytes | {quality_display}"
+                f"q={job.qvalue} | {elapsed:.2f}s | {file_size} bytes | {quality_display} | {format_eta()}"
             )
             if primary_score is None:
                 log_tail = "\n".join(quality_log.splitlines()[-8:])
